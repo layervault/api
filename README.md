@@ -198,29 +198,105 @@ This call returns the organization information for the requested Organization.
 >
 >  Example Request
 >
->     $ curl -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervault'
+>     $ curl -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervault/Designer%20News'
 >
 >  Example Response
 >
->     {
->       "name":"LayerVault",
->       "deleted_at":"3013-02-26T16:53:38Z",
->       "updated_at":"2013-10-22T00:11:57Z",
->       "full_url":"https://layervault.com/layervault",
->       "projects":[{"name":"api-playground","deleted_at":"3013-01-01T00:00:00Z","updated_at":"2013-10-21T19:05:40Z","color":null}]
->     }
+>      {
+>          "full_url": "https://layervault.com/layervault/Designer%20News",
+>          "id": null,
+>          "local_path": "~/LayerVault/Designer News",
+>          "md5": null,
+>          "organization_permalink": "layervault",
+>          "path": "LayerVault/Designer News",
+>          "shortened_url": "http://lyrv.lt/C1qWwoTZJR",
+>          "tree_folder_id": 2522,
+>          "updated_at": "2013-10-21T21:38:27Z"
+>          "color": "red",
+>          "deleted_at": null,
+>          "files": [
+>              {
+>                  "deleted_at": null,
+>                  "download_url": "https://layervault.com/files/download_node/QRuna998DR",
+>                  "full_url": "https://layervault.com/layervault/Designer%20News/Front%20Page.psd",
+>                  "id": null,
+>                  "local_path": "~/LayerVault/Designer News/Front Page.psd",
+>                  "md5": "233b66b5501c71e09474ba1dac6ea91b",
+>                  "modified_at": "2013-08-21T13:06:15Z",
+>                  "revision_number": 290,
+>                  "shortened_url": "http://lyrv.lt/WjB4T365vP",
+>                  "tree_file_id": 261691,
+>                  "updated_at": "2013-09-10T16:28:29Z"
+>              },
+>              ...
+>          ],
+>          "folders": [
+>              {
+>                  "color": null,
+>                  "deleted_at": null,
+>                  "files": [
+>                      {
+>                          "deleted_at": null,
+>                          "download_url": "https://layervault.com/files/download_node/V7x1XZnMTV",
+>                          "full_url": "https://layervault.com/layervault/Designer%20News/Illustrations/PageBreaks.ai",
+>                          "id": null,
+>                          "local_path": "~/LayerVault/Designer News/Illustrations/PageBreaks.ai",
+>                          "md5": "b1c0ee28cd5e91fe36fa55e37467edb3",
+>                          "modified_at": "2013-10-05T00:22:31Z",
+>                          "revision_number": 10,
+>                          "revisions": [
+>                              {
+>                                  "created_at": "2013-10-05T00:09:16Z",
+>                                  "download_url": "https://layervault.com/files/download_node/d3G8PLyj0Z",
+>                                  "full_url": "https://layervault.com/layervault/Designer%20News/Illustrations/PageBreaks.ai/1",
+>                                  "id": null,
+>                                  "md5": "e309c39f50f6ad7469beb52bbdae11d0",
+>                                  "revision_number": 1,
+>                                  "shortened_url": "http://lyrv.lt/d3G8PLyj0Z",
+>                                  "tree_revision_id": 590518,
+>                                  "updated_at": "2013-10-18T18:40:12Z"
+>                              },
+>                              ...
+>                          ],
+>                          "shortened_url": "http://lyrv.lt/Jm3nbPXCc7",
+>                          "tree_file_id": 590517,
+>                          "updated_at": "2013-10-18T18:40:12Z"
+>                      },
+>                      ...
+>                  ],
+>                  "folders": [],
+>                  "full_url": "https://layervault.com/layervault/Designer%20News/Illustrations",
+>                  "id": null,
+>                  "local_path": "~/LayerVault/Designer News/Illustrations",
+>                  "md5": null,
+>                  "organization_permalink": null,
+>                  "path": "LayerVault/Designer News/Illustrations",
+>                  "shortened_url": "http://lyrv.lt/49N7NOomDO",
+>                  "tree_folder_id": 590516,
+>                  "updated_at": "2013-10-18T18:40:12Z"
+>              },
+>              ...
+>          ]
+>      }
+
 
 ### Arguments
-No arguments are required.
+The :organization_name and :project are required in the call URL.
 
 ### Returns
 
 Returns a JSON object containing:
 
-  - ```name``` - The full name of the Organization.
-  - ```deleted_at``` - The date the organization was deleted (Not deleted if ```3013-02-26T16:53:38Z```)
-  - ```full_url``` - The full URL to access the Organization.
-  - ```projects``` - An array of the projects that the user is able to see or are public for that Organization.
+  - ```full_url``` - The absolute URL to the project
+  - ```local_path``` - The local path on the user's filesystem
+  - ```md5``` - The MD5 hash of the Project
+  - ```organization_permalink``` - The URL safe permalink to the Organization
+  - ```path``` - The Organization path to the Project
+  - ```shortened_url``` - The shortened URL for the Project
+  - ```updated_at``` - The updated at date for the projects
+  - ```deleted_at``` - The deletion date for the projects
+  - ```Folders``` - A JSON Array of the folders within the Project
+  - ```Files``` - A JSON Array of the files within the Project
 
 ### Creating a Project
 
@@ -232,7 +308,7 @@ This call returns the organization information for the requested Organization.
 >
 >  Example Request
 >
->     $ curl -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervault'
+>     $ curl -X POST -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervault/Test'
 >
 >  Example Response
 >
@@ -245,9 +321,12 @@ This call returns the organization information for the requested Organization.
 >     }
 
 ### Arguments
-No arguments are required.
+The :organization_name and :project are required in the call URL.
 
 ### Returns
+
+- HTTP Status: 200
+- HTTP Header ```Location``` containing the URL by which the newly created project can be interrogated.
 
 Returns a JSON object containing:
 
@@ -266,7 +345,7 @@ This call returns the organization information for the requested Organization.
 >
 >  Example Request
 >
->     $ curl -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervault'
+>     $ curl -X DELETE -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervault/Test'
 >
 >  Example Response
 >
@@ -279,9 +358,11 @@ This call returns the organization information for the requested Organization.
 >     }
 
 ### Arguments
-No arguments are required.
+The :organization_name and :project are required in the call URL.
 
 ### Returns
+
+- HTTP Status: 200
 
 Returns a JSON object containing:
 
@@ -300,7 +381,7 @@ This call returns the organization information for the requested Organization.
 >
 >  Example Request
 >
->     $ curl -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervault'
+>     $ curl -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervault/test/move'
 >
 >  Example Response
 >
@@ -313,7 +394,7 @@ This call returns the organization information for the requested Organization.
 >     }
 
 ### Arguments
-No arguments are required.
+The :organization_name and :project are required in the call URL. A POST parameter of :to shoud be supplied representing the destination Folder to move the current Folder to.
 
 ### Returns
 
@@ -334,7 +415,7 @@ This call returns the organization information for the requested Organization.
 >
 >  Example Request
 >
->     $ curl -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervault'
+>     $ curl -X PUT -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervault/Test'
 >
 >  Example Response
 >
@@ -347,7 +428,7 @@ This call returns the organization information for the requested Organization.
 >     }
 
 ### Arguments
-No arguments are required.
+The :organization_name and :project are required in the call URL. A PUT parameter of :color shoud be supplied representing the color that the destination Folder should be set to.
 
 ### Returns
 
@@ -366,11 +447,11 @@ This call returns the organization information for the requested Organization.
 
 >  Definition
 >
->     GET /api/v1/:organization_name/:project/:folder_name
+>     GET /api/v1/:organization_name/:project/:folder_path
 >
 >  Example Request
 >
->     $ curl -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervault'
+>     $ curl -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervault/Test/Illustrations'
 >
 >  Example Response
 >
@@ -383,7 +464,7 @@ This call returns the organization information for the requested Organization.
 >     }
 
 ### Arguments
-No arguments are required.
+The :organization_name, :project and :folder_path are required in the call URL.
 
 ### Returns
 
@@ -400,7 +481,7 @@ This call returns the organization information for the requested Organization.
 
 >  Definition
 >
->     POST /api/v1/:organization_name/:project/:folder_name
+>     POST /api/v1/:organization_name/:project/:folder_path
 >
 >  Example Request
 >
@@ -417,7 +498,7 @@ This call returns the organization information for the requested Organization.
 >     }
 
 ### Arguments
-No arguments are required.
+The :organization_name, :project and :folder_path are required in the call URL.
 
 ### Returns
 
@@ -434,7 +515,7 @@ This call returns the organization information for the requested Organization.
 
 >  Definition
 >
->     DELETE /api/v1/:organization_name/:project/:folder
+>     DELETE /api/v1/:organization_name/:project/:folder_path
 >
 >  Example Request
 >
@@ -451,7 +532,7 @@ This call returns the organization information for the requested Organization.
 >     }
 
 ### Arguments
-No arguments are required.
+The :organization_name, :project and :folder_path are required in the call URL.
 
 ### Returns
 
@@ -468,7 +549,7 @@ This call returns the organization information for the requested Organization.
 
 >  Definition
 >
->     POST /api/v1/:organization_name/:project/:folder/move
+>     POST /api/v1/:organization_name/:project/:folder_path/move
 >
 >  Example Request
 >
@@ -485,7 +566,7 @@ This call returns the organization information for the requested Organization.
 >     }
 
 ### Arguments
-No arguments are required.
+The :organization_name, :project and :folder_path are required in the call URL.
 
 ### Returns
 
@@ -506,7 +587,7 @@ This call returns the organization information for the requested Organization.
 >
 >  Example Request
 >
->     $ curl -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervault'
+>     $ curl -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervault/Test/Illustrations'
 >
 >  Example Response
 >
@@ -519,7 +600,7 @@ This call returns the organization information for the requested Organization.
 >     }
 
 ### Arguments
-No arguments are required.
+The :organization_name, :project and :folder_path are required in the call URL. A PUT parameter :color representing the Hex color value the folder should be set to is required.
 
 ### Returns
 
@@ -538,7 +619,7 @@ This call returns the organization information for the requested Organization.
 
 >  Definition
 >
->     GET /api/v1/:organization_name/:project/:folder/:file_name
+>     GET /api/v1/:organization_name/:project/:folder_path/:file_name
 >
 >  Example Request
 >
@@ -555,7 +636,7 @@ This call returns the organization information for the requested Organization.
 >     }
 
 ### Arguments
-No arguments are required.
+The :organization_name, :project, :folder_path and :file_name are required in the call URL.
 
 ### Returns
 
@@ -589,7 +670,7 @@ This call returns the organization information for the requested Organization.
 >     }
 
 ### Arguments
-No arguments are required.
+The :organization_name, :project, :folder_path and :file_name are required in the call URL.
 
 ### Returns
 
@@ -623,7 +704,7 @@ This call returns the organization information for the requested Organization.
 >     }
 
 ### Arguments
-No arguments are required.
+The :organization_name, :project, :folder_path and :file_name are required in the call URL.
 
 ### Returns
 
@@ -657,7 +738,7 @@ This call returns the organization information for the requested Organization.
 >     }
 
 ### Arguments
-No arguments are required.
+The :organization_name, :project, :folder_path and :file_name are required in the call URL.
 
 ### Returns
 
@@ -691,7 +772,7 @@ This call returns the organization information for the requested Organization.
 >     }
 
 ### Arguments
-No arguments are required.
+The :organization_name, :project, :folder_path and :file_name are required in the call URL.
 
 ### Returns
 
@@ -727,7 +808,7 @@ This call returns the organization information for the requested Organization.
 >     }
 
 ### Arguments
-No arguments are required.
+The :organization_name, :project, :folder_path, :file_name and :revisions are required in the call URL.
 
 ### Returns
 
@@ -761,7 +842,7 @@ This call returns the organization information for the requested Organization.
 >     }
 
 ### Arguments
-No arguments are required.
+The :organization_name, :project, :folder_path, :file_name and :revisions are required in the call URL.
 
 ### Returns
 
@@ -795,7 +876,7 @@ This call returns the organization information for the requested Organization.
 >     }
 
 ### Arguments
-No arguments are required.
+The :organization_name, :project, :folder_path, :file_name and :revisions are required in the call URL.
 
 ### Returns
 
@@ -829,7 +910,7 @@ This call returns the organization information for the requested Organization.
 >     }
 
 ### Arguments
-No arguments are required.
+The :organization_name, :project, :folder_path, :file_name and :revisions are required in the call URL.
 
 ### Returns
 
