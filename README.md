@@ -96,7 +96,7 @@ The API currently limits the requests you can make against it hourly. We have pr
 
 ### Retrieving Key Pairs
 
-This call returns a set of KeyPairs for future uploading of files. .
+This call returns a set of KeyPairs for future uploading of files.
 
 >  Definition
 >
@@ -108,12 +108,17 @@ This call returns a set of KeyPairs for future uploading of files. .
 >
 >  Example Response
 >
->     {"access_key_id":"AKIAIMLDM23CBAOOEXNQ","secret_access_key":"/fPHLA5505nSp0P0c2gsbYd19HoEBZHpRoaj4U3G"}
+>     {
+>       "access_key_id": "AKIAIMLDM23CBAOOEXNQ",
+>       "secret_access_key": "/fPHLA5505fwgvxc2gsbYd19HoEBZHpRoaj4U3G"
+>     }
 
 ### Arguments
 No arguments are required.
 
 ### Returns
+
+- HTTP Status: 200
 
 Returns a JSON object containing:
 
@@ -179,6 +184,8 @@ No arguments are required.
 
 ### Returns
 
+- HTTP Status: 200
+
 Returns a JSON object containing:
 
   - ```name``` - The full name of the Organization.
@@ -190,7 +197,7 @@ Returns a JSON object containing:
 
 ### Retrieving Project Information
 
-This call returns the organization information for the requested Organization.
+Returns the project information, including files and folders.
 
 >  Definition
 >
@@ -285,6 +292,8 @@ The :organization_name and :project are required in the call URL.
 
 ### Returns
 
+- HTTP Status: 200
+
 Returns a JSON object containing:
 
   - ```full_url``` - The absolute URL to the project
@@ -300,7 +309,7 @@ Returns a JSON object containing:
 
 ### Creating a Project
 
-This call returns the organization information for the requested Organization.
+Creates a Project under the referenced Organization.
 
 >  Definition
 >
@@ -313,11 +322,19 @@ This call returns the organization information for the requested Organization.
 >  Example Response
 >
 >     {
->       "name":"LayerVault",
->       "deleted_at":"3013-02-26T16:53:38Z",
->       "updated_at":"2013-10-22T00:11:57Z",
->       "full_url":"https://layervault.com/layervault",
->       "projects":[{"name":"api-playground","deleted_at":"3013-01-01T00:00:00Z","updated_at":"2013-10-21T19:05:40Z","color":null}]
+>       "id":null,
+>       "tree_folder_id":613925,
+>       "path":"LayerVault/Test",
+>       "local_path":"~/LayerVault/Test",
+>       "color":null,
+>       "updated_at":"2013-10-21T19:05:09Z",
+>       "deleted_at":null,
+>       "md5":null,
+>       "full_url":"https://layervault.com/layervault/Test",
+>       "shortened_url":"http://lyrv.lt/ITtsnR2Gd0",
+>       "organization_permalink":"layervault",
+>       "folders":[],
+>       "files":[]
 >     }
 
 ### Arguments
@@ -330,14 +347,20 @@ The :organization_name and :project are required in the call URL.
 
 Returns a JSON object containing:
 
-  - ```name``` - The full name of the Organization.
-  - ```deleted_at``` - The date the organization was deleted (Not deleted if ```3013-02-26T16:53:38Z```)
-  - ```full_url``` - The full URL to access the Organization.
-  - ```projects``` - An array of the projects that the user is able to see or are public for that Organization.
+  - ```full_url``` - The absolute URL to the Folder
+  - ```local_path``` - The local path on the user's filesystem
+  - ```md5``` - The MD5 hash of the Folder
+  - ```organization_permalink``` - The URL safe permalink to the Organization
+  - ```path``` - The Organization path to the Folder
+  - ```shortened_url``` - The shortened URL for the Folder
+  - ```updated_at``` - The updated at date for the Folders
+  - ```deleted_at``` - The deletion date for the Folders
+  - ```Folders``` - A JSON Array of the folders within the Folder
+  - ```Files``` - A JSON Array of the files within the Folder
 
 ### Deleting a Project
 
-This call returns the organization information for the requested Organization.
+Deletes a Project folder. Returns an HTTP 200 on success.
 
 >  Definition
 >
@@ -349,13 +372,7 @@ This call returns the organization information for the requested Organization.
 >
 >  Example Response
 >
->     {
->       "name":"LayerVault",
->       "deleted_at":"3013-02-26T16:53:38Z",
->       "updated_at":"2013-10-22T00:11:57Z",
->       "full_url":"https://layervault.com/layervault",
->       "projects":[{"name":"api-playground","deleted_at":"3013-01-01T00:00:00Z","updated_at":"2013-10-21T19:05:40Z","color":null}]
->     }
+>     None.
 
 ### Arguments
 The :organization_name and :project are required in the call URL.
@@ -364,16 +381,9 @@ The :organization_name and :project are required in the call URL.
 
 - HTTP Status: 200
 
-Returns a JSON object containing:
-
-  - ```name``` - The full name of the Organization.
-  - ```deleted_at``` - The date the organization was deleted (Not deleted if ```3013-02-26T16:53:38Z```)
-  - ```full_url``` - The full URL to access the Organization.
-  - ```projects``` - An array of the projects that the user is able to see or are public for that Organization.
-
 ### Moving a Project
 
-This call returns the organization information for the requested Organization.
+Moves a project to a new location within the referenced Organization.
 
 >  Definition
 >
@@ -386,11 +396,19 @@ This call returns the organization information for the requested Organization.
 >  Example Response
 >
 >     {
->       "name":"LayerVault",
->       "deleted_at":"3013-02-26T16:53:38Z",
->       "updated_at":"2013-10-22T00:11:57Z",
->       "full_url":"https://layervault.com/layervault",
->       "projects":[{"name":"api-playground","deleted_at":"3013-01-01T00:00:00Z","updated_at":"2013-10-21T19:05:40Z","color":null}]
+>       "id": null,
+>       "tree_folder_id": 613946,
+>       "path": "LayerVault/api-playground/VictimMove",
+>       "local_path": "~/LayerVault/api-playground/VictimMove",
+>       "color": null,
+>       "updated_at": "2013-10-21T19:05:32Z",
+>       "deleted_at": null,
+>       "md5": null,
+>       "full_url": "https://layervault.com/layervault/api-playground/VictimMove",
+>       "shortened_url": "http://lyrv.lt/VPqZQNopEu",
+>       "organization_permalink": null,
+>       "folders": [],
+>       "files": []
 >     }
 
 ### Arguments
@@ -398,16 +416,24 @@ The :organization_name and :project are required in the call URL. A POST paramet
 
 ### Returns
 
+- HTTP Status: 200 on success.
+
 Returns a JSON object containing:
 
-  - ```name``` - The full name of the Organization.
-  - ```deleted_at``` - The date the organization was deleted (Not deleted if ```3013-02-26T16:53:38Z```)
-  - ```full_url``` - The full URL to access the Organization.
-  - ```projects``` - An array of the projects that the user is able to see or are public for that Organization.
+  - ```full_url``` - The absolute URL to the project
+  - ```local_path``` - The local path on the user's filesystem
+  - ```md5``` - The MD5 hash of the Project
+  - ```organization_permalink``` - The URL safe permalink to the Organization
+  - ```path``` - The Organization path to the Project
+  - ```shortened_url``` - The shortened URL for the Project
+  - ```updated_at``` - The updated at date for the projects
+  - ```deleted_at``` - The deletion date for the projects
+  - ```Folders``` - A JSON Array of the folders within the Project
+  - ```Files``` - A JSON Array of the files within the Project
 
-### Changing a Project's Folder color
+### Changing a Project's color
 
-This call returns the organization information for the requested Organization.
+Changes the color of the Project color as it appears in the LayerVault web Application and locally on the user's file system.
 
 >  Definition
 >
@@ -432,12 +458,7 @@ The :organization_name and :project are required in the call URL. A PUT paramete
 
 ### Returns
 
-Returns a JSON object containing:
-
-  - ```name``` - The full name of the Organization.
-  - ```deleted_at``` - The date the organization was deleted (Not deleted if ```3013-02-26T16:53:38Z```)
-  - ```full_url``` - The full URL to access the Organization.
-  - ```projects``` - An array of the projects that the user is able to see or are public for that Organization.
+- HTTP Status: 200 on success.
 
 ## Folders
 
@@ -456,11 +477,18 @@ This call returns the organization information for the requested Organization.
 >  Example Response
 >
 >     {
->       "name":"LayerVault",
->       "deleted_at":"3013-02-26T16:53:38Z",
->       "updated_at":"2013-10-22T00:11:57Z",
->       "full_url":"https://layervault.com/layervault",
->       "projects":[{"name":"api-playground","deleted_at":"3013-01-01T00:00:00Z","updated_at":"2013-10-21T19:05:40Z","color":null}]
+>       "tree_folder_id": 613950,
+>       "path": "LayerVault/test/Illustrations",
+>       "local_path": "~/LayerVault/test/Illustrations",
+>       "color": null,
+>       "updated_at": "2013-10-21T19:05:39Z",
+>       "deleted_at": null,
+>       "md5": null,
+>       "full_url": "https://layervault.com/layervault/test/Illustrations",
+>       "shortened_url": "http://lyrv.lt/K75jvYYhXK",
+>       "organization_permalink": null,
+>       "folders": [],
+>       "files": []
 >     }
 
 ### Arguments
@@ -470,120 +498,24 @@ The :organization_name, :project and :folder_path are required in the call URL.
 
 Returns a JSON object containing:
 
-  - ```name``` - The full name of the Organization.
-  - ```deleted_at``` - The date the organization was deleted (Not deleted if ```3013-02-26T16:53:38Z```)
-  - ```full_url``` - The full URL to access the Organization.
-  - ```projects``` - An array of the projects that the user is able to see or are public for that Organization.
+  - ```full_url``` - The absolute URL to the project
+  - ```local_path``` - The local path on the user's filesystem
+  - ```md5``` - The MD5 hash of the Folder
+  - ```organization_permalink``` - The URL safe permalink to the Organization
+  - ```path``` - The Organization path to the Folder
+  - ```shortened_url``` - The shortened URL for the Folder
+  - ```updated_at``` - The updated at date for the Folder
+  - ```deleted_at``` - The deletion date for the Folder
+  - ```Folders``` - A JSON Array of the folders within the Folder
+  - ```Files``` - A JSON Array of the files within the Folder
 
 ### Creating a Folder
 
-This call returns the organization information for the requested Organization.
+Creates a Folder at the given Folder path under the referenced Organization. Folder paths can be nested as many levels as is necessary.
 
 >  Definition
 >
 >     POST /api/v1/:organization_name/:project/:folder_path
->
->  Example Request
->
->     $ curl -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervault'
->
->  Example Response
->
->     {
->       "name":"LayerVault",
->       "deleted_at":"3013-02-26T16:53:38Z",
->       "updated_at":"2013-10-22T00:11:57Z",
->       "full_url":"https://layervault.com/layervault",
->       "projects":[{"name":"api-playground","deleted_at":"3013-01-01T00:00:00Z","updated_at":"2013-10-21T19:05:40Z","color":null}]
->     }
-
-### Arguments
-The :organization_name, :project and :folder_path are required in the call URL.
-
-### Returns
-
-Returns a JSON object containing:
-
-  - ```name``` - The full name of the Organization.
-  - ```deleted_at``` - The date the organization was deleted (Not deleted if ```3013-02-26T16:53:38Z```)
-  - ```full_url``` - The full URL to access the Organization.
-  - ```projects``` - An array of the projects that the user is able to see or are public for that Organization.
-
-### Deleting a Folder
-
-This call returns the organization information for the requested Organization.
-
->  Definition
->
->     DELETE /api/v1/:organization_name/:project/:folder_path
->
->  Example Request
->
->     $ curl -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervault'
->
->  Example Response
->
->     {
->       "name":"LayerVault",
->       "deleted_at":"3013-02-26T16:53:38Z",
->       "updated_at":"2013-10-22T00:11:57Z",
->       "full_url":"https://layervault.com/layervault",
->       "projects":[{"name":"api-playground","deleted_at":"3013-01-01T00:00:00Z","updated_at":"2013-10-21T19:05:40Z","color":null}]
->     }
-
-### Arguments
-The :organization_name, :project and :folder_path are required in the call URL.
-
-### Returns
-
-Returns a JSON object containing:
-
-  - ```name``` - The full name of the Organization.
-  - ```deleted_at``` - The date the organization was deleted (Not deleted if ```3013-02-26T16:53:38Z```)
-  - ```full_url``` - The full URL to access the Organization.
-  - ```projects``` - An array of the projects that the user is able to see or are public for that Organization.
-
-### Moving a Folder
-
-This call returns the organization information for the requested Organization.
-
->  Definition
->
->     POST /api/v1/:organization_name/:project/:folder_path/move
->
->  Example Request
->
->     $ curl -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervault'
->
->  Example Response
->
->     {
->       "name":"LayerVault",
->       "deleted_at":"3013-02-26T16:53:38Z",
->       "updated_at":"2013-10-22T00:11:57Z",
->       "full_url":"https://layervault.com/layervault",
->       "projects":[{"name":"api-playground","deleted_at":"3013-01-01T00:00:00Z","updated_at":"2013-10-21T19:05:40Z","color":null}]
->     }
-
-### Arguments
-The :organization_name, :project and :folder_path are required in the call URL.
-
-### Returns
-
-Returns a JSON object containing:
-
-  - ```name``` - The full name of the Organization.
-  - ```deleted_at``` - The date the organization was deleted (Not deleted if ```3013-02-26T16:53:38Z```)
-  - ```full_url``` - The full URL to access the Organization.
-  - ```projects``` - An array of the projects that the user is able to see or are public for that Organization.
-
-### Changing a Folder's color
-
-This call returns the organization information for the requested Organization.
-
->  Definition
->
->     PUT /api/v1/:organization_name/:project/:folder
 >
 >  Example Request
 >
@@ -592,30 +524,140 @@ This call returns the organization information for the requested Organization.
 >  Example Response
 >
 >     {
->       "name":"LayerVault",
->       "deleted_at":"3013-02-26T16:53:38Z",
->       "updated_at":"2013-10-22T00:11:57Z",
->       "full_url":"https://layervault.com/layervault",
->       "projects":[{"name":"api-playground","deleted_at":"3013-01-01T00:00:00Z","updated_at":"2013-10-21T19:05:40Z","color":null}]
+>       "tree_folder_id":613925,
+>       "path":"LayerVault/Test/Illustrations",
+>       "local_path":"~/LayerVault/Test/Illustrations",
+>       "color":null,
+>       "updated_at":"2013-10-21T19:05:09Z",
+>       "deleted_at":null,
+>       "md5":null,
+>       "full_url":"https://layervault.com/layervault/Test/Illustrations",
+>       "shortened_url":"http://lyrv.lt/ITtsnR2Gd0",
+>       "organization_permalink":"layervault",
+>       "folders":[],
+>       "files":[]
 >     }
+
+### Arguments
+The :organization_name, :project and :folder_path are required in the call URL.
+
+### Returns
+
+- HTTP Status: 200 on success.
+- HTTP Header ```Location``` containing the URL by which the newly created Folder can be interrogated.
+
+Returns a JSON object containing:
+
+  - ```full_url``` - The absolute URL to the Folder
+  - ```local_path``` - The local path on the user's filesystem
+  - ```md5``` - The MD5 hash of the Folder
+  - ```organization_permalink``` - The URL safe permalink to the Organization
+  - ```path``` - The Organization path to the Folder
+  - ```shortened_url``` - The shortened URL for the Folder
+  - ```updated_at``` - The updated at date for the Folders
+  - ```deleted_at``` - The deletion date for the Folders
+  - ```Folders``` - A JSON Array of the folders within the Folder
+  - ```Files``` - A JSON Array of the files within the Folder
+
+### Deleting a Folder
+
+Deletes the requested folder under the references Organization.
+
+>  Definition
+>
+>     DELETE /api/v1/:organization_name/:project/:folder_path
+>
+>  Example Request
+>
+>     $ curl -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervault/Test/Illustrations'
+>
+>  Example Response
+>
+>     None
+
+### Arguments
+The :organization_name, :project and :folder_path are required in the call URL.
+
+### Returns
+
+- Http Response: 200 on success
+
+### Moving a Folder
+
+Moves a folder to a new specified location under the referenced Organization
+
+>  Definition
+>
+>     POST /api/v1/:organization_name/:project/:folder_path/move
+>
+>  Example Request
+>
+>     $ curl -X POST -d 'to=/NewTest/NewIllustrations' -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervault/Test/Illustrations/move'
+>
+>  Example Response
+>
+>     {
+>       "id": null,
+>       "tree_folder_id": 613946,
+>       "path": "LayerVault/api-playground/VictimMove",
+>       "local_path": "~/LayerVault/api-playground/VictimMove",
+>       "color": null,
+>       "updated_at": "2013-10-21T19:05:32Z",
+>       "deleted_at": null,
+>       "md5": null,
+>       "full_url": "https://layervault.com/layervault/api-playground/VictimMove",
+>       "shortened_url": "http://lyrv.lt/VPqZQNopEu",
+>       "organization_permalink": null,
+>       "folders": [],
+>       "files": []
+>     }
+
+### Arguments
+The :organization_name, :project and :folder_path are required in the call URL. A POST parameter of :to is required to specify the destination location under the referenced Organization that the folder is to be moved to.
+
+### Returns
+
+Returns a JSON object containing:
+
+  - ```full_url``` - The absolute URL to the project
+  - ```local_path``` - The local path on the user's filesystem
+  - ```md5``` - The MD5 hash of the Project
+  - ```organization_permalink``` - The URL safe permalink to the Organization
+  - ```path``` - The Organization path to the Project
+  - ```shortened_url``` - The shortened URL for the Project
+  - ```updated_at``` - The updated at date for the projects
+  - ```deleted_at``` - The deletion date for the projects
+  - ```Folders``` - A JSON Array of the folders within the Project
+  - ```Files``` - A JSON Array of the files within the Project
+
+### Changing a Folder's color
+
+This call returns the organization information for the requested Organization.
+
+>  Definition
+>
+>     PUT /api/v1/:organization_name/:project/:folder_path
+>
+>  Example Request
+>
+>     $ curl -X PUT -d "color=000000" -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervault/Test/Illustrations'
+>
+>  Example Response
+>
+>     None
 
 ### Arguments
 The :organization_name, :project and :folder_path are required in the call URL. A PUT parameter :color representing the Hex color value the folder should be set to is required.
 
 ### Returns
 
-Returns a JSON object containing:
-
-  - ```name``` - The full name of the Organization.
-  - ```deleted_at``` - The date the organization was deleted (Not deleted if ```3013-02-26T16:53:38Z```)
-  - ```full_url``` - The full URL to access the Organization.
-  - ```projects``` - An array of the projects that the user is able to see or are public for that Organization.
+- HTTP Response: 200 on success.
 
 ## Files
 
 ### Retrieving Files's Information
 
-This call returns the organization information for the requested Organization.
+Returns a referenced File's information.
 
 >  Definition
 >
@@ -623,16 +665,20 @@ This call returns the organization information for the requested Organization.
 >
 >  Example Request
 >
->     $ curl -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervault'
+>     $ curl -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervault/Test/Illustrations/NewLogo.psd'
 >
 >  Example Response
 >
 >     {
->       "name":"LayerVault",
->       "deleted_at":"3013-02-26T16:53:38Z",
->       "updated_at":"2013-10-22T00:11:57Z",
->       "full_url":"https://layervault.com/layervault",
->       "projects":[{"name":"api-playground","deleted_at":"3013-01-01T00:00:00Z","updated_at":"2013-10-21T19:05:40Z","color":null}]
+>       "id": null,
+>       "tree_revision_id": 613938,
+>       "download_url": "https://layervault.com/files/download_node/2YDJVhvxLV",
+>       "full_url": "https://layervault.com/layervault/Test/Illustrations/NewLogo.psd/1",
+>       "md5": "837b0a406b101620a3d2b33867d66560",
+>       "updated_at": "2013-10-21T19:05:23Z",
+>       "created_at": "2013-10-21T19:05:23Z",
+>       "shortened_url": "http://lyrv.lt/2YDJVhvxLV",
+>       "revision_number": 1
 >     }
 
 ### Arguments
@@ -642,82 +688,86 @@ The :organization_name, :project, :folder_path and :file_name are required in th
 
 Returns a JSON object containing:
 
-  - ```name``` - The full name of the Organization.
-  - ```deleted_at``` - The date the organization was deleted (Not deleted if ```3013-02-26T16:53:38Z```)
-  - ```full_url``` - The full URL to access the Organization.
-  - ```projects``` - An array of the projects that the user is able to see or are public for that Organization.
+  - ```full_url``` - The absolute URL to the File
+  - ```download_url``` - The absolute URL to download a copy of the File
+  - ```local_path``` - The local path on the user's filesystem
+  - ```md5``` - The MD5 hash of the File
+  - ```shortened_url``` - The shortened URL for the Folder
+  - ```updated_at``` - The updated at date for the Folders
+  - ```deleted_at``` - The deletion date for the Folders
+  - ```revision_number``` - The revision number of the File
 
 ### Creating a File
 
-This call returns the organization information for the requested Organization.
+Creates a File under the referenced folder path and organization.
 
 >  Definition
 >
->     PUT /api/v1/:organization_name/:project/:folder/:file_name
+>     PUT /api/v1/:organization_name/:project/:folder_path/:file_name
 >
 >  Example Request
 >
->     $ curl -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervault'
+>     $ curl -X PUT -d 'md5=837b0a406b101620a3d2b33867d66560&remote_url=http://url/to/remote/file' -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervault/Test/Illustrations/NewFile.psd'
 >
 >  Example Response
 >
 >     {
->       "name":"LayerVault",
->       "deleted_at":"3013-02-26T16:53:38Z",
->       "updated_at":"2013-10-22T00:11:57Z",
->       "full_url":"https://layervault.com/layervault",
->       "projects":[{"name":"api-playground","deleted_at":"3013-01-01T00:00:00Z","updated_at":"2013-10-21T19:05:40Z","color":null}]
+>       "id": null,
+>       "tree_revision_id": 613938,
+>       "download_url": "https://layervault.com/files/download_node/2YDJVhvxLV",
+>       "full_url": "https://layervault.com/layervault/Test/Illustrations/NewLogo.psd/1",
+>       "md5": "837b0a406b101620a3d2b33867d66560",
+>       "updated_at": "2013-10-21T19:05:23Z",
+>       "created_at": "2013-10-21T19:05:23Z",
+>       "shortened_url": "http://lyrv.lt/2YDJVhvxLV",
+>       "revision_number": 1
 >     }
+
 
 ### Arguments
 The :organization_name, :project, :folder_path and :file_name are required in the call URL.
 
 ### Returns
 
+- HTTP Status: 200 on success.
+
 Returns a JSON object containing:
 
-  - ```name``` - The full name of the Organization.
-  - ```deleted_at``` - The date the organization was deleted (Not deleted if ```3013-02-26T16:53:38Z```)
-  - ```full_url``` - The full URL to access the Organization.
-  - ```projects``` - An array of the projects that the user is able to see or are public for that Organization.
+  - ```full_url``` - The absolute URL to the File
+  - ```download_url``` - The absolute URL to download a copy of the File
+  - ```local_path``` - The local path on the user's filesystem
+  - ```md5``` - The MD5 hash of the File
+  - ```shortened_url``` - The shortened URL for the Folder
+  - ```updated_at``` - The updated at date for the Folders
+  - ```deleted_at``` - The deletion date for the Folders
+  - ```revision_number``` - The revision number of the File
 
 ### Deleting a File
 
-This call returns the organization information for the requested Organization.
+Deletes a referenced File.
 
 >  Definition
 >
->     DELETE /api/v1/:organization_name/:project/:folder/:file_name
+>     DELETE /api/v1/:organization_name/:project/:folder_path/:file_name
 >
 >  Example Request
 >
->     $ curl -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervault'
+>     $ curl -X DELETE -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervault/Test/Illustrations/NewFile.psd'
 >
 >  Example Response
 >
->     {
->       "name":"LayerVault",
->       "deleted_at":"3013-02-26T16:53:38Z",
->       "updated_at":"2013-10-22T00:11:57Z",
->       "full_url":"https://layervault.com/layervault",
->       "projects":[{"name":"api-playground","deleted_at":"3013-01-01T00:00:00Z","updated_at":"2013-10-21T19:05:40Z","color":null}]
->     }
+>     None
 
 ### Arguments
 The :organization_name, :project, :folder_path and :file_name are required in the call URL.
 
 ### Returns
 
-Returns a JSON object containing:
-
-  - ```name``` - The full name of the Organization.
-  - ```deleted_at``` - The date the organization was deleted (Not deleted if ```3013-02-26T16:53:38Z```)
-  - ```full_url``` - The full URL to access the Organization.
-  - ```projects``` - An array of the projects that the user is able to see or are public for that Organization.
+  - HTTP Response: 200 on success.
 
 ### Moving a File
 
-This call returns the organization information for the requested Organization.
+Moves a File to a new Folder and optionally a new Filename under a referenced Organization.
 
 >  Definition
 >
@@ -725,16 +775,12 @@ This call returns the organization information for the requested Organization.
 >
 >  Example Request
 >
->     $ curl -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervault'
+>     $ curl -X POST -D 'new_folder=/this/is/the/new/folder&new_filename=bert.psd' -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervault/Test/Illustrations/Test.psd'
 >
 >  Example Response
 >
 >     {
->       "name":"LayerVault",
->       "deleted_at":"3013-02-26T16:53:38Z",
->       "updated_at":"2013-10-22T00:11:57Z",
->       "full_url":"https://layervault.com/layervault",
->       "projects":[{"name":"api-playground","deleted_at":"3013-01-01T00:00:00Z","updated_at":"2013-10-21T19:05:40Z","color":null}]
+>      error: 'success'
 >     }
 
 ### Arguments
@@ -742,16 +788,15 @@ The :organization_name, :project, :folder_path and :file_name are required in th
 
 ### Returns
 
+  - HTTP Status: 200 on success
+
 Returns a JSON object containing:
 
-  - ```name``` - The full name of the Organization.
-  - ```deleted_at``` - The date the organization was deleted (Not deleted if ```3013-02-26T16:53:38Z```)
-  - ```full_url``` - The full URL to access the Organization.
-  - ```projects``` - An array of the projects that the user is able to see or are public for that Organization.
+  - ```error``` - Any errors that may have prevented the File from being moved, or 'success' if successful.
 
 ### Performing a Sync check on a File
 
-This call returns the organization information for the requested Organization.
+Indicates whether a file needs to be uploaded in full because the server doesn't have a copy, partial upload if a file has changed, or if the file needs to be deleted.
 
 >  Definition
 >
@@ -759,7 +804,7 @@ This call returns the organization information for the requested Organization.
 >
 >  Example Request
 >
->     $ curl -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervault'
+>     $ curl -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervault/Test/Illustrations/Test.psd/sync_check'
 >
 >  Example Response
 >
@@ -772,16 +817,17 @@ This call returns the organization information for the requested Organization.
 >     }
 
 ### Arguments
-The :organization_name, :project, :folder_path and :file_name are required in the call URL.
+The :organization_name, :project, :folder_path and :file_name are required in the call URL. The :md5 GET parameter is required, and either the :file_data or :remote_url parameters.
 
 ### Returns
 
 Returns a JSON object containing:
 
-  - ```name``` - The full name of the Organization.
-  - ```deleted_at``` - The date the organization was deleted (Not deleted if ```3013-02-26T16:53:38Z```)
-  - ```full_url``` - The full URL to access the Organization.
-  - ```projects``` - An array of the projects that the user is able to see or are public for that Organization.
+  - HTTP Status: 200 - Upload the full file
+  - HTTP Status: 409 - No need to upload anything
+  - HTTP Status: 400 - File Size was missing
+  - HTTP Status: 413 - The file is too big
+  - HTTP Status: 412 - The file should be uploaded in full.
 
 ## Revisions
 
@@ -795,16 +841,20 @@ This call returns the organization information for the requested Organization.
 >
 >  Example Request
 >
->     $ curl -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervault'
+>     $ curl -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervault/Test/Illustrations/NewFile.psd/1'
 >
 >  Example Response
 >
 >     {
->       "name":"LayerVault",
->       "deleted_at":"3013-02-26T16:53:38Z",
->       "updated_at":"2013-10-22T00:11:57Z",
->       "full_url":"https://layervault.com/layervault",
->       "projects":[{"name":"api-playground","deleted_at":"3013-01-01T00:00:00Z","updated_at":"2013-10-21T19:05:40Z","color":null}]
+>       "id": null,
+>       "tree_revision_id": 613940,
+>       "download_url": "https://layervault.com/files/download_node/DwoRKvzbEj",
+>       "full_url": "https://layervault.com/layervault/api-playground/Test.psd/1",
+>       "md5": "e388875b2d81f6798dd187d1c047a50c",
+>       "updated_at": "2013-10-21T19:05:24Z",
+>       "created_at": "2013-10-21T19:05:24Z",
+>       "shortened_url": "http://lyrv.lt/DwoRKvzbEj",
+>       "revision_number": 1
 >     }
 
 ### Arguments
@@ -814,10 +864,14 @@ The :organization_name, :project, :folder_path, :file_name and :revisions are re
 
 Returns a JSON object containing:
 
-  - ```name``` - The full name of the Organization.
-  - ```deleted_at``` - The date the organization was deleted (Not deleted if ```3013-02-26T16:53:38Z```)
-  - ```full_url``` - The full URL to access the Organization.
-  - ```projects``` - An array of the projects that the user is able to see or are public for that Organization.
+  - ```full_url``` - The absolute URL to the File
+  - ```download_url``` - The absolute URL to download a copy of the File
+  - ```local_path``` - The local path on the user's filesystem
+  - ```md5``` - The MD5 hash of the File
+  - ```shortened_url``` - The shortened URL for the Folder
+  - ```updated_at``` - The updated at date for the Folders
+  - ```deleted_at``` - The deletion date for the Folders
+  - ```revision_number``` - The revision number of the File
 
 ### Retrieving Revision's Revision History
 
@@ -829,29 +883,50 @@ This call returns the organization information for the requested Organization.
 >
 >  Example Request
 >
->     $ curl -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervault'
+>     $ curl -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervaultTest/Illustrations/NewFile.psd/1/revisions'
 >
 >  Example Response
 >
->     {
->       "name":"LayerVault",
->       "deleted_at":"3013-02-26T16:53:38Z",
->       "updated_at":"2013-10-22T00:11:57Z",
->       "full_url":"https://layervault.com/layervault",
->       "projects":[{"name":"api-playground","deleted_at":"3013-01-01T00:00:00Z","updated_at":"2013-10-21T19:05:40Z","color":null}]
->     }
+>     [
+>       {
+>         "id": null,
+>         "tree_revision_id": 613941,
+>         "download_url": "https://layervault.com/files/download_node/vKUNqi6jFi",
+>         "full_url": "https://layervault.com/layervault/api-playground/Test.psd/2",
+>         "md5": "65ef424c001b078516d953f1e4a66450",
+>         "updated_at": "2013-10-21T19:05:25Z",
+>         "created_at": "2013-10-21T19:05:25Z",
+>         "shortened_url": "http://lyrv.lt/vKUNqi6jFi",
+>         "revision_number": 2
+>       },
+>       {
+>         "id": null,
+>         "tree_revision_id": 613942,
+>         "download_url": "https://layervault.com/files/download_node/udMqnVagH6",
+>         "full_url": "https://layervault.com/layervault/api-playground/Test.psd/3",
+>         "md5": "4edea58eacd8c9334e4df173dad72d69",
+>         "updated_at": "2013-10-21T19:05:27Z",
+>         "created_at": "2013-10-21T19:05:27Z",
+>         "shortened_url": "http://lyrv.lt/udMqnVagH6",
+>         "revision_number": 3
+>       }
+>     ]
 
 ### Arguments
 The :organization_name, :project, :folder_path, :file_name and :revisions are required in the call URL.
 
 ### Returns
 
-Returns a JSON object containing:
+Returns a JSON array containing objects with the following attributes:
 
-  - ```name``` - The full name of the Organization.
-  - ```deleted_at``` - The date the organization was deleted (Not deleted if ```3013-02-26T16:53:38Z```)
-  - ```full_url``` - The full URL to access the Organization.
-  - ```projects``` - An array of the projects that the user is able to see or are public for that Organization.
+  - ```full_url``` - The absolute URL to the File
+  - ```download_url``` - The absolute URL to download a copy of the File
+  - ```local_path``` - The local path on the user's filesystem
+  - ```md5``` - The MD5 hash of the File
+  - ```shortened_url``` - The shortened URL for the Folder
+  - ```updated_at``` - The updated at date for the Folders
+  - ```deleted_at``` - The deletion date for the Folders
+  - ```revision_number``` - The revision number of the File
 
 ### Retrieving Revision's Meta Information
 
@@ -863,16 +938,12 @@ This call returns the organization information for the requested Organization.
 >
 >  Example Request
 >
->     $ curl -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervault'
+>     $ curl -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervault/Test/Illustrations/NewFile.psd/1/meta'
 >
 >  Example Response
 >
 >     {
->       "name":"LayerVault",
->       "deleted_at":"3013-02-26T16:53:38Z",
->       "updated_at":"2013-10-22T00:11:57Z",
->       "full_url":"https://layervault.com/layervault",
->       "projects":[{"name":"api-playground","deleted_at":"3013-01-01T00:00:00Z","updated_at":"2013-10-21T19:05:40Z","color":null}]
+>       "key": "value"
 >     }
 
 ### Arguments
@@ -880,12 +951,7 @@ The :organization_name, :project, :folder_path, :file_name and :revisions are re
 
 ### Returns
 
-Returns a JSON object containing:
-
-  - ```name``` - The full name of the Organization.
-  - ```deleted_at``` - The date the organization was deleted (Not deleted if ```3013-02-26T16:53:38Z```)
-  - ```full_url``` - The full URL to access the Organization.
-  - ```projects``` - An array of the projects that the user is able to see or are public for that Organization.
+Returns a JSON object containing any Meta information that was set for the revision.
 
 ### Retrieving Revision's Previews Information
 
@@ -897,26 +963,15 @@ This call returns the organization information for the requested Organization.
 >
 >  Example Request
 >
->     $ curl -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervault'
+>     $ curl -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervaultTest/Illustrations/NewFile.psd/1/previews'
 >
 >  Example Response
 >
->     {
->       "name":"LayerVault",
->       "deleted_at":"3013-02-26T16:53:38Z",
->       "updated_at":"2013-10-22T00:11:57Z",
->       "full_url":"https://layervault.com/layervault",
->       "projects":[{"name":"api-playground","deleted_at":"3013-01-01T00:00:00Z","updated_at":"2013-10-21T19:05:40Z","color":null}]
->     }
+>     []
 
 ### Arguments
 The :organization_name, :project, :folder_path, :file_name and :revisions are required in the call URL.
 
 ### Returns
 
-Returns a JSON object containing:
-
-  - ```name``` - The full name of the Organization.
-  - ```deleted_at``` - The date the organization was deleted (Not deleted if ```3013-02-26T16:53:38Z```)
-  - ```full_url``` - The full URL to access the Organization.
-  - ```projects``` - An array of the projects that the user is able to see or are public for that Organization.
+Returns a JSON array containing a list of preview image URLs.
