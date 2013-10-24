@@ -211,7 +211,6 @@ Returns the project information, including files and folders.
 >
 >      {
 >          "full_url": "https://layervault.com/layervault/Designer%20News",
->          "id": null,
 >          "local_path": "~/LayerVault/Designer News",
 >          "md5": null,
 >          "organization_permalink": "layervault",
@@ -226,13 +225,11 @@ Returns the project information, including files and folders.
 >                  "deleted_at": null,
 >                  "download_url": "https://layervault.com/files/download_node/QRuna998DR",
 >                  "full_url": "https://layervault.com/layervault/Designer%20News/Front%20Page.psd",
->                  "id": null,
 >                  "local_path": "~/LayerVault/Designer News/Front Page.psd",
 >                  "md5": "233b66b5501c71e09474ba1dac6ea91b",
 >                  "modified_at": "2013-08-21T13:06:15Z",
 >                  "revision_number": 290,
 >                  "shortened_url": "http://lyrv.lt/WjB4T365vP",
->                  "tree_file_id": 261691,
 >                  "updated_at": "2013-09-10T16:28:29Z"
 >              },
 >              ...
@@ -246,7 +243,6 @@ Returns the project information, including files and folders.
 >                          "deleted_at": null,
 >                          "download_url": "https://layervault.com/files/download_node/V7x1XZnMTV",
 >                          "full_url": "https://layervault.com/layervault/Designer%20News/Illustrations/PageBreaks.ai",
->                          "id": null,
 >                          "local_path": "~/LayerVault/Designer News/Illustrations/PageBreaks.ai",
 >                          "md5": "b1c0ee28cd5e91fe36fa55e37467edb3",
 >                          "modified_at": "2013-10-05T00:22:31Z",
@@ -256,30 +252,25 @@ Returns the project information, including files and folders.
 >                                  "created_at": "2013-10-05T00:09:16Z",
 >                                  "download_url": "https://layervault.com/files/download_node/d3G8PLyj0Z",
 >                                  "full_url": "https://layervault.com/layervault/Designer%20News/Illustrations/PageBreaks.ai/1",
->                                  "id": null,
 >                                  "md5": "e309c39f50f6ad7469beb52bbdae11d0",
 >                                  "revision_number": 1,
 >                                  "shortened_url": "http://lyrv.lt/d3G8PLyj0Z",
->                                  "tree_revision_id": 590518,
 >                                  "updated_at": "2013-10-18T18:40:12Z"
 >                              },
 >                              ...
 >                          ],
 >                          "shortened_url": "http://lyrv.lt/Jm3nbPXCc7",
->                          "tree_file_id": 590517,
 >                          "updated_at": "2013-10-18T18:40:12Z"
 >                      },
 >                      ...
 >                  ],
 >                  "folders": [],
 >                  "full_url": "https://layervault.com/layervault/Designer%20News/Illustrations",
->                  "id": null,
 >                  "local_path": "~/LayerVault/Designer News/Illustrations",
 >                  "md5": null,
 >                  "organization_permalink": null,
 >                  "path": "LayerVault/Designer News/Illustrations",
 >                  "shortened_url": "http://lyrv.lt/49N7NOomDO",
->                  "tree_folder_id": 590516,
 >                  "updated_at": "2013-10-18T18:40:12Z"
 >              },
 >              ...
@@ -322,8 +313,6 @@ Creates a Project under the referenced Organization.
 >  Example Response
 >
 >     {
->       "id":null,
->       "tree_folder_id":613925,
 >       "path":"LayerVault/Test",
 >       "local_path":"~/LayerVault/Test",
 >       "color":null,
@@ -396,8 +385,6 @@ Moves a project to a new location within the referenced Organization.
 >  Example Response
 >
 >     {
->       "id": null,
->       "tree_folder_id": 613946,
 >       "path": "LayerVault/api-playground/VictimMove",
 >       "local_path": "~/LayerVault/api-playground/VictimMove",
 >       "color": null,
@@ -477,7 +464,6 @@ This call returns the organization information for the requested Organization.
 >  Example Response
 >
 >     {
->       "tree_folder_id": 613950,
 >       "path": "LayerVault/test/Illustrations",
 >       "local_path": "~/LayerVault/test/Illustrations",
 >       "color": null,
@@ -524,7 +510,6 @@ Creates a Folder at the given Folder path under the referenced Organization. Fol
 >  Example Response
 >
 >     {
->       "tree_folder_id":613925,
 >       "path":"LayerVault/Test/Illustrations",
 >       "local_path":"~/LayerVault/Test/Illustrations",
 >       "color":null,
@@ -597,8 +582,6 @@ Moves a folder to a new specified location under the referenced Organization
 >  Example Response
 >
 >     {
->       "id": null,
->       "tree_folder_id": 613946,
 >       "path": "LayerVault/api-playground/VictimMove",
 >       "local_path": "~/LayerVault/api-playground/VictimMove",
 >       "color": null,
@@ -670,8 +653,6 @@ Returns a referenced File's information.
 >  Example Response
 >
 >     {
->       "id": null,
->       "tree_revision_id": 613938,
 >       "download_url": "https://layervault.com/files/download_node/2YDJVhvxLV",
 >       "full_url": "https://layervault.com/layervault/Test/Illustrations/NewLogo.psd/1",
 >       "md5": "837b0a406b101620a3d2b33867d66560",
@@ -712,8 +693,6 @@ Creates a File under the referenced folder path and organization.
 >  Example Response
 >
 >     {
->       "id": null,
->       "tree_revision_id": 613938,
 >       "download_url": "https://layervault.com/files/download_node/2YDJVhvxLV",
 >       "full_url": "https://layervault.com/layervault/Test/Illustrations/NewLogo.psd/1",
 >       "md5": "837b0a406b101620a3d2b33867d66560",
@@ -846,8 +825,6 @@ This call returns the organization information for the requested Organization.
 >  Example Response
 >
 >     {
->       "id": null,
->       "tree_revision_id": 613940,
 >       "download_url": "https://layervault.com/files/download_node/DwoRKvzbEj",
 >       "full_url": "https://layervault.com/layervault/api-playground/Test.psd/1",
 >       "md5": "e388875b2d81f6798dd187d1c047a50c",
@@ -889,8 +866,6 @@ This call returns the organization information for the requested Organization.
 >
 >     [
 >       {
->         "id": null,
->         "tree_revision_id": 613941,
 >         "download_url": "https://layervault.com/files/download_node/vKUNqi6jFi",
 >         "full_url": "https://layervault.com/layervault/api-playground/Test.psd/2",
 >         "md5": "65ef424c001b078516d953f1e4a66450",
@@ -900,8 +875,6 @@ This call returns the organization information for the requested Organization.
 >         "revision_number": 2
 >       },
 >       {
->         "id": null,
->         "tree_revision_id": 613942,
 >         "download_url": "https://layervault.com/files/download_node/udMqnVagH6",
 >         "full_url": "https://layervault.com/layervault/api-playground/Test.psd/3",
 >         "md5": "4edea58eacd8c9334e4df173dad72d69",
