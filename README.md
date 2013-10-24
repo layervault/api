@@ -5,23 +5,31 @@ The LayerVault API provides a simple HTTP based REST based mechanism for interac
 
 > ## API Endpoint
 > https://layervault.com/api/v1
-> ### Summary of Resource URL Patters
+>
+> ### Summary of Resource URL Patterns
 >     /v1/me
 >     /v1/keypair(.:format)
 >     /v1/:organization_name
 >     /v1/:organization_name/:project
 >     /v1/:organization_name/:project/move
 >     /v1/:organization_name/:project/color
->     /v1/:organization_name/:project(/*path)
->     /v1/:organization_name/:project(/*path)/move
->     /v1/:organization_name/:project(/*path)/color
->     /v1/:organization_name/:project(/*path)/:file_name
->     /v1/:organization_name/:project(/*path)/:file_name/move
->     /v1/:organization_name/:project(/*path)/:file_name/sync_check
->     /v1/:organization_name/:project(/*path)/:file_name/:revision
->     /v1/:organization_name/:project(/*path)/:file_name/:revision/previews
->     /v1/:organization_name/:project(/*path)/:file_name/:revision/revisions
->     /v1/:organization_name/:project(/*path)/:file_name/:revision/meta
+>     /v1/:organization_name/:project(/folder_path)
+>     /v1/:organization_name/:project(/folder_path)/move
+>     /v1/:organization_name/:project(/folder_path)/color
+>     /v1/:organization_name/:project(/folder_path)/:file_name
+>     /v1/:organization_name/:project(/folder_path)/:file_name/move
+>     /v1/:organization_name/:project(/folder_path)/:file_name/sync_check
+>     /v1/:organization_name/:project(/folder_path)/:file_name/:revision
+>     /v1/:organization_name/:project(/folder_path)/:file_name/:revision/previews
+>     /v1/:organization_name/:project(/folder_path)/:file_name/:revision/revisions
+>     /v1/:organization_name/:project(/folder_path)/:file_name/:revision/meta
+>
+> ### URL Parameters
+>     :organization_name  - The URL encoded name of the Organization. Cannot be blank.
+>     :project            - The URL encoded name of the Project. Cannot be blank.
+>     :folder_path        - An optional path to a folder within a Project.
+>     :file_name          - The URL encoded name of the File.
+>     :revision           - An integer representing the Revision.
 
 ## Getting Started
 
