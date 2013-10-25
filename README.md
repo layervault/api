@@ -133,7 +133,7 @@ Returns a JSON object containing:
   - ```access_key_id``` - The Access key ID
   - ```secret_access_key``` - The Secret Access Key
 
-## User Information
+### User Information
 
 #### Retrieving Organization Information
 
