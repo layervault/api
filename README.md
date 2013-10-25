@@ -98,11 +98,11 @@ The API currently limits the requests you can make against it hourly. We have pr
 
 [The Official Ruby LayerVault Client](https://github.com/layervault/layervault_ruby_client)
 
-# Methods
+## Methods
 
-## Key Pairs
+### Key Pairs
 
-### Retrieving Key Pairs
+#### Retrieving Key Pairs
 
 This call returns a set of KeyPairs for future uploading of files.
 
@@ -121,10 +121,10 @@ This call returns a set of KeyPairs for future uploading of files.
 >       "secret_access_key": "/fPHLA5505fwgvxc2gsbYd19HoEBZHpRoaj4U3G"
 >     }
 
-### Arguments
+#### Arguments
 No arguments are required.
 
-### Returns
+#### Returns
 
 - HTTP Status: 200
 
@@ -135,7 +135,7 @@ Returns a JSON object containing:
 
 ## User Information
 
-### Retrieving Organization Information
+#### Retrieving Organization Information
 
 This call returns the user information for which the Client is acting on behalf of.
 
@@ -151,10 +151,10 @@ This call returns the user information for which the Client is acting on behalf 
 >
 >     {"email":"john@layervault.com","first_name":"John","last_name":"McDowall","is_admin":true}
 
-### Arguments
+#### Arguments
 No arguments are required.
 
-### Returns
+#### Returns
 
 Returns a JSON object containing:
 
@@ -163,9 +163,9 @@ Returns a JSON object containing:
   - ```last_name``` - The Last name of the user.
   - ```is_admin``` - Whether the user is an admin of the site or not.
 
-## Organization
+### Organization
 
-### Retrieving Organization Information
+#### Retrieving Organization Information
 
 This call returns the organization information for the requested Organization.
 
@@ -187,10 +187,10 @@ This call returns the organization information for the requested Organization.
 >       "projects":[{"name":"api-playground","deleted_at":"3013-01-01T00:00:00Z","updated_at":"2013-10-21T19:05:40Z","color":null}]
 >     }
 
-### Arguments
+#### Arguments
 No arguments are required.
 
-### Returns
+#### Returns
 
 - HTTP Status: 200
 
@@ -201,9 +201,9 @@ Returns a JSON object containing:
   - ```full_url``` - The full URL to access the Organization.
   - ```projects``` - An array of the projects that the user is able to see or are public for that Organization.
 
-## Projects
+### Projects
 
-### Retrieving Project Information
+#### Retrieving Project Information
 
 Returns the project information, including files and folders.
 
@@ -286,10 +286,10 @@ Returns the project information, including files and folders.
 >      }
 
 
-### Arguments
+#### Arguments
 The :organization_name and :project are required in the call URL.
 
-### Returns
+#### Returns
 
 - HTTP Status: 200
 
@@ -306,7 +306,7 @@ Returns a JSON object containing:
   - ```Folders``` - A JSON Array of the folders within the Project
   - ```Files``` - A JSON Array of the files within the Project
 
-### Creating a Project
+#### Creating a Project
 
 Creates a Project under the referenced Organization.
 
@@ -334,10 +334,10 @@ Creates a Project under the referenced Organization.
 >       "files":[]
 >     }
 
-### Arguments
+#### Arguments
 The :organization_name and :project are required in the call URL.
 
-### Returns
+#### Returns
 
 - HTTP Status: 200
 - HTTP Header ```Location``` containing the URL by which the newly created project can be interrogated.
@@ -355,7 +355,7 @@ Returns a JSON object containing:
   - ```Folders``` - A JSON Array of the folders within the Folder
   - ```Files``` - A JSON Array of the files within the Folder
 
-### Deleting a Project
+#### Deleting a Project
 
 Deletes a Project folder. Returns an HTTP 200 on success.
 
@@ -371,14 +371,14 @@ Deletes a Project folder. Returns an HTTP 200 on success.
 >
 >     None.
 
-### Arguments
+#### Arguments
 The :organization_name and :project are required in the call URL.
 
-### Returns
+#### Returns
 
 - HTTP Status: 200
 
-### Moving a Project
+#### Moving a Project
 
 Moves a project to a new location within the referenced Organization.
 
@@ -406,10 +406,10 @@ Moves a project to a new location within the referenced Organization.
 >       "files": []
 >     }
 
-### Arguments
+#### Arguments
 The :organization_name and :project are required in the call URL. A POST parameter of :to shoud be supplied representing the destination Folder to move the current Folder to.
 
-### Returns
+#### Returns
 
 - HTTP Status: 200 on success.
 
@@ -426,7 +426,7 @@ Returns a JSON object containing:
   - ```Folders``` - A JSON Array of the folders within the Project
   - ```Files``` - A JSON Array of the files within the Project
 
-### Changing a Project's color
+#### Changing a Project's color
 
 Changes the color of the Project color as it appears in the LayerVault web Application and locally on the user's file system.
 
@@ -448,16 +448,16 @@ Changes the color of the Project color as it appears in the LayerVault web Appli
 >       "projects":[{"name":"api-playground","deleted_at":"3013-01-01T00:00:00Z","updated_at":"2013-10-21T19:05:40Z","color":null}]
 >     }
 
-### Arguments
+#### Arguments
 The :organization_name and :project are required in the call URL. A PUT parameter of :color shoud be supplied representing the color that the destination Folder should be set to.
 
-### Returns
+#### Returns
 
 - HTTP Status: 200 on success.
 
-## Folders
+### Folders
 
-### Retrieving Folders's Information
+#### Retrieving Folders's Information
 
 This call returns the organization information for the requested Organization.
 
@@ -485,10 +485,10 @@ This call returns the organization information for the requested Organization.
 >       "files": []
 >     }
 
-### Arguments
+#### Arguments
 The :organization_name, :project and :folder_path are required in the call URL.
 
-### Returns
+#### Returns
 
 Returns a JSON object containing:
 
@@ -503,7 +503,7 @@ Returns a JSON object containing:
   - ```Folders``` - A JSON Array of the folders within the Folder
   - ```Files``` - A JSON Array of the files within the Folder
 
-### Creating a Folder
+#### Creating a Folder
 
 Creates a Folder at the given Folder path under the referenced Organization. Folder paths can be nested as many levels as is necessary.
 
@@ -531,10 +531,10 @@ Creates a Folder at the given Folder path under the referenced Organization. Fol
 >       "files":[]
 >     }
 
-### Arguments
+#### Arguments
 The :organization_name, :project and :folder_path are required in the call URL.
 
-### Returns
+#### Returns
 
 - HTTP Status: 200 on success.
 - HTTP Header ```Location``` containing the URL by which the newly created Folder can be interrogated.
@@ -552,7 +552,7 @@ Returns a JSON object containing:
   - ```Folders``` - A JSON Array of the folders within the Folder
   - ```Files``` - A JSON Array of the files within the Folder
 
-### Deleting a Folder
+#### Deleting a Folder
 
 Deletes the requested folder under the references Organization.
 
@@ -568,14 +568,14 @@ Deletes the requested folder under the references Organization.
 >
 >     None
 
-### Arguments
+#### Arguments
 The :organization_name, :project and :folder_path are required in the call URL.
 
-### Returns
+#### Returns
 
 - Http Response: 200 on success
 
-### Moving a Folder
+#### Moving a Folder
 
 Moves a folder to a new specified location under the referenced Organization
 
@@ -603,10 +603,10 @@ Moves a folder to a new specified location under the referenced Organization
 >       "files": []
 >     }
 
-### Arguments
+#### Arguments
 The :organization_name, :project and :folder_path are required in the call URL. A POST parameter of :to is required to specify the destination location under the referenced Organization that the folder is to be moved to.
 
-### Returns
+#### Returns
 
 Returns a JSON object containing:
 
@@ -621,7 +621,7 @@ Returns a JSON object containing:
   - ```Folders``` - A JSON Array of the folders within the Project
   - ```Files``` - A JSON Array of the files within the Project
 
-### Changing a Folder's color
+#### Changing a Folder's color
 
 This call returns the organization information for the requested Organization.
 
@@ -637,16 +637,16 @@ This call returns the organization information for the requested Organization.
 >
 >     None
 
-### Arguments
+#### Arguments
 The :organization_name, :project and :folder_path are required in the call URL. A PUT parameter :color representing the Hex color value the folder should be set to is required.
 
-### Returns
+#### Returns
 
 - HTTP Response: 200 on success.
 
-## Files
+### Files
 
-### Retrieving Files's Information
+#### Retrieving Files's Information
 
 Returns a referenced File's information.
 
@@ -670,10 +670,10 @@ Returns a referenced File's information.
 >       "revision_number": 1
 >     }
 
-### Arguments
+#### Arguments
 The :organization_name, :project, :folder_path and :file_name are required in the call URL.
 
-### Returns
+#### Returns
 
 Returns a JSON object containing:
 
@@ -686,7 +686,7 @@ Returns a JSON object containing:
   - ```deleted_at``` - The deletion date for the Folders
   - ```revision_number``` - The revision number of the File
 
-### Creating a File
+#### Creating a File
 
 Creates a File under the referenced folder path and organization.
 
@@ -711,10 +711,10 @@ Creates a File under the referenced folder path and organization.
 >     }
 
 
-### Arguments
+#### Arguments
 The :organization_name, :project, :folder_path and :file_name are required in the call URL.
 
-### Returns
+#### Returns
 
 - HTTP Status: 200 on success.
 
@@ -729,7 +729,7 @@ Returns a JSON object containing:
   - ```deleted_at``` - The deletion date for the Folders
   - ```revision_number``` - The revision number of the File
 
-### Deleting a File
+#### Deleting a File
 
 Deletes a referenced File.
 
@@ -745,14 +745,14 @@ Deletes a referenced File.
 >
 >     None
 
-### Arguments
+#### Arguments
 The :organization_name, :project, :folder_path and :file_name are required in the call URL.
 
-### Returns
+#### Returns
 
   - HTTP Response: 200 on success.
 
-### Moving a File
+#### Moving a File
 
 Moves a File to a new Folder and optionally a new Filename under a referenced Organization.
 
@@ -770,10 +770,10 @@ Moves a File to a new Folder and optionally a new Filename under a referenced Or
 >      error: 'success'
 >     }
 
-### Arguments
+#### Arguments
 The :organization_name, :project, :folder_path and :file_name are required in the call URL.
 
-### Returns
+#### Returns
 
   - HTTP Status: 200 on success
 
@@ -781,7 +781,7 @@ Returns a JSON object containing:
 
   - ```error``` - Any errors that may have prevented the File from being moved, or 'success' if successful.
 
-### Performing a Sync check on a File
+#### Performing a Sync check on a File
 
 Indicates whether a file needs to be uploaded in full because the server doesn't have a copy, partial upload if a file has changed, or if the file needs to be deleted.
 
@@ -803,10 +803,10 @@ Indicates whether a file needs to be uploaded in full because the server doesn't
 >       "projects":[{"name":"api-playground","deleted_at":"3013-01-01T00:00:00Z","updated_at":"2013-10-21T19:05:40Z","color":null}]
 >     }
 
-### Arguments
+#### Arguments
 The :organization_name, :project, :folder_path and :file_name are required in the call URL. The :md5 GET parameter is required, and either the :file_data or :remote_url parameters.
 
-### Returns
+#### Returns
 
 Returns a JSON object containing:
 
@@ -816,9 +816,9 @@ Returns a JSON object containing:
   - HTTP Status: 413 - The file is too big
   - HTTP Status: 412 - The file should be uploaded in full.
 
-## Revisions
+### Revisions
 
-### Retrieving Revisions' Information
+#### Retrieving Revisions' Information
 
 This call returns the organization information for the requested Organization.
 
@@ -842,10 +842,10 @@ This call returns the organization information for the requested Organization.
 >       "revision_number": 1
 >     }
 
-### Arguments
+#### Arguments
 The :organization_name, :project, :folder_path, :file_name and :revisions are required in the call URL.
 
-### Returns
+#### Returns
 
 Returns a JSON object containing:
 
@@ -858,7 +858,7 @@ Returns a JSON object containing:
   - ```deleted_at``` - The deletion date for the Folders
   - ```revision_number``` - The revision number of the File
 
-### Retrieving Revision's Revision History
+#### Retrieving Revision's Revision History
 
 This call returns the organization information for the requested Organization.
 
@@ -893,10 +893,10 @@ This call returns the organization information for the requested Organization.
 >       }
 >     ]
 
-### Arguments
+#### Arguments
 The :organization_name, :project, :folder_path, :file_name and :revisions are required in the call URL.
 
-### Returns
+#### Returns
 
 Returns a JSON array containing objects with the following attributes:
 
@@ -909,7 +909,7 @@ Returns a JSON array containing objects with the following attributes:
   - ```deleted_at``` - The deletion date for the Folders
   - ```revision_number``` - The revision number of the File
 
-### Retrieving Revision's Meta Information
+#### Retrieving Revision's Meta Information
 
 This call returns the organization information for the requested Organization.
 
@@ -927,14 +927,14 @@ This call returns the organization information for the requested Organization.
 >       "key": "value"
 >     }
 
-### Arguments
+#### Arguments
 The :organization_name, :project, :folder_path, :file_name and :revisions are required in the call URL.
 
-### Returns
+#### Returns
 
 Returns a JSON object containing any Meta information that was set for the revision.
 
-### Retrieving Revision's Previews Information
+#### Retrieving Revision's Previews Information
 
 This call returns the organization information for the requested Organization.
 
@@ -950,9 +950,9 @@ This call returns the organization information for the requested Organization.
 >
 >     []
 
-### Arguments
+#### Arguments
 The :organization_name, :project, :folder_path, :file_name and :revisions are required in the call URL.
 
-### Returns
+#### Returns
 
 Returns a JSON array containing a list of preview image URLs.
