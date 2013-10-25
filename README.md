@@ -55,13 +55,13 @@ All API requests are required to be authenticated via an oAuth 2 access token. I
 Which will return an Access token response like this one:
 
 ```json
-    {
-      "access_token":"aec9c670cf5e673bfedf83d055d2a2e0e5f37e52d3b41cffcf7874f73a7458bf",
-      "token_type":"bearer",
-      "expires_in":7200,
-      "refresh_token":"afe9c670cf5e673bfedf83d055d2a2e0e5f37e52d3b41cffcf7874f73a7458bf",
-      "scope":"user"
-    }
+{
+  "access_token":"aec9c670cf5e673bfedf83d055d2a2e0e5f37e52d3b41cffcf7874f73a7458bf",
+  "token_type":"bearer",
+  "expires_in":7200,
+  "refresh_token":"afe9c670cf5e673bfedf83d055d2a2e0e5f37e52d3b41cffcf7874f73a7458bf",
+  "scope":"user"
+}
 ```
 
 ### Configuring A Web Application as a LayerVault API client
