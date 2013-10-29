@@ -11,7 +11,7 @@ The LayerVault API provides a simple HTTP based REST based mechanism for interac
 0. Try the example Access Token request below.
 
 ### API Endpoint
-https://layervault.com/api/v1
+https://api.layervault.com/api/v1
 
 ### Summary of Resource URL Patterns
 
@@ -44,7 +44,7 @@ https://layervault.com/api/v1
 All API requests are required to be authenticated via an oAuth 2 access token. It's easy to request a token via the command line to get a feel for how things work:
 
 ```shell
-    curl -i https://layervault.com/oauth/token \
+    curl -i https://api.layervault.com/oauth/token \
     -F grant_type="password" \
     -F username="<your layervault username>" \
     -F password="<your layervault password>" \
@@ -68,7 +68,7 @@ Which will return an Access token response like this one:
 
 First of all, make sure that your redirect URI is correctly specified under your Application settings under your Layervault Account settings.
 
-Then, when configuring your oAuth 2 client library, tell it to use ```https://layervault.com/oauth/authorize``` to request authorization and ```https://layervault.com/oauth/token``` to get access tokens. Most libraries will default to this convention anyway.
+Then, when configuring your oAuth 2 client library, tell it to use ```https://api.layervault.com/oauth/authorize``` to request authorization and ```https://api.layervault.com/oauth/token``` to get access tokens. Most libraries will default to this convention anyway.
 
 If you're building a Rails application and using OmniAuth, we have a pre-baked Authentication Strategy for you [here](https://github.com/layervault/omniauth-layervault).
 
@@ -81,7 +81,7 @@ The LayerVault API implements Refresh Tokens, allowing you to request a new acce
 Once you have your access token, making some API calls from the command line is also easy:
 
 ```shell
-curl -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/me'
+curl -H 'Authorization: Bearer <your access token>' 'https://api.layervault.com/api/v1/me'
 ```
 
 ## Versioning
@@ -115,7 +115,7 @@ This call returns a set of KeyPairs for future uploading of files.
 
  Example Request
 
-    $ curl -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/keypair'
+    $ curl -H 'Authorization: Bearer <your access token>' 'https://api.layervault.com/api/v1/keypair'
 
  Example Response
 
@@ -150,7 +150,7 @@ This call returns the user information for which the Client is acting on behalf 
 
  Example Request
 
-    $ curl -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/me'
+    $ curl -H 'Authorization: Bearer <your access token>' 'https://api.layervault.com/api/v1/me'
 
  Example Response
 
@@ -175,7 +175,7 @@ This call returns the user information for which the Client is acting on behalf 
       "name": "Acme Co",
       "deleted_at": "3013-01-01T00:00:00Z",
       "updated_at": "2013-10-25T22:52:44Z",
-      "full_url": "https://layervault.com/acme-co",
+      "full_url": "https://api.layervault.com/acme-co",
       "projects": [
         {
           "name": "Folder",
@@ -215,7 +215,7 @@ This call returns the organization information for the requested Organization.
 
  Example Request
 
-    $ curl -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervault'
+    $ curl -H 'Authorization: Bearer <your access token>' 'https://api.layervault.com/api/v1/layervault'
 
  Example Response
 
@@ -224,7 +224,7 @@ This call returns the organization information for the requested Organization.
   "name":"LayerVault",
   "deleted_at":"3013-02-26T16:53:38Z",
   "updated_at":"2013-10-22T00:11:57Z",
-  "full_url":"https://layervault.com/layervault",
+  "full_url":"https://api.layervault.com/layervault",
   "projects":[{"name":"api-playground","deleted_at":"3013-01-01T00:00:00Z","updated_at":"2013-10-21T19:05:40Z","color":null}]
 }
 ```
@@ -255,13 +255,13 @@ Returns the project information, including files and folders.
 
  Example Request
 
-    $ curl -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervault/Designer%20News'
+    $ curl -H 'Authorization: Bearer <your access token>' 'https://api.layervault.com/api/v1/layervault/Designer%20News'
 
  Example Response
 
 ```json
 {
-   "full_url": "https://layervault.com/layervault/Designer%20News",
+   "full_url": "https://api.layervault.com/layervault/Designer%20News",
    "local_path": "~/LayerVault/Designer News",
    "md5": null,
    "organization_permalink": "layervault",
@@ -274,8 +274,8 @@ Returns the project information, including files and folders.
    "files": [
        {
            "deleted_at": null,
-           "download_url": "https://layervault.com/files/download_node/QRuna998DR",
-           "full_url": "https://layervault.com/layervault/Designer%20News/Front%20Page.psd",
+           "download_url": "https://api.layervault.com/files/download_node/QRuna998DR",
+           "full_url": "https://api.layervault.com/layervault/Designer%20News/Front%20Page.psd",
            "local_path": "~/LayerVault/Designer News/Front Page.psd",
            "md5": "233b66b5501c71e09474ba1dac6ea91b",
            "modified_at": "2013-08-21T13:06:15Z",
@@ -292,8 +292,8 @@ Returns the project information, including files and folders.
            "files": [
                {
                    "deleted_at": null,
-                   "download_url": "https://layervault.com/files/download_node/V7x1XZnMTV",
-                   "full_url": "https://layervault.com/layervault/Designer%20News/Illustrations/PageBreaks.ai",
+                   "download_url": "https://api.layervault.com/files/download_node/V7x1XZnMTV",
+                   "full_url": "https://api.layervault.com/layervault/Designer%20News/Illustrations/PageBreaks.ai",
                    "local_path": "~/LayerVault/Designer News/Illustrations/PageBreaks.ai",
                    "md5": "b1c0ee28cd5e91fe36fa55e37467edb3",
                    "modified_at": "2013-10-05T00:22:31Z",
@@ -301,8 +301,8 @@ Returns the project information, including files and folders.
                    "revisions": [
                        {
                            "created_at": "2013-10-05T00:09:16Z",
-                           "download_url": "https://layervault.com/files/download_node/d3G8PLyj0Z",
-                           "full_url": "https://layervault.com/layervault/Designer%20News/Illustrations/PageBreaks.ai/1",
+                           "download_url": "https://api.layervault.com/files/download_node/d3G8PLyj0Z",
+                           "full_url": "https://api.layervault.com/layervault/Designer%20News/Illustrations/PageBreaks.ai/1",
                            "md5": "e309c39f50f6ad7469beb52bbdae11d0",
                            "revision_number": 1,
                            "shortened_url": "http://lyrv.lt/d3G8PLyj0Z",
@@ -316,7 +316,7 @@ Returns the project information, including files and folders.
                ...
            ],
            "folders": [],
-           "full_url": "https://layervault.com/layervault/Designer%20News/Illustrations",
+           "full_url": "https://api.layervault.com/layervault/Designer%20News/Illustrations",
            "local_path": "~/LayerVault/Designer News/Illustrations",
            "md5": null,
            "organization_permalink": null,
@@ -359,7 +359,7 @@ Creates a Project under the referenced Organization.
 
  Example Request
 
-    $ curl -X POST -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervault/Test'
+    $ curl -X POST -H 'Authorization: Bearer <your access token>' 'https://api.layervault.com/api/v1/layervault/Test'
 
  Example Response
 
@@ -371,7 +371,7 @@ Creates a Project under the referenced Organization.
   "updated_at":"2013-10-21T19:05:09Z",
   "deleted_at":null,
   "md5":null,
-  "full_url":"https://layervault.com/layervault/Test",
+  "full_url":"https://api.layervault.com/layervault/Test",
   "shortened_url":"http://lyrv.lt/ITtsnR2Gd0",
   "organization_permalink":"layervault",
   "folders":[],
@@ -410,7 +410,7 @@ Deletes a Project folder. Returns an HTTP 200 on success.
 
  Example Request
 
-    $ curl -X DELETE -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervault/Test'
+    $ curl -X DELETE -H 'Authorization: Bearer <your access token>' 'https://api.layervault.com/api/v1/layervault/Test'
 
  Example Response
 
@@ -433,7 +433,7 @@ Moves a project to a new location within the referenced Organization.
 
  Example Request
 
-    $ curl -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervault/test/move'
+    $ curl -H 'Authorization: Bearer <your access token>' 'https://api.layervault.com/api/v1/layervault/test/move'
 
  Example Response
 
@@ -445,7 +445,7 @@ Moves a project to a new location within the referenced Organization.
   "updated_at": "2013-10-21T19:05:32Z",
   "deleted_at": null,
   "md5": null,
-  "full_url": "https://layervault.com/layervault/api-playground/VictimMove",
+  "full_url": "https://api.layervault.com/layervault/api-playground/VictimMove",
   "shortened_url": "http://lyrv.lt/VPqZQNopEu",
   "organization_permalink": null,
   "folders": [],
@@ -483,7 +483,7 @@ Changes the color of the Project color as it appears in the LayerVault web Appli
 
  Example Request
 
-    $ curl -X PUT -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervault/Test'
+    $ curl -X PUT -H 'Authorization: Bearer <your access token>' 'https://api.layervault.com/api/v1/layervault/Test'
 
  Example Response
 
@@ -492,7 +492,7 @@ Changes the color of the Project color as it appears in the LayerVault web Appli
   "name":"LayerVault",
   "deleted_at":"3013-02-26T16:53:38Z",
   "updated_at":"2013-10-22T00:11:57Z",
-  "full_url":"https://layervault.com/layervault",
+  "full_url":"https://api.layervault.com/layervault",
   "projects":[{"name":"api-playground","deleted_at":"3013-01-01T00:00:00Z","updated_at":"2013-10-21T19:05:40Z","color":null}]
 }
 ```
@@ -516,7 +516,7 @@ This call returns the organization information for the requested Organization.
 
  Example Request
 
-    $ curl -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervault/Test/Illustrations'
+    $ curl -H 'Authorization: Bearer <your access token>' 'https://api.layervault.com/api/v1/layervault/Test/Illustrations'
 
  Example Response
 
@@ -528,7 +528,7 @@ This call returns the organization information for the requested Organization.
   "updated_at": "2013-10-21T19:05:39Z",
   "deleted_at": null,
   "md5": null,
-  "full_url": "https://layervault.com/layervault/test/Illustrations",
+  "full_url": "https://api.layervault.com/layervault/test/Illustrations",
   "shortened_url": "http://lyrv.lt/K75jvYYhXK",
   "organization_permalink": null,
   "folders": [],
@@ -564,7 +564,7 @@ Creates a Folder at the given Folder path under the referenced Organization. Fol
 
  Example Request
 
-    $ curl -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervault/Test/Illustrations'
+    $ curl -H 'Authorization: Bearer <your access token>' 'https://api.layervault.com/api/v1/layervault/Test/Illustrations'
 
  Example Response
 
@@ -576,7 +576,7 @@ Creates a Folder at the given Folder path under the referenced Organization. Fol
   "updated_at":"2013-10-21T19:05:09Z",
   "deleted_at":null,
   "md5":null,
-  "full_url":"https://layervault.com/layervault/Test/Illustrations",
+  "full_url":"https://api.layervault.com/layervault/Test/Illustrations",
   "shortened_url":"http://lyrv.lt/ITtsnR2Gd0",
   "organization_permalink":"layervault",
   "folders":[],
@@ -615,7 +615,7 @@ Deletes the requested folder under the references Organization.
 
  Example Request
 
-    $ curl -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervault/Test/Illustrations'
+    $ curl -H 'Authorization: Bearer <your access token>' 'https://api.layervault.com/api/v1/layervault/Test/Illustrations'
 
  Example Response
 
@@ -638,7 +638,7 @@ Moves a folder to a new specified location under the referenced Organization
 
  Example Request
 
-    $ curl -X POST -d 'to=/NewTest/NewIllustrations' -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervault/Test/Illustrations/move'
+    $ curl -X POST -d 'to=/NewTest/NewIllustrations' -H 'Authorization: Bearer <your access token>' 'https://api.layervault.com/api/v1/layervault/Test/Illustrations/move'
 
  Example Response
 
@@ -650,7 +650,7 @@ Moves a folder to a new specified location under the referenced Organization
   "updated_at": "2013-10-21T19:05:32Z",
   "deleted_at": null,
   "md5": null,
-  "full_url": "https://layervault.com/layervault/api-playground/VictimMove",
+  "full_url": "https://api.layervault.com/layervault/api-playground/VictimMove",
   "shortened_url": "http://lyrv.lt/VPqZQNopEu",
   "organization_permalink": null,
   "folders": [],
@@ -686,7 +686,7 @@ This call returns the organization information for the requested Organization.
 
  Example Request
 
-    $ curl -X PUT -d "color=000000" -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervault/Test/Illustrations'
+    $ curl -X PUT -d "color=000000" -H 'Authorization: Bearer <your access token>' 'https://api.layervault.com/api/v1/layervault/Test/Illustrations'
 
  Example Response
 
@@ -711,14 +711,14 @@ Returns a referenced File's information.
 
  Example Request
 
-    $ curl -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervault/Test/Illustrations/NewLogo.psd'
+    $ curl -H 'Authorization: Bearer <your access token>' 'https://api.layervault.com/api/v1/layervault/Test/Illustrations/NewLogo.psd'
 
  Example Response
 
 ```json
 {
-  "download_url": "https://layervault.com/files/download_node/2YDJVhvxLV",
-  "full_url": "https://layervault.com/layervault/Test/Illustrations/NewLogo.psd/1",
+  "download_url": "https://api.layervault.com/files/download_node/2YDJVhvxLV",
+  "full_url": "https://api.layervault.com/layervault/Test/Illustrations/NewLogo.psd/1",
   "md5": "837b0a406b101620a3d2b33867d66560",
   "updated_at": "2013-10-21T19:05:23Z",
   "created_at": "2013-10-21T19:05:23Z",
@@ -753,14 +753,14 @@ Creates a File under the referenced folder path and organization.
 
  Example Request
 
-    $ curl -X PUT -d 'md5=837b0a406b101620a3d2b33867d66560&remote_url=http://url/to/remote/file' -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervault/Test/Illustrations/NewFile.psd'
+    $ curl -X PUT -d 'md5=837b0a406b101620a3d2b33867d66560&remote_url=http://url/to/remote/file' -H 'Authorization: Bearer <your access token>' 'https://api.layervault.com/api/v1/layervault/Test/Illustrations/NewFile.psd'
 
  Example Response
 
 ```json
 {
-  "download_url": "https://layervault.com/files/download_node/2YDJVhvxLV",
-  "full_url": "https://layervault.com/layervault/Test/Illustrations/NewLogo.psd/1",
+  "download_url": "https://api.layervault.com/files/download_node/2YDJVhvxLV",
+  "full_url": "https://api.layervault.com/layervault/Test/Illustrations/NewLogo.psd/1",
   "md5": "837b0a406b101620a3d2b33867d66560",
   "updated_at": "2013-10-21T19:05:23Z",
   "created_at": "2013-10-21T19:05:23Z",
@@ -798,7 +798,7 @@ Deletes a referenced File.
 
  Example Request
 
-    $ curl -X DELETE -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervault/Test/Illustrations/NewFile.psd'
+    $ curl -X DELETE -H 'Authorization: Bearer <your access token>' 'https://api.layervault.com/api/v1/layervault/Test/Illustrations/NewFile.psd'
 
  Example Response
 
@@ -821,7 +821,7 @@ Moves a File to a new Folder and optionally a new Filename under a referenced Or
 
  Example Request
 
-    $ curl -X POST -D 'new_folder=/this/is/the/new/folder&new_filename=bert.psd' -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervault/Test/Illustrations/Test.psd'
+    $ curl -X POST -D 'new_folder=/this/is/the/new/folder&new_filename=bert.psd' -H 'Authorization: Bearer <your access token>' 'https://api.layervault.com/api/v1/layervault/Test/Illustrations/Test.psd'
 
  Example Response
 
@@ -852,7 +852,7 @@ Indicates whether a file needs to be uploaded in full because the server doesn't
 
  Example Request
 
-    $ curl -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervault/Test/Illustrations/Test.psd/sync_check'
+    $ curl -H 'Authorization: Bearer <your access token>' 'https://api.layervault.com/api/v1/layervault/Test/Illustrations/Test.psd/sync_check'
 
  Example Response
 
@@ -861,7 +861,7 @@ Indicates whether a file needs to be uploaded in full because the server doesn't
   "name":"LayerVault",
   "deleted_at":"3013-02-26T16:53:38Z",
   "updated_at":"2013-10-22T00:11:57Z",
-  "full_url":"https://layervault.com/layervault",
+  "full_url":"https://api.layervault.com/layervault",
   "projects":[{"name":"api-playground","deleted_at":"3013-01-01T00:00:00Z","updated_at":"2013-10-21T19:05:40Z","color":null}]
 }
 ```
@@ -891,14 +891,14 @@ This call returns the organization information for the requested Organization.
 
  Example Request
 
-    $ curl -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervault/Test/Illustrations/NewFile.psd/1'
+    $ curl -H 'Authorization: Bearer <your access token>' 'https://api.layervault.com/api/v1/layervault/Test/Illustrations/NewFile.psd/1'
 
  Example Response
 
 ```json
 {
-  "download_url": "https://layervault.com/files/download_node/DwoRKvzbEj",
-  "full_url": "https://layervault.com/layervault/api-playground/Test.psd/1",
+  "download_url": "https://api.layervault.com/files/download_node/DwoRKvzbEj",
+  "full_url": "https://api.layervault.com/layervault/api-playground/Test.psd/1",
   "md5": "e388875b2d81f6798dd187d1c047a50c",
   "updated_at": "2013-10-21T19:05:24Z",
   "created_at": "2013-10-21T19:05:24Z",
@@ -933,15 +933,15 @@ This call returns the organization information for the requested Organization.
 
  Example Request
 
-    $ curl -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervaultTest/Illustrations/NewFile.psd/1/revisions'
+    $ curl -H 'Authorization: Bearer <your access token>' 'https://api.layervault.com/api/v1/layervaultTest/Illustrations/NewFile.psd/1/revisions'
 
  Example Response
 
 ```json
 [
   {
-    "download_url": "https://layervault.com/files/download_node/vKUNqi6jFi",
-    "full_url": "https://layervault.com/layervault/api-playground/Test.psd/2",
+    "download_url": "https://api.layervault.com/files/download_node/vKUNqi6jFi",
+    "full_url": "https://api.layervault.com/layervault/api-playground/Test.psd/2",
     "md5": "65ef424c001b078516d953f1e4a66450",
     "updated_at": "2013-10-21T19:05:25Z",
     "created_at": "2013-10-21T19:05:25Z",
@@ -949,8 +949,8 @@ This call returns the organization information for the requested Organization.
     "revision_number": 2
   },
   {
-    "download_url": "https://layervault.com/files/download_node/udMqnVagH6",
-    "full_url": "https://layervault.com/layervault/api-playground/Test.psd/3",
+    "download_url": "https://api.layervault.com/files/download_node/udMqnVagH6",
+    "full_url": "https://api.layervault.com/layervault/api-playground/Test.psd/3",
     "md5": "4edea58eacd8c9334e4df173dad72d69",
     "updated_at": "2013-10-21T19:05:27Z",
     "created_at": "2013-10-21T19:05:27Z",
@@ -986,7 +986,7 @@ This call returns the organization information for the requested Organization.
 
  Example Request
 
-    $ curl -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervault/Test/Illustrations/NewFile.psd/1/meta'
+    $ curl -H 'Authorization: Bearer <your access token>' 'https://api.layervault.com/api/v1/layervault/Test/Illustrations/NewFile.psd/1/meta'
 
  Example Response
 
@@ -1013,7 +1013,7 @@ This call returns the organization information for the requested Organization.
 
  Example Request
 
-    $ curl -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervaultTest/Illustrations/NewFile.psd/1/previews'
+    $ curl -H 'Authorization: Bearer <your access token>' 'https://api.layervault.com/api/v1/layervaultTest/Illustrations/NewFile.psd/1/previews'
 
  Example Response
 
