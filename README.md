@@ -708,9 +708,9 @@ Returns a JSON object containing:
   - ```deleted_at``` - The deletion date for the Folders
   - ```revision_number``` - The revision number of the File
 
-#### Creating a File
+#### Creating and Uploading a File
 
-Creates a File under the referenced folder path and organization.
+Creates a File under the referenced folder path and organization. Returns a JSON payload containing the necessary S3 upload parameters to make an file upload directly to the LayerVault servers.
 
  Definition
 
@@ -718,25 +718,24 @@ Creates a File under the referenced folder path and organization.
 
  Example Request
 
-    $ curl -X PUT -d 'md5=837b0a406b101620a3d2b33867d66560&remote_url=http://url/to/remote/file' -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervault/Test/Illustrations/NewFile.psd'
+    $ curl -X PUT -d 'md5=837b0a406b101620a3d2b33867d66560' -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervault/Test/Illustrations/NewFile.psd'
 
  Example Response
 
 ```json
 {
-  "download_url": "https://layervault.com/files/download_node/2YDJVhvxLV",
-  "full_url": "https://layervault.com/layervault/Test/Illustrations/NewLogo.psd/1",
-  "md5": "837b0a406b101620a3d2b33867d66560",
-  "updated_at": "2013-10-21T19:05:23Z",
-  "created_at": "2013-10-21T19:05:23Z",
-  "shortened_url": "http://lyrv.lt/2YDJVhvxLV",
-  "revision_number": 1
+  "key": "8021/1383269620.4031708/dhh.jpg",
+  "acl": "private",
+  "policy": "eyJleHBpcmF0aW9uIjoiMjAxMy0xMS0wMVQwMjozMzo0MC4wMDBaIiwiY29uZGl0aW9ucyI6W3siYnVja2V0Ijoib21uaXZvcmUtc2NyYXRjaCJ9LFsic3RhcnRzLXdpdGgiLCIka2V5IiwiIl0sWyJzdGFydHMtd2l0aCIsIiRDb250ZW50LVR5cGUiLCJpbWFnZS8iXSx7ImFjbCI6InByaXZhdGUifSx7InN1Y2Nlc3NfYWN0aW9uX3N0YXR1cyI6IjIwMCJ9LHsic3VjY2Vzc19hY3Rpb25fcmVkaXJlY3QiOiJodHRwczovL2xheWVydmF1bHQuY29tL2FwaS92MS9sYXllcnZhdWx0LXRlc3QvYXBpLXBsYXlncm91bmQvZm9sZGVyL2RoaC5qcGcvdXBsb2FkX2NvbXBsZXRlP21kNT1jNDgyZjZkYjg2OGEyMzNjMTRmZjAzYmVlMzRhNmE5NyZyZW1vdGVfdXJsPWh0dHBzOi8vczMuYW1hem9uYXdzLmNvbS9vbW5pdm9yZS1zY3JhdGNoLzgwMjEvMTM4MzI2OTYyMC40MDMxNzA4L2RoaC5qcGcifSxbImNvbnRlbnQtbGVuZ3RoLXJhbmdlIiwwLDEwNDg1NzYwMDBdXX0=",
+  "signature": "IRGVgXgKclStT/uJvTI4zyF8NYI=",
+  "success_action_status": 200,
+  "success_action_redirect": "https://layervault.com/api/v1/layervault-test/api-playground/folder/dhh.jpg/upload_complete?md5=c482f6db868a233c14ff03bee34a6a97&remote_url=https://s3.amazonaws.com/omnivore-scratch/8021/1383269620.4031708/dhh.jpg",
+  "AWSAccessKeyId": "19YE8S0YFVC4DNK2EFG2"
 }
 ```
 
-
 #### Arguments
-The :organization_name, :project, :folder_path and :file_name are required in the call URL.
+The :organization_name, :project, :folder_path and :file_name are required in the call URL. The PUT Parameter ```md5``` should be included which represents the MD5 digest hash of the contents of the file you wish to upload.
 
 #### Returns
 
@@ -744,14 +743,21 @@ The :organization_name, :project, :folder_path and :file_name are required in th
 
 Returns a JSON object containing:
 
-  - ```full_url``` - The absolute URL to the File
-  - ```download_url``` - The absolute URL to download a copy of the File
-  - ```local_path``` - The local path on the user's filesystem
-  - ```md5``` - The MD5 hash of the File
-  - ```shortened_url``` - The shortened URL for the Folder
-  - ```updated_at``` - The updated at date for the Folders
-  - ```deleted_at``` - The deletion date for the Folders
-  - ```revision_number``` - The revision number of the File
+  - ```key``` - The S3 key of the file upload.
+  - ```acl``` - The S3 ACL
+  - ```policy``` - The encoded S3 Policy
+  - ```signature``` - The HMAC signature for the S3 policy
+  - ```success_action_status``` - The HTTP status code for the success redirect
+  - ```success_action_redirect``` - The success redirect URL
+  - ```AWSAccessKeyId``` - The S3 Access Key for LayerVault.
+
+DO NOT ALTER ANY OF THESE PARAMETERS. If you do, the upload will fail.
+
+Once you have all of these parameters, include a parameter for "Content-Type" which matches the Content Type of the file you are trying to upload. Finally, include a ```file``` parameter that is a binary multi-part representation of your file you wish to upload, and make a ```POST``` request with all of these parameters to ```https://omnivore-scratch.s3.amazonaws.com```.
+
+NB: Make sure the ```file``` parameter is the last in the above list of parameters - S3 ignores ```POST``` fields that come after the ```file``` parameter.
+
+Upon success, you will receive a response from Amazon S3 with a ```Location``` header with a URL to which you should make a POST request verbatim, with the inclusion of your access token to the query string. Once that call completes, your file will be processed and ready for display on LayerVault at the location you specified.
 
 #### Deleting a File
 
