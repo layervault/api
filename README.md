@@ -11,12 +11,11 @@ The LayerVault API provides a simple HTTP based REST based mechanism for interac
 0. Try the example Access Token request below.
 
 ### API Endpoint
-https://layervault.com/api/v1
+https://api.layervault.com/api/v1
 
 ### Summary of Resource URL Patterns
 
     /v1/me
-    /v1/keypair(.:format)
     /v1/:organization_name
     /v1/:organization_name/:project
     /v1/:organization_name/:project/move
@@ -44,7 +43,7 @@ https://layervault.com/api/v1
 All API requests are required to be authenticated via an oAuth 2 access token. It's easy to request a token via the command line to get a feel for how things work:
 
 ```shell
-    curl -i https://layervault.com/oauth/token \
+    curl -i https://api.layervault.com/oauth/token \
     -F grant_type="password" \
     -F username="<your layervault username>" \
     -F password="<your layervault password>" \
@@ -68,7 +67,7 @@ Which will return an Access token response like this one:
 
 First of all, make sure that your redirect URI is correctly specified under your Application settings under your Layervault Account settings.
 
-Then, when configuring your oAuth 2 client library, tell it to use ```https://layervault.com/oauth/authorize``` to request authorization and ```https://layervault.com/oauth/token``` to get access tokens. Most libraries will default to this convention anyway.
+Then, when configuring your oAuth 2 client library, tell it to use ```https://api.layervault.com/oauth/authorize``` to request authorization and ```https://api.layervault.com/oauth/token``` to get access tokens. Most libraries will default to this convention anyway.
 
 If you're building a Rails application and using OmniAuth, we have a pre-baked Authentication Strategy for you [here](https://github.com/layervault/omniauth-layervault).
 
@@ -81,7 +80,7 @@ The LayerVault API implements Refresh Tokens, allowing you to request a new acce
 Once you have your access token, making some API calls from the command line is also easy:
 
 ```shell
-curl -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/me'
+curl -H 'Authorization: Bearer <your access token>' 'https://api.layervault.com/api/v1/me'
 ```
 
 ## Versioning
@@ -115,7 +114,7 @@ This call returns the user information for which the Client is acting on behalf 
 
  Example Request
 
-    $ curl -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/me'
+    $ curl -H 'Authorization: Bearer <your access token>' 'https://api.layervault.com/api/v1/me'
 
  Example Response
 
@@ -180,7 +179,7 @@ This call returns the organization information for the requested Organization.
 
  Example Request
 
-    $ curl -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervault'
+    $ curl -H 'Authorization: Bearer <your access token>' 'https://api.layervault.com/api/v1/layervault'
 
  Example Response
 
@@ -220,7 +219,7 @@ Returns the project information, including files and folders.
 
  Example Request
 
-    $ curl -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervault/Designer%20News'
+    $ curl -H 'Authorization: Bearer <your access token>' 'https://api.layervault.com/api/v1/layervault/Designer%20News'
 
  Example Response
 
@@ -324,7 +323,7 @@ Creates a Project under the referenced Organization.
 
  Example Request
 
-    $ curl -X POST -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervault/Test'
+    $ curl -X POST -H 'Authorization: Bearer <your access token>' 'https://api.layervault.com/api/v1/layervault/Test'
 
  Example Response
 
@@ -375,7 +374,7 @@ Deletes a Project folder. Returns an HTTP 200 on success.
 
  Example Request
 
-    $ curl -X DELETE -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervault/Test'
+    $ curl -X DELETE -H 'Authorization: Bearer <your access token>' 'https://api.layervault.com/api/v1/layervault/Test'
 
  Example Response
 
@@ -398,7 +397,7 @@ Moves a project to a new location within the referenced Organization.
 
  Example Request
 
-    $ curl -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervault/test/move'
+    $ curl -H 'Authorization: Bearer <your access token>' 'https://api.layervault.com/api/v1/layervault/test/move'
 
  Example Response
 
@@ -448,7 +447,7 @@ Changes the color of the Project color as it appears in the LayerVault web Appli
 
  Example Request
 
-    $ curl -X PUT -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervault/Test'
+    $ curl -X PUT -H 'Authorization: Bearer <your access token>' 'https://api.layervault.com/api/v1/layervault/Test'
 
  Example Response
 
@@ -481,7 +480,7 @@ This call returns the organization information for the requested Organization.
 
  Example Request
 
-    $ curl -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervault/Test/Illustrations'
+    $ curl -H 'Authorization: Bearer <your access token>' 'https://api.layervault.com/api/v1/layervault/Test/Illustrations'
 
  Example Response
 
@@ -529,7 +528,7 @@ Creates a Folder at the given Folder path under the referenced Organization. Fol
 
  Example Request
 
-    $ curl -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervault/Test/Illustrations'
+    $ curl -H 'Authorization: Bearer <your access token>' 'https://api.layervault.com/api/v1/layervault/Test/Illustrations'
 
  Example Response
 
@@ -580,7 +579,7 @@ Deletes the requested folder under the references Organization.
 
  Example Request
 
-    $ curl -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervault/Test/Illustrations'
+    $ curl -H 'Authorization: Bearer <your access token>' 'https://api.layervault.com/api/v1/layervault/Test/Illustrations'
 
  Example Response
 
@@ -603,7 +602,7 @@ Moves a folder to a new specified location under the referenced Organization
 
  Example Request
 
-    $ curl -X POST -d 'to=/NewTest/NewIllustrations' -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervault/Test/Illustrations/move'
+    $ curl -X POST -d 'to=/NewTest/NewIllustrations' -H 'Authorization: Bearer <your access token>' 'https://api.layervault.com/api/v1/layervault/Test/Illustrations/move'
 
  Example Response
 
@@ -651,7 +650,7 @@ This call returns the organization information for the requested Organization.
 
  Example Request
 
-    $ curl -X PUT -d "color=000000" -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervault/Test/Illustrations'
+    $ curl -X PUT -d "color=000000" -H 'Authorization: Bearer <your access token>' 'https://api.layervault.com/api/v1/layervault/Test/Illustrations'
 
  Example Response
 
@@ -676,7 +675,7 @@ Returns a referenced File's information.
 
  Example Request
 
-    $ curl -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervault/Test/Illustrations/NewLogo.psd'
+    $ curl -H 'Authorization: Bearer <your access token>' 'https://api.layervault.com/api/v1/layervault/Test/Illustrations/NewLogo.psd'
 
  Example Response
 
@@ -718,7 +717,11 @@ Creates a File under the referenced folder path and organization. Returns a JSON
 
  Example Request
 
+<<<<<<< HEAD
     $ curl -X PUT -d 'md5=837b0a406b101620a3d2b33867d66560' -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervault/Test/Illustrations/NewFile.psd'
+=======
+    $ curl -X PUT -d 'md5=837b0a406b101620a3d2b33867d66560&remote_url=http://url/to/remote/file' -H 'Authorization: Bearer <your access token>' 'https://api.layervault.com/api/v1/layervault/Test/Illustrations/NewFile.psd'
+>>>>>>> f92064ce6aac5d92447926f2fdbbfd0e4833b7c6
 
  Example Response
 
@@ -769,7 +772,7 @@ Deletes a referenced File.
 
  Example Request
 
-    $ curl -X DELETE -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervault/Test/Illustrations/NewFile.psd'
+    $ curl -X DELETE -H 'Authorization: Bearer <your access token>' 'https://api.layervault.com/api/v1/layervault/Test/Illustrations/NewFile.psd'
 
  Example Response
 
@@ -792,7 +795,7 @@ Moves a File to a new Folder and optionally a new Filename under a referenced Or
 
  Example Request
 
-    $ curl -X POST -D 'new_folder=/this/is/the/new/folder&new_filename=bert.psd' -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervault/Test/Illustrations/Test.psd'
+    $ curl -X POST -D 'new_folder=/this/is/the/new/folder&new_filename=bert.psd' -H 'Authorization: Bearer <your access token>' 'https://api.layervault.com/api/v1/layervault/Test/Illustrations/Test.psd'
 
  Example Response
 
@@ -823,7 +826,7 @@ Indicates whether a file needs to be uploaded in full because the server doesn't
 
  Example Request
 
-    $ curl -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervault/Test/Illustrations/Test.psd/sync_check'
+    $ curl -H 'Authorization: Bearer <your access token>' 'https://api.layervault.com/api/v1/layervault/Test/Illustrations/Test.psd/sync_check'
 
  Example Response
 
@@ -862,7 +865,7 @@ This call returns the organization information for the requested Organization.
 
  Example Request
 
-    $ curl -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervault/Test/Illustrations/NewFile.psd/1'
+    $ curl -H 'Authorization: Bearer <your access token>' 'https://api.layervault.com/api/v1/layervault/Test/Illustrations/NewFile.psd/1'
 
  Example Response
 
@@ -904,7 +907,7 @@ This call returns the organization information for the requested Organization.
 
  Example Request
 
-    $ curl -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervaultTest/Illustrations/NewFile.psd/1/revisions'
+    $ curl -H 'Authorization: Bearer <your access token>' 'https://api.layervault.com/api/v1/layervaultTest/Illustrations/NewFile.psd/1/revisions'
 
  Example Response
 
@@ -957,7 +960,7 @@ This call returns the organization information for the requested Organization.
 
  Example Request
 
-    $ curl -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervault/Test/Illustrations/NewFile.psd/1/meta'
+    $ curl -H 'Authorization: Bearer <your access token>' 'https://api.layervault.com/api/v1/layervault/Test/Illustrations/NewFile.psd/1/meta'
 
  Example Response
 
@@ -984,7 +987,7 @@ This call returns the organization information for the requested Organization.
 
  Example Request
 
-    $ curl -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervaultTest/Illustrations/NewFile.psd/1/previews'
+    $ curl -H 'Authorization: Bearer <your access token>' 'https://api.layervault.com/api/v1/layervaultTest/Illustrations/NewFile.psd/1/previews'
 
  Example Response
 
