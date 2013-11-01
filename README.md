@@ -103,41 +103,6 @@ The API currently limits the requests you can make against it hourly. We have pr
 
 ## Methods
 
-### Key Pairs
-
-#### Retrieving Key Pairs
-
-This call returns a set of KeyPairs for future uploading of files.
-
- Definition
-
-    GET /api/v1/keypair
-
- Example Request
-
-    $ curl -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/keypair'
-
- Example Response
-
-```json
-    {
-      "access_key_id": "AKIAIMLDM23CBAOOEXNQ",
-      "secret_access_key": "/fPHLA5505fwgvxc2gsbYd19HoEBZHpRoaj4U3G"
-    }
-```
-
-#### Arguments
-No arguments are required.
-
-#### Returns
-
-- HTTP Status: 200
-
-Returns a JSON object containing:
-
-  - ```access_key_id``` - The Access key ID
-  - ```secret_access_key``` - The Secret Access Key
-
 ### User Information
 
 #### Retrieving Organization Information
