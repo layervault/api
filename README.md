@@ -717,11 +717,7 @@ Creates a File under the referenced folder path and organization. Returns a JSON
 
  Example Request
 
-<<<<<<< HEAD
-    $ curl -X PUT -d 'md5=837b0a406b101620a3d2b33867d66560' -H 'Authorization: Bearer <your access token>' 'https://layervault.com/api/v1/layervault/Test/Illustrations/NewFile.psd'
-=======
-    $ curl -X PUT -d 'md5=837b0a406b101620a3d2b33867d66560&remote_url=http://url/to/remote/file' -H 'Authorization: Bearer <your access token>' 'https://api.layervault.com/api/v1/layervault/Test/Illustrations/NewFile.psd'
->>>>>>> f92064ce6aac5d92447926f2fdbbfd0e4833b7c6
+    $ curl -X PUT -d 'md5=837b0a406b101620a3d2b33867d66560' -H 'Authorization: Bearer <your access token>' 'https://api.layervault.com/api/v1/layervault/Test/Illustrations/NewFile.psd'
 
  Example Response
 
