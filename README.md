@@ -973,7 +973,10 @@ This call returns the organization information for the requested Organization.
 
  Example Request
 
-    $ curl -H 'Authorization: Bearer <your access token>' 'https://api.layervault.com/api/v1/layervaultTest/Illustrations/NewFile.psd/1/revisions'
+```shell
+$ curl -H 'Authorization: Bearer <your access token>' \
+    'https://api.layervault.com/api/v1/layervaultTest/Illustrations/NewFile.psd/1/revisions'
+``
 
  Example Response
 
