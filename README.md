@@ -499,7 +499,7 @@ The :organization_name and :project are required in the call URL. A PUT paramete
 
 #### Retrieving Folders's Information
 
-This call returns the organization information for the requested Organization.
+Returns the referenced Folder's information.
 
  Definition
 
@@ -683,7 +683,7 @@ Returns a JSON object containing:
 
 #### Changing a Folder's color
 
-This call returns the organization information for the requested Organization.
+Change a referenced Folder's color on LayerVault.com and the user's local file system.
 
 Definition
 
@@ -920,7 +920,7 @@ Returns a JSON object containing:
 
 #### Retrieving Revisions' Information
 
-This call returns the organization information for the requested Organization.
+Returns a referenced File Revision's information.
 
  Definition
 
@@ -965,7 +965,7 @@ Returns a JSON object containing:
 
 #### Retrieving Revision's Revision History
 
-This call returns the organization information for the requested Organization.
+Returns a referenced File Revisions Revision History.
 
  Definition
 
@@ -1021,7 +1021,7 @@ Returns a JSON array containing objects with the following attributes:
 
 #### Retrieving Revision's Meta Information
 
-This call returns the organization information for the requested Organization.
+Returns a referenced File Revisions Meta Information. This can be used for application relevant information.
 
  Definition
 
@@ -1051,7 +1051,7 @@ Returns a JSON object containing any Meta information that was set for the revis
 
 #### Retrieving Revision's Previews Information
 
-This call returns the organization information for the requested Organization.
+Returns a referenced File Revisions Preview image links.
 
  Definition
 
