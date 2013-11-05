@@ -41,12 +41,12 @@ https://api.layervault.com/api/v1
 All API requests are required to be authenticated via an oAuth 2 access token. It's easy to request a token via the command line to get a feel for how things work:
 
 ```shell
-    curl -i https://api.layervault.com/oauth/token \
-    -F grant_type="password" \
-    -F username="<your layervault username>" \
-    -F password="<your layervault password>" \
-    -F client_id="<client_id_goes_here>" \
-    -F client_secret="<client_secret_goes_here>"
+curl -i https://api.layervault.com/oauth/token \
+  -F grant_type="password" \
+  -F username="<your layervault username>" \
+  -F password="<your layervault password>" \
+  -F client_id="<client_id_goes_here>" \
+  -F client_secret="<client_secret_goes_here>"
 ```
 
 Which will return an Access token response like this one:
@@ -160,10 +160,10 @@ No arguments are required.
 
 Returns a JSON object containing:
 
-  - ```email``` - The email address of the user.
-  - ```first_name``` - The First name of the user.
-  - ```last_name``` - The Last name of the user.
-  - ```is_admin``` - Whether the user is an admin of the site or not.
+  - `email` - The email address of the user.
+  - `first_name` - The First name of the user.
+  - `last_name` - The Last name of the user.
+  - `is_admin` - Whether the user is an admin of the site or not.
 
 ### Organization
 
@@ -187,7 +187,14 @@ This call returns the organization information for the requested Organization.
   "deleted_at":"3013-02-26T16:53:38Z",
   "updated_at":"2013-10-22T00:11:57Z",
   "full_url":"https://layervault.com/layervault",
-  "projects":[{"name":"api-playground","deleted_at":"3013-01-01T00:00:00Z","updated_at":"2013-10-21T19:05:40Z","color":null}]
+  "projects": [
+    {
+      "name":"api-playground",
+      "deleted_at":"3013-01-01T00:00:00Z",
+      "updated_at":"2013-10-21T19:05:40Z",
+      "color":null
+    }
+  ]
 }
 ```
 
@@ -200,10 +207,10 @@ No arguments are required.
 
 Returns a JSON object containing:
 
-  - ```name``` - The full name of the Organization.
-  - ```deleted_at``` - The date the organization was deleted (Not deleted if ```3013-02-26T16:53:38Z```)
-  - ```full_url``` - The full URL to access the Organization.
-  - ```projects``` - An array of the projects that the user is able to see or are public for that Organization.
+  - `name` - The full name of the Organization.
+  - `deleted_at` - The date the organization was deleted (Not deleted if `3013-02-26T16:53:38Z`)
+  - `full_url` - The full URL to access the Organization.
+  - `projects` - An array of the projects that the user is able to see or are public for that Organization.
 
 ### Projects
 
@@ -223,71 +230,71 @@ Returns the project information, including files and folders.
 
 ```json
 {
-   "full_url": "https://layervault.com/layervault/Designer%20News",
-   "local_path": "~/LayerVault/Designer News",
-   "md5": null,
-   "organization_permalink": "layervault",
-   "path": "LayerVault/Designer News",
-   "shortened_url": "http://lyrv.lt/C1qWwoTZJR",
-   "tree_folder_id": 2522,
-   "updated_at": "2013-10-21T21:38:27Z"
-   "color": "red",
-   "deleted_at": null,
-   "files": [
-       {
-           "deleted_at": null,
-           "download_url": "https://layervault.com/files/download_node/QRuna998DR",
-           "full_url": "https://layervault.com/layervault/Designer%20News/Front%20Page.psd",
-           "local_path": "~/LayerVault/Designer News/Front Page.psd",
-           "md5": "233b66b5501c71e09474ba1dac6ea91b",
-           "modified_at": "2013-08-21T13:06:15Z",
-           "revision_number": 290,
-           "shortened_url": "http://lyrv.lt/WjB4T365vP",
-           "updated_at": "2013-09-10T16:28:29Z"
-       },
-       ...
-   ],
-   "folders": [
-       {
-           "color": null,
-           "deleted_at": null,
-           "files": [
-               {
-                   "deleted_at": null,
-                   "download_url": "https://layervault.com/files/download_node/V7x1XZnMTV",
-                   "full_url": "https://layervault.com/layervault/Designer%20News/Illustrations/PageBreaks.ai",
-                   "local_path": "~/LayerVault/Designer News/Illustrations/PageBreaks.ai",
-                   "md5": "b1c0ee28cd5e91fe36fa55e37467edb3",
-                   "modified_at": "2013-10-05T00:22:31Z",
-                   "revision_number": 10,
-                   "revisions": [
-                       {
-                           "created_at": "2013-10-05T00:09:16Z",
-                           "download_url": "https://layervault.com/files/download_node/d3G8PLyj0Z",
-                           "full_url": "https://layervault.com/layervault/Designer%20News/Illustrations/PageBreaks.ai/1",
-                           "md5": "e309c39f50f6ad7469beb52bbdae11d0",
-                           "revision_number": 1,
-                           "shortened_url": "http://lyrv.lt/d3G8PLyj0Z",
-                           "updated_at": "2013-10-18T18:40:12Z"
-                       },
-                       ...
-                   ],
-                   "shortened_url": "http://lyrv.lt/Jm3nbPXCc7",
-                   "updated_at": "2013-10-18T18:40:12Z"
-               },
-               ...
-           ],
-           "folders": [],
-           "full_url": "https://layervault.com/layervault/Designer%20News/Illustrations",
-           "local_path": "~/LayerVault/Designer News/Illustrations",
-           "md5": null,
-           "organization_permalink": null,
-           "path": "LayerVault/Designer News/Illustrations",
-           "shortened_url": "http://lyrv.lt/49N7NOomDO",
-           "updated_at": "2013-10-18T18:40:12Z"
-       },
-       ...
-   ]
+  "full_url": "https://layervault.com/layervault/Designer%20News",
+  "local_path": "~/LayerVault/Designer News",
+  "md5": null,
+  "organization_permalink": "layervault",
+  "path": "LayerVault/Designer News",
+  "shortened_url": "http://lyrv.lt/C1qWwoTZJR",
+  "tree_folder_id": 2522,
+  "updated_at": "2013-10-21T21:38:27Z"
+  "color": "red",
+  "deleted_at": null,
+  "files": [
+    {
+      "deleted_at": null,
+      "download_url": "https://layervault.com/files/download_node/QRuna998DR",
+      "full_url": "https://layervault.com/layervault/Designer%20News/Front%20Page.psd",
+      "local_path": "~/LayerVault/Designer News/Front Page.psd",
+      "md5": "233b66b5501c71e09474ba1dac6ea91b",
+      "modified_at": "2013-08-21T13:06:15Z",
+      "revision_number": 290,
+      "shortened_url": "http://lyrv.lt/WjB4T365vP",
+      "updated_at": "2013-09-10T16:28:29Z"
+    },
+    ...
+  ],
+  "folders": [
+    {
+       "color": null,
+       "deleted_at": null,
+       "files": [
+          {
+            "deleted_at": null,
+            "download_url": "https://layervault.com/files/download_node/V7x1XZnMTV",
+            "full_url": "https://layervault.com/layervault/Designer%20News/Illustrations/PageBreaks.ai",
+            "local_path": "~/LayerVault/Designer News/Illustrations/PageBreaks.ai",
+            "md5": "b1c0ee28cd5e91fe36fa55e37467edb3",
+            "modified_at": "2013-10-05T00:22:31Z",
+            "revision_number": 10,
+            "revisions": [
+              {
+                "created_at": "2013-10-05T00:09:16Z",
+                "download_url": "https://layervault.com/files/download_node/d3G8PLyj0Z",
+                "full_url": "https://layervault.com/layervault/Designer%20News/Illustrations/PageBreaks.ai/1",
+                "md5": "e309c39f50f6ad7469beb52bbdae11d0",
+                "revision_number": 1,
+                "shortened_url": "http://lyrv.lt/d3G8PLyj0Z",
+                "updated_at": "2013-10-18T18:40:12Z"
+              },
+              ...
+            ],
+            "shortened_url": "http://lyrv.lt/Jm3nbPXCc7",
+            "updated_at": "2013-10-18T18:40:12Z"
+          },
+          ...
+       ],
+       "folders": [],
+       "full_url": "https://layervault.com/layervault/Designer%20News/Illustrations",
+       "local_path": "~/LayerVault/Designer News/Illustrations",
+       "md5": null,
+       "organization_permalink": null,
+       "path": "LayerVault/Designer News/Illustrations",
+       "shortened_url": "http://lyrv.lt/49N7NOomDO",
+       "updated_at": "2013-10-18T18:40:12Z"
+    },
+    ...
+  ]
 }
 ```
 
@@ -300,16 +307,16 @@ The :organization_name and :project are required in the call URL.
 
 Returns a JSON object containing:
 
-  - ```full_url``` - The absolute URL to the project
-  - ```local_path``` - The local path on the user's filesystem
-  - ```md5``` - The MD5 hash of the Project
-  - ```organization_permalink``` - The URL safe permalink to the Organization
-  - ```path``` - The Organization path to the Project
-  - ```shortened_url``` - The shortened URL for the Project
-  - ```updated_at``` - The updated at date for the projects
-  - ```deleted_at``` - The deletion date for the projects
-  - ```Folders``` - A JSON Array of the folders within the Project
-  - ```Files``` - A JSON Array of the files within the Project
+  - `full_url` - The absolute URL to the project
+  - `local_path` - The local path on the user's filesystem
+  - `md5` - The MD5 hash of the Project
+  - `organization_permalink` - The URL safe permalink to the Organization
+  - `path` - The Organization path to the Project
+  - `shortened_url` - The shortened URL for the Project
+  - `updated_at` - The updated at date for the projects
+  - `deleted_at` - The deletion date for the projects
+  - `folders` - A JSON Array of the folders within the Project
+  - `files` - A JSON Array of the files within the Project
 
 #### Creating a Project
 
@@ -321,7 +328,11 @@ Creates a Project under the referenced Organization.
 
  Example Request
 
-    $ curl -X POST -H 'Authorization: Bearer <your access token>' 'https://api.layervault.com/api/v1/layervault/Test'
+  ```
+  $ curl -X POST \
+    -H 'Authorization: Bearer <your access token>' \
+    'https://api.layervault.com/api/v1/layervault/Test'
+  ```
 
  Example Response
 
@@ -351,30 +362,34 @@ The :organization_name and :project are required in the call URL.
 
 Returns a JSON object containing:
 
-  - ```full_url``` - The absolute URL to the Folder
-  - ```local_path``` - The local path on the user's filesystem
-  - ```md5``` - The MD5 hash of the Folder
-  - ```organization_permalink``` - The URL safe permalink to the Organization
-  - ```path``` - The Organization path to the Folder
-  - ```shortened_url``` - The shortened URL for the Folder
-  - ```updated_at``` - The updated at date for the Folders
-  - ```deleted_at``` - The deletion date for the Folders
-  - ```Folders``` - A JSON Array of the folders within the Folder
-  - ```Files``` - A JSON Array of the files within the Folder
+  - `full_url` - The absolute URL to the Folder
+  - `local_path` - The local path on the user's filesystem
+  - `md5` - The MD5 hash of the Folder
+  - `organization_permalink` - The URL safe permalink to the Organization
+  - `path` - The Organization path to the Folder
+  - `shortened_url` - The shortened URL for the Folder
+  - `updated_at` - The updated at date for the Folders
+  - `deleted_at` - The deletion date for the Folders
+  - `folders` - A JSON Array of the folders within the Folder
+  - `files` - A JSON Array of the files within the Folder
 
 #### Deleting a Project
 
 Deletes a Project folder. Returns an HTTP 200 on success.
 
- Definition
+Definition
 
     DELETE /api/v1/:organization_name/:project
 
- Example Request
+Example Request
 
-    $ curl -X DELETE -H 'Authorization: Bearer <your access token>' 'https://api.layervault.com/api/v1/layervault/Test'
+```
+$ curl -X DELETE \
+    -H 'Authorization: Bearer <your access token>' \
+    'https://api.layervault.com/api/v1/layervault/Test'
+```
 
- Example Response
+Example Response
 
     None.
 
@@ -395,7 +410,10 @@ Moves a project to a new location within the referenced Organization.
 
  Example Request
 
-    $ curl -H 'Authorization: Bearer <your access token>' 'https://api.layervault.com/api/v1/layervault/test/move'
+```
+$ curl -H 'Authorization: Bearer <your access token>' \
+    'https://api.layervault.com/api/v1/layervault/test/move'
+```
 
  Example Response
 
@@ -424,30 +442,34 @@ The :organization_name and :project are required in the call URL. A POST paramet
 
 Returns a JSON object containing:
 
-  - ```full_url``` - The absolute URL to the project
-  - ```local_path``` - The local path on the user's filesystem
-  - ```md5``` - The MD5 hash of the Project
-  - ```organization_permalink``` - The URL safe permalink to the Organization
-  - ```path``` - The Organization path to the Project
-  - ```shortened_url``` - The shortened URL for the Project
-  - ```updated_at``` - The updated at date for the projects
-  - ```deleted_at``` - The deletion date for the projects
-  - ```Folders``` - A JSON Array of the folders within the Project
-  - ```Files``` - A JSON Array of the files within the Project
+  - `full_url` - The absolute URL to the project
+  - `local_path` - The local path on the user's filesystem
+  - `md5` - The MD5 hash of the Project
+  - `organization_permalink` - The URL safe permalink to the Organization
+  - `path` - The Organization path to the Project
+  - `shortened_url` - The shortened URL for the Project
+  - `updated_at` - The updated at date for the projects
+  - `deleted_at` - The deletion date for the projects
+  - `folders` - A JSON Array of the folders within the Project
+  - `files` - A JSON Array of the files within the Project
 
 #### Changing a Project's color
 
 Changes the color of the Project color as it appears in the LayerVault web Application and locally on the user's file system.
 
- Definition
+Definition
 
     PUT /api/v1/:organization_name/:project
 
- Example Request
+Example Request
 
-    $ curl -X PUT -H 'Authorization: Bearer <your access token>' 'https://api.layervault.com/api/v1/layervault/Test'
+```shell
+$ curl -X PUT \
+    -H 'Authorization: Bearer <your access token>' \
+    'https://api.layervault.com/api/v1/layervault/Test'
+```
 
- Example Response
+Example Response
 
 ```json
 {
@@ -455,7 +477,14 @@ Changes the color of the Project color as it appears in the LayerVault web Appli
   "deleted_at":"3013-02-26T16:53:38Z",
   "updated_at":"2013-10-22T00:11:57Z",
   "full_url":"https://layervault.com/layervault",
-  "projects":[{"name":"api-playground","deleted_at":"3013-01-01T00:00:00Z","updated_at":"2013-10-21T19:05:40Z","color":null}]
+  "projects": [
+    {
+      "name":"api-playground",
+      "deleted_at":"3013-01-01T00:00:00Z",
+      "updated_at":"2013-10-21T19:05:40Z",
+      "color":null
+    }
+  ]
 }
 ```
 
@@ -478,7 +507,10 @@ This call returns the organization information for the requested Organization.
 
  Example Request
 
-    $ curl -H 'Authorization: Bearer <your access token>' 'https://api.layervault.com/api/v1/layervault/Test/Illustrations'
+  ```shell
+  $ curl -H 'Authorization: Bearer <your access token>' \
+    'https://api.layervault.com/api/v1/layervault/Test/Illustrations'
+  ```
 
  Example Response
 
@@ -505,16 +537,16 @@ The :organization_name, :project and :folder_path are required in the call URL.
 
 Returns a JSON object containing:
 
-  - ```full_url``` - The absolute URL to the project
-  - ```local_path``` - The local path on the user's filesystem
-  - ```md5``` - The MD5 hash of the Folder
-  - ```organization_permalink``` - The URL safe permalink to the Organization
-  - ```path``` - The Organization path to the Folder
-  - ```shortened_url``` - The shortened URL for the Folder
-  - ```updated_at``` - The updated at date for the Folder
-  - ```deleted_at``` - The deletion date for the Folder
-  - ```Folders``` - A JSON Array of the folders within the Folder
-  - ```Files``` - A JSON Array of the files within the Folder
+  - `full_url` - The absolute URL to the project
+  - `local_path` - The local path on the user's filesystem
+  - `md5` - The MD5 hash of the Folder
+  - `organization_permalink` - The URL safe permalink to the Organization
+  - `path` - The Organization path to the Folder
+  - `shortened_url` - The shortened URL for the Folder
+  - `updated_at` - The updated at date for the Folder
+  - `deleted_at` - The deletion date for the Folder
+  - `folders` - A JSON Array of the folders within the Folder
+  - `files` - A JSON Array of the files within the Folder
 
 #### Creating a Folder
 
@@ -526,7 +558,10 @@ Creates a Folder at the given Folder path under the referenced Organization. Fol
 
  Example Request
 
-    $ curl -H 'Authorization: Bearer <your access token>' 'https://api.layervault.com/api/v1/layervault/Test/Illustrations'
+  ```shell
+  $ curl -H 'Authorization: Bearer <your access token>' \
+    'https://api.layervault.com/api/v1/layervault/Test/Illustrations'
+  ```
 
  Example Response
 
@@ -556,30 +591,33 @@ The :organization_name, :project and :folder_path are required in the call URL.
 
 Returns a JSON object containing:
 
-  - ```full_url``` - The absolute URL to the Folder
-  - ```local_path``` - The local path on the user's filesystem
-  - ```md5``` - The MD5 hash of the Folder
-  - ```organization_permalink``` - The URL safe permalink to the Organization
-  - ```path``` - The Organization path to the Folder
-  - ```shortened_url``` - The shortened URL for the Folder
-  - ```updated_at``` - The updated at date for the Folders
-  - ```deleted_at``` - The deletion date for the Folders
-  - ```Folders``` - A JSON Array of the folders within the Folder
-  - ```Files``` - A JSON Array of the files within the Folder
+  - `full_url` - The absolute URL to the Folder
+  - `local_path` - The local path on the user's filesystem
+  - `md5` - The MD5 hash of the Folder
+  - `organization_permalink` - The URL safe permalink to the Organization
+  - `path` - The Organization path to the Folder
+  - `shortened_url` - The shortened URL for the Folder
+  - `updated_at` - The updated at date for the Folders
+  - `deleted_at` - The deletion date for the Folders
+  - `folders` - A JSON Array of the folders within the Folder
+  - `files` - A JSON Array of the files within the Folder
 
 #### Deleting a Folder
 
 Deletes the requested folder under the references Organization.
 
- Definition
+Definition
 
     DELETE /api/v1/:organization_name/:project/:folder_path
 
- Example Request
+Example Request
 
-    $ curl -H 'Authorization: Bearer <your access token>' 'https://api.layervault.com/api/v1/layervault/Test/Illustrations'
+```shell
+$ curl -H 'Authorization: Bearer <your access token>' \
+    'https://api.layervault.com/api/v1/layervault/Test/Illustrations'
+```
 
- Example Response
+Example Response
 
     None
 
@@ -594,15 +632,20 @@ The :organization_name, :project and :folder_path are required in the call URL.
 
 Moves a folder to a new specified location under the referenced Organization
 
- Definition
+Definition
 
     POST /api/v1/:organization_name/:project/:folder_path/move
 
- Example Request
+Example Request
 
-    $ curl -X POST -d 'to=/NewTest/NewIllustrations' -H 'Authorization: Bearer <your access token>' 'https://api.layervault.com/api/v1/layervault/Test/Illustrations/move'
+```shell
+$ curl -X POST \
+    -d 'to=/NewTest/NewIllustrations' \
+    -H 'Authorization: Bearer <your access token>' \
+    'https://api.layervault.com/api/v1/layervault/Test/Illustrations/move'
+```
 
- Example Response
+Example Response
 
 ```json
 {
@@ -627,34 +670,40 @@ The :organization_name, :project and :folder_path are required in the call URL. 
 
 Returns a JSON object containing:
 
-  - ```full_url``` - The absolute URL to the project
-  - ```local_path``` - The local path on the user's filesystem
-  - ```md5``` - The MD5 hash of the Project
-  - ```organization_permalink``` - The URL safe permalink to the Organization
-  - ```path``` - The Organization path to the Project
-  - ```shortened_url``` - The shortened URL for the Project
-  - ```updated_at``` - The updated at date for the projects
-  - ```deleted_at``` - The deletion date for the projects
-  - ```Folders``` - A JSON Array of the folders within the Project
-  - ```Files``` - A JSON Array of the files within the Project
+  - `full_url` - The absolute URL to the project
+  - `local_path` - The local path on the user's filesystem
+  - `md5` - The MD5 hash of the Project
+  - `organization_permalink` - The URL safe permalink to the Organization
+  - `path` - The Organization path to the Project
+  - `shortened_url` - The shortened URL for the Project
+  - `updated_at` - The updated at date for the projects
+  - `deleted_at` - The deletion date for the projects
+  - `folders` - A JSON Array of the folders within the Project
+  - `files` - A JSON Array of the files within the Project
 
 #### Changing a Folder's color
 
 This call returns the organization information for the requested Organization.
 
- Definition
+Definition
 
     PUT /api/v1/:organization_name/:project/:folder_path
 
- Example Request
+Example Request
 
-    $ curl -X PUT -d "color=000000" -H 'Authorization: Bearer <your access token>' 'https://api.layervault.com/api/v1/layervault/Test/Illustrations'
+```shell
+$ curl -X PUT \
+    -d "color=000000" \
+    -H 'Authorization: Bearer <your access token>' \
+    'https://api.layervault.com/api/v1/layervault/Test/Illustrations'
+```
 
- Example Response
+Example Response
 
     None
 
 #### Arguments
+
 The :organization_name, :project and :folder_path are required in the call URL. A PUT parameter :color representing the Hex color value the folder should be set to is required.
 
 #### Returns
@@ -667,15 +716,18 @@ The :organization_name, :project and :folder_path are required in the call URL. 
 
 Returns a referenced File's information.
 
- Definition
+Definition
 
     GET /api/v1/:organization_name/:project/:folder_path/:file_name
 
- Example Request
+Example Request
 
-    $ curl -H 'Authorization: Bearer <your access token>' 'https://api.layervault.com/api/v1/layervault/Test/Illustrations/NewLogo.psd'
+```shell
+$ curl -H 'Authorization: Bearer <your access token>' \
+    'https://api.layervault.com/api/v1/layervault/Test/Illustrations/NewLogo.psd'
+```
 
- Example Response
+Example Response
 
 ```json
 {
@@ -696,26 +748,31 @@ The :organization_name, :project, :folder_path and :file_name are required in th
 
 Returns a JSON object containing:
 
-  - ```full_url``` - The absolute URL to the File
-  - ```download_url``` - The absolute URL to download a copy of the File
-  - ```local_path``` - The local path on the user's filesystem
-  - ```md5``` - The MD5 hash of the File
-  - ```shortened_url``` - The shortened URL for the Folder
-  - ```updated_at``` - The updated at date for the Folders
-  - ```deleted_at``` - The deletion date for the Folders
-  - ```revision_number``` - The revision number of the File
+  - `full_url` - The absolute URL to the File
+  - `download_url` - The absolute URL to download a copy of the File
+  - `local_path` - The local path on the user's filesystem
+  - `md5` - The MD5 hash of the File
+  - `shortened_url` - The shortened URL for the Folder
+  - `updated_at` - The updated at date for the Folders
+  - `deleted_at` - The deletion date for the Folders
+  - `revision_number` - The revision number of the File
 
 #### Creating and Uploading a File
 
 Creates a File under the referenced folder path and organization. Returns a JSON payload containing the necessary S3 upload parameters to make an file upload directly to the LayerVault servers.
 
- Definition
+Definition
 
     PUT /api/v1/:organization_name/:project/:folder_path/:file_name
 
- Example Request
+Example Request
 
-    $ curl -X PUT -d 'md5=837b0a406b101620a3d2b33867d66560' -H 'Authorization: Bearer <your access token>' 'https://api.layervault.com/api/v1/layervault/Test/Illustrations/NewFile.psd'
+```shell
+$ curl -X PUT \
+    -d 'md5=837b0a406b101620a3d2b33867d66560' \
+    -H 'Authorization: Bearer <your access token>' \
+    'https://api.layervault.com/api/v1/layervault/Test/Illustrations/NewFile.psd'
+```
 
  Example Response
 
@@ -740,13 +797,13 @@ The :organization_name, :project, :folder_path and :file_name are required in th
 
 Returns a JSON object containing:
 
-  - ```key``` - The S3 key of the file upload.
-  - ```acl``` - The S3 ACL
-  - ```policy``` - The encoded S3 Policy
-  - ```signature``` - The HMAC signature for the S3 policy
-  - ```success_action_status``` - The HTTP status code for the success redirect
-  - ```success_action_redirect``` - The success redirect URL
-  - ```AWSAccessKeyId``` - The S3 Access Key for LayerVault.
+  - `key` - The S3 key of the file upload.
+  - `acl` - The S3 ACL
+  - `policy` - The encoded S3 Policy
+  - `signature` - The HMAC signature for the S3 policy
+  - `success_action_status` - The HTTP status code for the success redirect
+  - `success_action_redirect` - The success redirect URL
+  - `AWSAccessKeyId` - The S3 Access Key for LayerVault.
 
 DO NOT ALTER ANY OF THESE PARAMETERS. If you do, the upload will fail.
 
@@ -760,13 +817,17 @@ Upon success, you will receive a response from Amazon S3 with a ```Location``` h
 
 Deletes a referenced File.
 
- Definition
+Definition
 
     DELETE /api/v1/:organization_name/:project/:folder_path/:file_name
 
- Example Request
+Example Request
 
-    $ curl -X DELETE -H 'Authorization: Bearer <your access token>' 'https://api.layervault.com/api/v1/layervault/Test/Illustrations/NewFile.psd'
+```shell
+$ curl -X DELETE \
+    -H 'Authorization: Bearer <your access token>' \
+    'https://api.layervault.com/api/v1/layervault/Test/Illustrations/NewFile.psd'
+```
 
  Example Response
 
@@ -783,15 +844,20 @@ The :organization_name, :project, :folder_path and :file_name are required in th
 
 Moves a File to a new Folder and optionally a new Filename under a referenced Organization.
 
- Definition
+Definition
 
     POST /api/v1/:organization_name/:project/:folder/:file_name
 
- Example Request
+Example Request
 
-    $ curl -X POST -D 'new_folder=/this/is/the/new/folder&new_filename=bert.psd' -H 'Authorization: Bearer <your access token>' 'https://api.layervault.com/api/v1/layervault/Test/Illustrations/Test.psd'
+```shell
+$ curl -X POST \
+    -D 'new_folder=/this/is/the/new/folder&new_filename=bert.psd' \
+    -H 'Authorization: Bearer <your access token>' \
+    'https://api.layervault.com/api/v1/layervault/Test/Illustrations/Test.psd'
+```
 
- Example Response
+Example Response
 
 ```json
 {
@@ -808,19 +874,22 @@ The :organization_name, :project, :folder_path and :file_name are required in th
 
 Returns a JSON object containing:
 
-  - ```error``` - Any errors that may have prevented the File from being moved, or 'success' if successful.
+  - `error` - Any errors that may have prevented the File from being moved, or 'success' if successful.
 
 #### Performing a Sync check on a File
 
 Indicates whether a file needs to be uploaded in full because the server doesn't have a copy, partial upload if a file has changed, or if the file needs to be deleted.
 
- Definition
+Definition
 
     GET /api/v1/:organization_name/:project/:folder/:file_name/sync_check
 
- Example Request
+Example Request
 
-    $ curl -H 'Authorization: Bearer <your access token>' 'https://api.layervault.com/api/v1/layervault/Test/Illustrations/Test.psd/sync_check'
+```shell
+$ curl -H 'Authorization: Bearer <your access token>' \
+  'https://api.layervault.com/api/v1/layervault/Test/Illustrations/Test.psd/sync_check'
+```
 
  Example Response
 
@@ -859,7 +928,10 @@ This call returns the organization information for the requested Organization.
 
  Example Request
 
-    $ curl -H 'Authorization: Bearer <your access token>' 'https://api.layervault.com/api/v1/layervault/Test/Illustrations/NewFile.psd/1'
+```shell
+$ curl -H 'Authorization: Bearer <your access token>' \
+  'https://api.layervault.com/api/v1/layervault/Test/Illustrations/NewFile.psd/1'
+```
 
  Example Response
 
@@ -882,14 +954,14 @@ The :organization_name, :project, :folder_path, :file_name and :revisions are re
 
 Returns a JSON object containing:
 
-  - ```full_url``` - The absolute URL to the File
-  - ```download_url``` - The absolute URL to download a copy of the File
-  - ```local_path``` - The local path on the user's filesystem
-  - ```md5``` - The MD5 hash of the File
-  - ```shortened_url``` - The shortened URL for the Folder
-  - ```updated_at``` - The updated at date for the Folders
-  - ```deleted_at``` - The deletion date for the Folders
-  - ```revision_number``` - The revision number of the File
+  - `full_url` - The absolute URL to the File
+  - `download_url` - The absolute URL to download a copy of the File
+  - `local_path` - The local path on the user's filesystem
+  - `md5` - The MD5 hash of the File
+  - `shortened_url` - The shortened URL for the Folder
+  - `updated_at` - The updated at date for the Folders
+  - `deleted_at` - The deletion date for the Folders
+  - `revision_number` - The revision number of the File
 
 #### Retrieving Revision's Revision History
 
@@ -935,14 +1007,14 @@ The :organization_name, :project, :folder_path, :file_name and :revisions are re
 
 Returns a JSON array containing objects with the following attributes:
 
-  - ```full_url``` - The absolute URL to the File
-  - ```download_url``` - The absolute URL to download a copy of the File
-  - ```local_path``` - The local path on the user's filesystem
-  - ```md5``` - The MD5 hash of the File
-  - ```shortened_url``` - The shortened URL for the Folder
-  - ```updated_at``` - The updated at date for the Folders
-  - ```deleted_at``` - The deletion date for the Folders
-  - ```revision_number``` - The revision number of the File
+  - `full_url` - The absolute URL to the File
+  - `download_url` - The absolute URL to download a copy of the File
+  - `local_path` - The local path on the user's filesystem
+  - `md5` - The MD5 hash of the File
+  - `shortened_url` - The shortened URL for the Folder
+  - `updated_at` - The updated at date for the Folders
+  - `deleted_at` - The deletion date for the Folders
+  - `revision_number` - The revision number of the File
 
 #### Retrieving Revision's Meta Information
 
@@ -954,7 +1026,10 @@ This call returns the organization information for the requested Organization.
 
  Example Request
 
-    $ curl -H 'Authorization: Bearer <your access token>' 'https://api.layervault.com/api/v1/layervault/Test/Illustrations/NewFile.psd/1/meta'
+```shell
+$ curl -H 'Authorization: Bearer <your access token>' \
+    'https://api.layervault.com/api/v1/layervault/Test/Illustrations/NewFile.psd/1/meta'
+```
 
  Example Response
 
@@ -981,7 +1056,10 @@ This call returns the organization information for the requested Organization.
 
  Example Request
 
-    $ curl -H 'Authorization: Bearer <your access token>' 'https://api.layervault.com/api/v1/layervaultTest/Illustrations/NewFile.psd/1/previews'
+```shell
+$ curl -H 'Authorization: Bearer <your access token>' \
+  'https://api.layervault.com/api/v1/layervaultTest/Illustrations/NewFile.psd/1/previews'
+```
 
  Example Response
 
