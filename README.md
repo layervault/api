@@ -888,7 +888,7 @@ Example Request
 
 ```shell
 $ curl -H 'Authorization: Bearer <your access token>' \
-  'https://api.layervault.com/api/v1/layervault/Test/Illustrations/Test.psd/sync_check'
+  'https://api.layervault.com/api/v1/layervault/Project/Test.psd/sync_check'
 ```
 
  Example Response
@@ -899,7 +899,14 @@ $ curl -H 'Authorization: Bearer <your access token>' \
   "deleted_at":"3013-02-26T16:53:38Z",
   "updated_at":"2013-10-22T00:11:57Z",
   "full_url":"https://layervault.com/layervault",
-  "projects":[{"name":"api-playground","deleted_at":"3013-01-01T00:00:00Z","updated_at":"2013-10-21T19:05:40Z","color":null}]
+  "projects":[
+    {
+      "name":"api-playground",
+      "deleted_at":"3013-01-01T00:00:00Z",
+      "updated_at":"2013-10-21T19:05:40Z",
+      "color":null
+    }
+  ]
 }
 ```
 
