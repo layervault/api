@@ -102,7 +102,7 @@ The API currently limits the requests you can make against it hourly. We have pr
 
 ### User Information
 
-#### Retrieving Organization Information
+#### Retrieving User Information
 
 This call returns the user information for which the Client is acting on behalf of, including the Projects the user has access to and Organizations they are a member of.
 
@@ -983,7 +983,7 @@ Returns a referenced File Revisions Revision History.
 ```shell
 $ curl -H 'Authorization: Bearer <your access token>' \
     'https://api.layervault.com/api/v1/layervaultTest/Illustrations/NewFile.psd/1/revisions'
-``
+```
 
  Example Response
 
@@ -1028,7 +1028,7 @@ Returns a JSON array containing objects with the following attributes:
 
 #### Retrieving Revision's Meta Information
 
-Returns a referenced File Revisions Meta Information. This can be used for application relevant information.
+Returns a referenced File Revisions Meta Information. Contains various metadata about the file format.
 
  Definition
 
@@ -1045,7 +1045,133 @@ $ curl -H 'Authorization: Bearer <your access token>' \
 
 ```json
 {
-  "key": "value"
+  "psd": {
+    "children": [
+      {
+        "type": "group",
+        "visible": false,
+        "opacity": 1.0,
+        "blending_mode": "normal",
+        "name": "design aids",
+        "left": 220,
+        "right": 2100,
+        "top": 0,
+        "bottom": 2640,
+        "height": 1880,
+        "width": 2640,
+        "children": [
+          {
+            "type": "layer",
+            "visible": true,
+            "opacity": 0.2,
+            "blending_mode": "normal",
+            "name": "Layer 8",
+            "left": 220,
+            "right": 2100,
+            "top": 1559,
+            "bottom": 1759,
+            "height": 200,
+            "width": 1880,
+            "text": null,
+            "ref_x": 0.0,
+            "ref_y": 1259.0
+          },
+          {
+            "type": "layer",
+            "visible": true,
+            "opacity": 0.2,
+            "blending_mode": "normal",
+            "name": "Layer 1",
+            "left": 220,
+            "right": 2100,
+            "top": 0,
+            "bottom": 2640,
+            "height": 2640,
+            "width": 1880,
+            "text": null,
+            "ref_x": 200.0,
+            "ref_y": 0.0
+          }
+        ]
+      },
+      {
+        "type": "group",
+        "visible": true,
+        "opacity": 1.0,
+        "blending_mode": "normal",
+        "name": "header",
+        "left": 0,
+        "right": 2320,
+        "top": -80,
+        "bottom": 120,
+        "height": 2320,
+        "width": 200,
+        "children": [
+          {
+            "type": "group",
+            "visible": false,
+            "opacity": 1.0,
+            "blending_mode": "normal",
+            "name": "logo",
+            "left": 219,
+            "right": 337,
+            "top": 15,
+            "bottom": 114,
+            "height": 118,
+            "width": 99,
+            "children": [
+              {
+                "type": "layer",
+                "visible": true,
+                "opacity": 1.0,
+                "blending_mode": "normal",
+                "name": "DN",
+                "left": 237,
+                "right": 294,
+                "top": 45,
+                "bottom": 75,
+                "height": 30,
+                "width": 57,
+                "text": {
+                  "value": "DN",
+                  "font": {
+                    "name": "AvantGardeBQ-Bold",
+                    "sizes": [
+                      56.0
+                    ],
+                    "colors": [
+                      [
+                        255,
+                        45,
+                        114,
+                        217
+                      ]
+                    ],
+                    "css": "font-family: \"AvantGardeBQ-Bold\", \"AdobeInvisFont\", \"MyriadPro-Regular\";\nfont-size: 56.0pt;\ncolor: rgba(45, 114, 217, 255);"
+                  },
+                  "left": 0,
+                  "top": 0,
+                  "right": 0,
+                  "bottom": 0,
+                  "transform": {
+                    "xx": 0.75,
+                    "xy": 0.0,
+                    "yx": 0.0,
+                    "yy": 0.75,
+                    "tx": 265.2851736545563,
+                    "ty": 75.36329567432404
+                  }
+                },
+                "ref_x": -1200.9999825954437,
+                "ref_y": -314.62498557567596
+              }
+    ],
+    "document": {
+      "width": 2320,
+      "height": 2640
+    }
+  }
+  }
 }
 ```
 
@@ -1056,29 +1182,62 @@ The :organization_name, :project, :folder_path, :file_name and :revisions are re
 
 Returns a JSON object containing any Meta information that was set for the revision.
 
-#### Retrieving Revision's Previews Information
+#### Retrieving Revision's Preview Information
 
-Returns a referenced File Revisions Preview image links.
+Returns a referenced File Revisions Preview image link.
 
  Definition
 
-    GET /api/v1/:organization_name/:project/:folder/:file_name/:revision/previews
+    GET /api/v1/:organization_name/:project/:folder/:file_name/:revision/preview
 
  Example Request
 
 ```shell
 $ curl -H 'Authorization: Bearer <your access token>' \
-  'https://api.layervault.com/api/v1/layervaultTest/Illustrations/NewFile.psd/1/previews'
+  'https://api.layervault.com/api/v1/layervaultTest/Illustrations/NewFile.psd/1/previews?w=100&h=100'
 ```
 
  Example Response
 
 ```json
-[]
+'https://layervault-preview.imgix.net/data/ed3fd8ba3ff2acf4157517fb14aadf8b?w=600&h=1012&s=6666868519b243260d38b3ca1d1b981f'
 ```
 
 #### Arguments
-The :organization_name, :project, :folder_path, :file_name and :revisions are required in the call URL.
+The :organization_name, :project, :folder_path, :file_name and :revision are required in the call URL. In addition, the GET parameters :w for width and :h for height must be specified.
+
+#### Returns
+
+A single URL to the preview image.
+
+#### Retrieving a File Revision's Preview Information
+
+Returns all of the previews associated with a file.
+
+ Definition
+
+    GET /api/v1/:organization_name/:project/:folder/:file_name/previews
+
+ Example Request
+
+```shell
+$ curl -H 'Authorization: Bearer <your access token>' \
+  'https://api.layervault.com/api/v1/layervaultTest/Illustrations/NewFile.psd/1/previews?w=100&h=100'
+```
+
+ Example Response
+
+```json
+[
+  'https://layervault-preview.imgix.net/data/ed3fd8ba3ff2acf4157517fb14aadf8b?w=600&h=1012&s=6666868519b243260d38b3ca1d1b23ef',
+  'https://layervault-preview.imgix.net/data/ed3fd8ba3ff2acf4157517fb14aadf8b?w=600&h=1012&s=6666868519b243260d38b3ca1d1b4edf',
+  'https://layervault-preview.imgix.net/data/ed3fd8ba3ff2acf4157517fb14aadf8b?w=600&h=1012&s=6666868519b243260d38b3ca1d1bw21f',
+...
+]
+```
+
+#### Arguments
+The :organization_name, :project, :folder_path, :file_name are required in the call URL. In addition, the GET parameters :w for width and :h for height must be specified.
 
 #### Returns
 
