@@ -31,8 +31,8 @@ https://api.layervault.com/api/v1
     /v1/:organization_name/:project(/folder_path)/:file_name/:revision/meta
 
 ### URL Parameters
-    :organization_name  - The URL encoded name of the Organization. Cannot be blank.
-    :project            - The URL encoded name of the Project. Cannot be blank.
+    :organization_name  - The URL Organization perma-link. Cannot be blank.
+    :project            - The URL Project perma-link. Cannot be blank.
     :folder_path        - An optional path to a folder within a Project.
     :file_name          - The URL encoded name of the File.
     :revision           - An integer representing the Revision.
