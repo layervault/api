@@ -24,11 +24,13 @@ https://api.layervault.com/api/v1
     /v1/:organization_name/:project(/folder_path)/:file_name
     /v1/:organization_name/:project(/folder_path)/:file_name/move
     /v1/:organization_name/:project(/folder_path)/:file_name/previews
+    /v1/:organization_name/:project(/folder_path)/:file_name/revisions
+    /v1/:organization_name/:project(/folder_path)/:file_name/feedback_items
     /v1/:organization_name/:project(/folder_path)/:file_name/sync_check
     /v1/:organization_name/:project(/folder_path)/:file_name/:revision
     /v1/:organization_name/:project(/folder_path)/:file_name/:revision/preview
-    /v1/:organization_name/:project(/folder_path)/:file_name/:revision/revisions
     /v1/:organization_name/:project(/folder_path)/:file_name/:revision/meta
+    /v1/:organization_name/:project(/folder_path)/:file_name/:revision/feedback_items
 
 ### URL Parameters
     :organization_name  - The URL Organization perma-link. Cannot be blank.
@@ -877,6 +879,253 @@ Returns a JSON object containing:
 
   - `error` - Any errors that may have prevented the File from being moved, or 'success' if successful.
 
+#### Retrieving File's Revision History
+
+Returns a referenced File Revisions Revision History.
+
+ Definition
+
+    GET /api/v1/:organization_name/:project/:folder/:file_name/revisions
+
+ Example Request
+
+```shell
+$ curl -H 'Authorization: Bearer <your access token>' \
+    'https://api.layervault.com/api/v1/layervaultTest/Illustrations/NewFile.psd/1/revisions'
+```
+
+ Example Response
+
+```json
+[
+  {
+    "download_url": "https://layervault.com/files/download_node/vKUNqi6jFi",
+    "full_url": "https://layervault.com/layervault/api-playground/Test.psd/2",
+    "md5": "65ef424c001b078516d953f1e4a66450",
+    "updated_at": "2013-10-21T19:05:25Z",
+    "created_at": "2013-10-21T19:05:25Z",
+    "shortened_url": "http://lyrv.lt/vKUNqi6jFi",
+    "revision_number": 2
+  },
+  {
+    "download_url": "https://layervault.com/files/download_node/udMqnVagH6",
+    "full_url": "https://layervault.com/layervault/api-playground/Test.psd/3",
+    "md5": "4edea58eacd8c9334e4df173dad72d69",
+    "updated_at": "2013-10-21T19:05:27Z",
+    "created_at": "2013-10-21T19:05:27Z",
+    "shortened_url": "http://lyrv.lt/udMqnVagH6",
+    "revision_number": 3
+  }
+]
+```
+
+#### Arguments
+The :organization_name, :project, :folder_path, :file_name and :revisions are required in the call URL.
+
+#### Returns
+
+Returns a JSON array containing objects with the following attributes:
+
+  - `full_url` - The absolute URL to the File
+  - `download_url` - The absolute URL to download a copy of the File
+  - `local_path` - The local path on the user's filesystem
+  - `md5` - The MD5 hash of the File
+  - `shortened_url` - The shortened URL for the Folder
+  - `updated_at` - The updated at date for the Folders
+  - `deleted_at` - The deletion date for the Folders
+  - `revision_number` - The revision number of the File
+
+#### Retrieving a File's Preview Information
+
+Returns all of the previews associated with a file.
+
+ Definition
+
+    GET /api/v1/:organization_name/:project/:folder/:file_name/previews
+
+ Example Request
+
+```shell
+$ curl -H 'Authorization: Bearer <your access token>' \
+  'https://api.layervault.com/api/v1/layervaultTest/Illustrations/NewFile.psd/1/previews?w=100&h=100'
+```
+
+ Example Response
+
+```json
+[
+  'https://layervault-preview.imgix.net/data/ed3fd8ba3ff2acf4157517fb14aadf8b?w=600&h=1012&s=6666868519b243260d38b3ca1d1b23ef',
+  'https://layervault-preview.imgix.net/data/ed3fd8ba3ff2acf4157517fb14aadf8b?w=600&h=1012&s=6666868519b243260d38b3ca1d1b4edf',
+  'https://layervault-preview.imgix.net/data/ed3fd8ba3ff2acf4157517fb14aadf8b?w=600&h=1012&s=6666868519b243260d38b3ca1d1bw21f',
+...
+]
+```
+
+#### Arguments
+The :organization_name, :project, :folder_path, :file_name are required in the call URL. In addition, the GET parameters :w for width and :h for height must be specified.
+
+#### Returns
+
+Returns a JSON array containing a list of preview image URLs.
+
+#### Retreiving a File Revision's Feedback Items
+
+Obtain the feeback items attached to a file revision.
+
+Definition
+
+    GET /api/v1/:organization_name/:project/:folder/:file_name/:revision/feedback_items
+
+Example Request
+
+```shell
+$ curl -H 'Authorization: Bearer <your access token>' \
+  'https://api.layervault.com/api/v1/layervault/Project/Test.psd/1/feedback_items'
+```
+
+ Example Response
+
+```json
+[
+  {
+    "id": 1687,
+    "top": null,
+    "right": null,
+    "left": null,
+    "bottom": null,
+    "left_on_preview_id": 436729,
+    "left_on_signpost_id": 3782,
+    "message": "I meant to say Front Page, not Story Page :(",
+    "user_id": 6,
+    "signpost_id": 5636,
+    "created_at": "2013-04-19T19:06:11Z"
+  },
+  {
+    "id": 2671,
+    "top": 408,
+    "right": 1040,
+    "left": 356,
+    "bottom": 461,
+    "left_on_preview_id": 436729,
+    "left_on_signpost_id": 3782,
+    "message": "Type choice needs some work. Mixing Avenir and Avant Garde.... not so good.",
+    "user_id": 6,
+    "signpost_id": 5636,
+    "created_at": "2013-06-13T23:25:15Z"
+  },
+  {
+    "id": 2672,
+    "top": 445,
+    "right": 2195,
+    "left": 1998,
+    "bottom": 668,
+    "left_on_preview_id": 436729,
+    "left_on_signpost_id": 3782,
+    "message": "Probably need to invert these.",
+    "user_id": 6,
+    "signpost_id": 5636,
+    "created_at": "2013-06-13T23:25:28Z"
+  },
+  {
+    "id": 11216,
+    "top": null,
+    "right": null,
+    "left": null,
+    "bottom": null,
+    "left_on_preview_id": 436729,
+    "left_on_signpost_id": null,
+    "message": "First draft of the story page. No story badges for the moment. Without the color coding, the black/blue starts to make my eye glaze over.",
+    "user_id": 6,
+    "signpost_id": null,
+    "created_at": "2013-04-19T19:05:45Z"
+  },
+  {
+    "id": 2673,
+    "top": 709,
+    "right": 953,
+    "left": 402,
+    "bottom": 804,
+    "left_on_preview_id": 536981,
+    "left_on_signpost_id": 5636,
+    "message": "The padding here could be tightened up.",
+    "user_id": 6,
+    "signpost_id": null,
+    "created_at": "2013-06-13T23:26:17Z"
+  },
+  {
+    "id": 2674,
+    "top": 397,
+    "right": 275,
+    "left": 172,
+    "bottom": 493,
+    "left_on_preview_id": 536981,
+    "left_on_signpost_id": 5636,
+    "message": "Without badges, this front page doesn't have as much personality.",
+    "user_id": 6,
+    "signpost_id": null,
+    "created_at": "2013-06-13T23:26:38Z"
+  },
+  {
+    "id": 2675,
+    "top": 406,
+    "right": 1043,
+    "left": 349,
+    "bottom": 454,
+    "left_on_preview_id": 536981,
+    "left_on_signpost_id": 5636,
+    "message": "Might need to consider bringing back blue and light blue (visited) links.",
+    "user_id": 6,
+    "signpost_id": null,
+    "created_at": "2013-06-13T23:26:57Z"
+  },
+  {
+    "id": 13070,
+    "top": null,
+    "right": null,
+    "left": null,
+    "bottom": null,
+    "left_on_preview_id": 536981,
+    "left_on_signpost_id": null,
+    "message": "This is probably pretty close to what will end up going to production. The padding between stories is a bit big. I think it'll mess around with row ",
+    "user_id": 6,
+    "signpost_id": null,
+    "created_at": "2013-06-13T23:25:48Z"
+  },
+  {
+    "id": 16772,
+    "top": null,
+    "right": null,
+    "left": null,
+    "bottom": null,
+    "left_on_preview_id": 667574,
+    "left_on_signpost_id": null,
+    "message": "All of this was fixed.",
+    "user_id": 6,
+    "signpost_id": null,
+    "created_at": "2013-09-10T16:28:29Z"
+  }
+]
+```
+
+#### Arguments
+The :organization_name, :project, :folder_path, :file_name and :revision are required in the call URL.
+
+#### Returns
+
+Returns a JSON array of objects containing:
+
+  - id - The ID of the feedback item.
+  - top - The top co-ordinate of the feedback bounding box.
+  - right - The right co-ordinate of the feedback bounding box.
+  - left - The left co-ordinate of the feedback bounding box.
+  - bottom - The bottom co-ordinate of the feedback bounding box.
+  - left_on_preview_id - The preview id the feedback item was left on.
+  - left_on_signpost_id - The signpost the feedback item was left on, if any.
+  - message - The text of the feedback item.
+  - user_id - The user ID of the user who left the feedback item.
+  - signpost_id - The associated signpost ID, if any.
+  - created_at - The date the feedback item was created.
+
 #### Performing a Sync check on a File
 
 Indicates whether a file needs to be uploaded in full because the server doesn't have a copy, partial upload if a file has changed, or if the file needs to be deleted.
@@ -961,62 +1210,6 @@ The :organization_name, :project, :folder_path, :file_name and :revisions are re
 #### Returns
 
 Returns a JSON object containing:
-
-  - `full_url` - The absolute URL to the File
-  - `download_url` - The absolute URL to download a copy of the File
-  - `local_path` - The local path on the user's filesystem
-  - `md5` - The MD5 hash of the File
-  - `shortened_url` - The shortened URL for the Folder
-  - `updated_at` - The updated at date for the Folders
-  - `deleted_at` - The deletion date for the Folders
-  - `revision_number` - The revision number of the File
-
-#### Retrieving Revision's Revision History
-
-Returns a referenced File Revisions Revision History.
-
- Definition
-
-    GET /api/v1/:organization_name/:project/:folder/:file_name/:revision/revisions
-
- Example Request
-
-```shell
-$ curl -H 'Authorization: Bearer <your access token>' \
-    'https://api.layervault.com/api/v1/layervaultTest/Illustrations/NewFile.psd/1/revisions'
-```
-
- Example Response
-
-```json
-[
-  {
-    "download_url": "https://layervault.com/files/download_node/vKUNqi6jFi",
-    "full_url": "https://layervault.com/layervault/api-playground/Test.psd/2",
-    "md5": "65ef424c001b078516d953f1e4a66450",
-    "updated_at": "2013-10-21T19:05:25Z",
-    "created_at": "2013-10-21T19:05:25Z",
-    "shortened_url": "http://lyrv.lt/vKUNqi6jFi",
-    "revision_number": 2
-  },
-  {
-    "download_url": "https://layervault.com/files/download_node/udMqnVagH6",
-    "full_url": "https://layervault.com/layervault/api-playground/Test.psd/3",
-    "md5": "4edea58eacd8c9334e4df173dad72d69",
-    "updated_at": "2013-10-21T19:05:27Z",
-    "created_at": "2013-10-21T19:05:27Z",
-    "shortened_url": "http://lyrv.lt/udMqnVagH6",
-    "revision_number": 3
-  }
-]
-```
-
-#### Arguments
-The :organization_name, :project, :folder_path, :file_name and :revisions are required in the call URL.
-
-#### Returns
-
-Returns a JSON array containing objects with the following attributes:
 
   - `full_url` - The absolute URL to the File
   - `download_url` - The absolute URL to download a copy of the File
@@ -1211,35 +1404,3 @@ The :organization_name, :project, :folder_path, :file_name and :revision are req
 
 A single URL to the preview image.
 
-#### Retrieving a File Revision's Preview Information
-
-Returns all of the previews associated with a file.
-
- Definition
-
-    GET /api/v1/:organization_name/:project/:folder/:file_name/previews
-
- Example Request
-
-```shell
-$ curl -H 'Authorization: Bearer <your access token>' \
-  'https://api.layervault.com/api/v1/layervaultTest/Illustrations/NewFile.psd/1/previews?w=100&h=100'
-```
-
- Example Response
-
-```json
-[
-  'https://layervault-preview.imgix.net/data/ed3fd8ba3ff2acf4157517fb14aadf8b?w=600&h=1012&s=6666868519b243260d38b3ca1d1b23ef',
-  'https://layervault-preview.imgix.net/data/ed3fd8ba3ff2acf4157517fb14aadf8b?w=600&h=1012&s=6666868519b243260d38b3ca1d1b4edf',
-  'https://layervault-preview.imgix.net/data/ed3fd8ba3ff2acf4157517fb14aadf8b?w=600&h=1012&s=6666868519b243260d38b3ca1d1bw21f',
-...
-]
-```
-
-#### Arguments
-The :organization_name, :project, :folder_path, :file_name are required in the call URL. In addition, the GET parameters :w for width and :h for height must be specified.
-
-#### Returns
-
-Returns a JSON array containing a list of preview image URLs.
