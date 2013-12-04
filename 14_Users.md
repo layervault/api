@@ -62,3 +62,5 @@ Returns a JSON object containing:
   - `first_name` - The First name of the user.
   - `last_name` - The Last name of the user.
   - `is_admin` - Whether the user is an admin of the site or not.
+  - `projects` - An JSON array of the projects that the user is either a member or part of an organization where they are an observer.
+  - `organizationa` - An JSON array of the organizations that the user is a member or observer of.

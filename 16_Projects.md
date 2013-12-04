@@ -161,7 +161,7 @@ Returns a JSON object containing:
 
 #### Deleting a Project
 
-Deletes a Project folder. Returns an HTTP 200 on success.
+Removes the User from the project.
 
 Definition
 
