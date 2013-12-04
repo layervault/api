@@ -26,6 +26,7 @@ This call returns the user information for which the Client is acting on behalf 
       "deleted_at": null,
       "updated_at": "2013-10-25T22:52:42Z",
       "color": null,
+      "member": true,
       "organization_name": "Acme Co",
       "organization_permalink": "acme-co"
     }
@@ -36,12 +37,14 @@ This call returns the user information for which the Client is acting on behalf 
       "deleted_at": "3013-01-01T00:00:00Z",
       "updated_at": "2013-10-25T22:52:44Z",
       "full_url": "https://layervault.com/acme-co",
+      "sync_type": "layervault",
       "projects": [
         {
           "name": "Folder",
           "deleted_at": null,
           "updated_at": "2013-10-25T22:52:44Z",
           "color": null,
+          "member": true,
           "organization_name": "Acme Co",
           "organization_permalink": "acme-co"
         }
