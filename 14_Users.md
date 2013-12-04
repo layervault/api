@@ -1,0 +1,64 @@
+### User Information
+
+#### Retrieving User Information
+
+This call returns the user information for which the Client is acting on behalf of, including the Projects the user has access to and Organizations they are a member of.
+
+ Definition
+
+    GET /api/v1/me
+
+ Example Request
+
+    $ curl -H 'Authorization: Bearer <your access token>' 'https://api.layervault.com/api/v1/me'
+
+ Example Response
+
+```json
+{
+  "email": "john@layervault.com",
+  "first_name": "John",
+  "last_name": "McDowall",
+  "is_admin": true,
+  "projects": [
+    {
+      "name": "Folder",
+      "deleted_at": null,
+      "updated_at": "2013-10-25T22:52:42Z",
+      "color": null,
+      "organization_name": "Acme Co",
+      "organization_permalink": "acme-co"
+    }
+  ],
+  "organizations": [
+    {
+      "name": "Acme Co",
+      "deleted_at": "3013-01-01T00:00:00Z",
+      "updated_at": "2013-10-25T22:52:44Z",
+      "full_url": "https://layervault.com/acme-co",
+      "projects": [
+        {
+          "name": "Folder",
+          "deleted_at": null,
+          "updated_at": "2013-10-25T22:52:44Z",
+          "color": null,
+          "organization_name": "Acme Co",
+          "organization_permalink": "acme-co"
+        }
+      ]
+    }
+  ]
+}
+```
+
+#### Arguments
+No arguments are required.
+
+#### Returns
+
+Returns a JSON object containing:
+
+  - `email` - The email address of the user.
+  - `first_name` - The First name of the user.
+  - `last_name` - The Last name of the user.
+  - `is_admin` - Whether the user is an admin of the site or not.
