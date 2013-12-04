@@ -190,15 +190,15 @@ Change a referenced Folder's color on LayerVault.com and the user's local file s
 
 Definition
 
-    PUT /api/v1/:organization_name/:project/:folder_path
+    PUT /api/v1/:organization_name/:project/:folder_path/color
 
 Example Request
 
 ```shell
 $ curl -X PUT \
-    -d "color=000000" \
+    -d "color=#000000" \
     -H 'Authorization: Bearer <your access token>' \
-    'https://api.layervault.com/api/v1/layervault/Test/Illustrations'
+    'https://api.layervault.com/api/v1/layervault/Test/Illustrations/color'
 ```
 
 Example Response
