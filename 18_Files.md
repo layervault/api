@@ -99,7 +99,7 @@ Once you have all of these parameters, include a parameter for "Content-Type" wh
 
 NB: Make sure the ```file``` parameter is the last in the above list of parameters - S3 ignores ```POST``` fields that come after the ```file``` parameter.
 
-Upon success, you will receive a response from Amazon S3 with a ```Location``` header with a URL to which you should make a POST request verbatim, with the inclusion of your access token to the query string. Once that call completes, your file will be processed and ready for display on LayerVault at the location you specified.
+Upon success, you will receive a response from Amazon S3 with a ```Location``` header with a URL to which you should make a POST request verbatim, with the inclusion of your access token to the query string AND to the Authorization header. Once that call completes, your file will be processed and ready for display on LayerVault at the location you specified.
 
 #### Deleting a File
 
