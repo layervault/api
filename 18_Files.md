@@ -176,7 +176,7 @@ Returns a referenced File Revisions Revision History.
 
 ```shell
 $ curl -H 'Authorization: Bearer <your access token>' \
-    'https://api.layervault.com/api/v1/layervaultTest/Illustrations/NewFile.psd/1/revisions'
+    'https://api.layervault.com/api/v1/layervaultTest/Illustrations/NewFile.psd/revisions'
 ```
 
  Example Response
