@@ -45,9 +45,17 @@ Returns a JSON object containing:
   - `deleted_at` - The deletion date for the Folders
   - `revision_number` - The revision number of the File
 
-#### Creating and Uploading a File
+#### Creating and then Uploading a File
 
 Creates a File under the referenced folder path and organization. Returns a JSON payload containing the necessary S3 upload parameters to make an file upload directly to the LayerVault servers.
+
+High Level Overview of Request Flow
+
+  1. Request the S3 JSON upload parameters from LayerVault
+  2. Use those parameters to make a Multi-part POST with the file directly to S3. If you see XML in the response to this request you have offended Amazon S3. Don't alter, change or add any of the parameters you were given in Step 1.
+  3. For a properly formed request in Step 2, S3 will respond with a callback URL in the ```Location``` header of the response to the request you just made in Step 2.
+  4. Take that URL from the ```Location``` header and attach your access_token to the end of the query string and make a POST request to that URL. If you receive a 401 at this stage it's because you have forgotten to add the access_token (you're basically making a normal API request in this step).
+  5. LayerVault will receive the POST request and begin to process your upload internally.
 
 Definition
 
@@ -95,7 +103,7 @@ Returns a JSON object containing:
 
 DO NOT ALTER ANY OF THESE PARAMETERS. If you do, the upload will fail.
 
-Once you have all of these parameters, include a parameter for "Content-Type" which matches the Content Type of the file you are trying to upload. Finally, include a ```file``` parameter that is a binary multi-part representation of your file you wish to upload, and make a ```POST``` request with all of these parameters to ```https://omnivore-scratch.s3.amazonaws.com```.
+Once you have all of these parameters, include a parameter for "Content-Type" which matches the Content Type of the file you are trying to upload. Finally, include a ```file``` parameter that is a ```binary multi-part``` representation of your file you wish to upload, and make a ```POST``` request with all of these parameters to ```https://omnivore-scratch.s3.amazonaws.com```. Do not change, alter, or add anything to these parameters outlined as you will receive nasty XML error messages from Amazon S3.
 
 NB: Make sure the ```file``` parameter is the last in the above list of parameters - S3 ignores ```POST``` fields that come after the ```file``` parameter.
 
