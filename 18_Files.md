@@ -51,7 +51,7 @@ Creates a File under the referenced folder path and organization. Returns a JSON
 
 High Level Overview of Request Flow
 
-  1. Request the S3 JSON upload parameters from LayerVault
+  1. Request the S3 JSON upload parameters from LayerVault via a ```PUT``` request with an ```md5``` parameter of the file you want to upload
   2. Use those parameters to make a Multi-part POST with the file directly to S3. If you see XML in the response to this request you have offended Amazon S3. Don't alter, change or add any of the parameters you were given in Step 1.
   3. For a properly formed request in Step 2, S3 will respond with a callback URL in the ```Location``` header of the response to the request you just made in Step 2.
   4. Take that URL from the ```Location``` header and attach your access_token to the end of the query string and make a POST request to that URL. If you receive a 401 at this stage it's because you have forgotten to add the access_token (you're basically making a normal API request in this step).
