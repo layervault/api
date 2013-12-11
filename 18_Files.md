@@ -130,7 +130,7 @@ $ curl -X DELETE \
     None
 
 #### Arguments
-The :organization_name, :project, :folder_path and :file_name are required in the call URL.
+The :organization_name, :project, :folder_path and :file_name are required in the call URL. A POST parameter ```:md5``` is required and must match the MD5 of the file to be deleted.
 
 #### Returns
 
