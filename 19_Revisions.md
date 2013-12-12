@@ -228,3 +228,161 @@ The :organization_name, :project, :folder_path, :file_name and :revision are req
 #### Returns
 
 A single URL to the preview image.
+
+#### Retreiving a File Revision's Feedback Items
+
+Obtain the feeback items attached to a file revision.
+
+Definition
+
+    GET /api/v1/:organization_name/:project/:folder/:file_name/:revision/feedback_items
+
+Example Request
+
+```shell
+$ curl -H 'Authorization: Bearer <your access token>' \
+  'https://api.layervault.com/api/v1/layervault/Project/Test.psd/1/feedback_items'
+```
+
+Example Response
+
+```json
+[
+  {
+    "id": 1687,
+    "top": null,
+    "right": null,
+    "left": null,
+    "bottom": null,
+    "left_on_preview_id": 436729,
+    "left_on_signpost_id": 3782,
+    "message": "I meant to say Front Page, not Story Page :(",
+    "user_id": 6,
+    "signpost_id": 5636,
+    "created_at": "2013-04-19T19:06:11Z"
+  },
+  {
+    "id": 2671,
+    "top": 408,
+    "right": 1040,
+    "left": 356,
+    "bottom": 461,
+    "left_on_preview_id": 436729,
+    "left_on_signpost_id": 3782,
+    "message": "Type choice needs some work. Mixing Avenir and Avant Garde.... not so good.",
+    "user_id": 6,
+    "signpost_id": 5636,
+    "created_at": "2013-06-13T23:25:15Z"
+  },
+  {
+    "id": 2672,
+    "top": 445,
+    "right": 2195,
+    "left": 1998,
+    "bottom": 668,
+    "left_on_preview_id": 436729,
+    "left_on_signpost_id": 3782,
+    "message": "Probably need to invert these.",
+    "user_id": 6,
+    "signpost_id": 5636,
+    "created_at": "2013-06-13T23:25:28Z"
+  },
+  {
+    "id": 11216,
+    "top": null,
+    "right": null,
+    "left": null,
+    "bottom": null,
+    "left_on_preview_id": 436729,
+    "left_on_signpost_id": null,
+    "message": "First draft of the story page. No story badges for the moment. Without the color coding, the black/blue starts to make my eye glaze over.",
+    "user_id": 6,
+    "signpost_id": null,
+    "created_at": "2013-04-19T19:05:45Z"
+  },
+  {
+    "id": 2673,
+    "top": 709,
+    "right": 953,
+    "left": 402,
+    "bottom": 804,
+    "left_on_preview_id": 536981,
+    "left_on_signpost_id": 5636,
+    "message": "The padding here could be tightened up.",
+    "user_id": 6,
+    "signpost_id": null,
+    "created_at": "2013-06-13T23:26:17Z"
+  },
+  {
+    "id": 2674,
+    "top": 397,
+    "right": 275,
+    "left": 172,
+    "bottom": 493,
+    "left_on_preview_id": 536981,
+    "left_on_signpost_id": 5636,
+    "message": "Without badges, this front page doesn't have as much personality.",
+    "user_id": 6,
+    "signpost_id": null,
+    "created_at": "2013-06-13T23:26:38Z"
+  },
+  {
+    "id": 2675,
+    "top": 406,
+    "right": 1043,
+    "left": 349,
+    "bottom": 454,
+    "left_on_preview_id": 536981,
+    "left_on_signpost_id": 5636,
+    "message": "Might need to consider bringing back blue and light blue (visited) links.",
+    "user_id": 6,
+    "signpost_id": null,
+    "created_at": "2013-06-13T23:26:57Z"
+  },
+  {
+    "id": 13070,
+    "top": null,
+    "right": null,
+    "left": null,
+    "bottom": null,
+    "left_on_preview_id": 536981,
+    "left_on_signpost_id": null,
+    "message": "This is probably pretty close to what will end up going to production. The padding between stories is a bit big. I think it'll mess around with row ",
+    "user_id": 6,
+    "signpost_id": null,
+    "created_at": "2013-06-13T23:25:48Z"
+  },
+  {
+    "id": 16772,
+    "top": null,
+    "right": null,
+    "left": null,
+    "bottom": null,
+    "left_on_preview_id": 667574,
+    "left_on_signpost_id": null,
+    "message": "All of this was fixed.",
+    "user_id": 6,
+    "signpost_id": null,
+    "created_at": "2013-09-10T16:28:29Z"
+  }
+]
+```
+
+#### Arguments
+The :organization_name, :project, :folder_path, :file_name and :revision are required in the call URL.
+
+#### Returns
+
+Returns a JSON array of objects containing:
+
+  - id - The ID of the feedback item.
+  - top - The top co-ordinate of the feedback bounding box.
+  - right - The right co-ordinate of the feedback bounding box.
+  - left - The left co-ordinate of the feedback bounding box.
+  - bottom - The bottom co-ordinate of the feedback bounding box.
+  - left_on_preview_id - The preview id the feedback item was left on.
+  - left_on_signpost_id - The signpost the feedback item was left on, if any.
+  - message - The text of the feedback item.
+  - user_id - The user ID of the user who left the feedback item.
+  - signpost_id - The associated signpost ID, if any.
+  - created_at - The date the feedback item was created.

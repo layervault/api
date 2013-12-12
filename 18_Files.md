@@ -261,19 +261,19 @@ The :organization_name, :project, :folder_path, :file_name are required in the c
 
 Returns a JSON array containing a list of preview image URLs.
 
-#### Retreiving a File Revision's Feedback Items
+#### Retreiving a File's Feedback Items
 
-Obtain the feeback items attached to a file revision.
+Obtain the feeback items attached to a file.
 
 Definition
 
-    GET /api/v1/:organization_name/:project/:folder/:file_name/:revision/feedback_items
+    GET /api/v1/:organization_name/:project/:folder/:file_name/feedback_items
 
 Example Request
 
 ```shell
 $ curl -H 'Authorization: Bearer <your access token>' \
-  'https://api.layervault.com/api/v1/layervault/Project/Test.psd/1/feedback_items'
+  'https://api.layervault.com/api/v1/layervault/Project/Test.psd/feedback_items'
 ```
 
 Example Response
