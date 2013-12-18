@@ -19,13 +19,17 @@ Example Response
 
 ```json
 {
-  "download_url": "https://layervault.com/files/download_node/2YDJVhvxLV",
-  "full_url": "https://layervault.com/layervault/Test/Illustrations/NewLogo.psd/1",
-  "md5": "837b0a406b101620a3d2b33867d66560",
+  "local_path": "~/LayerVault/Test/Illustrations/NewLogo.psd",
+  "name": "NewLogo.psd",
+  "deleted_at": null,
   "updated_at": "2013-10-21T19:05:23Z",
-  "created_at": "2013-10-21T19:05:23Z",
+  "modified_at": "2013-10-21T19:05:23Z",
+  "md5": "837b0a406b101620a3d2b33867d66560",
+  "download_url": "https://layervault.com/files/download_node/2YDJVhvxLV",
+  "full_url": "https://layervault.com/layervault/Test/Illustrations/NewLogo.psd",
   "shortened_url": "http://lyrv.lt/2YDJVhvxLV",
-  "revision_number": 1
+  "revision_number": 1,
+  "revisions": []
 }
 ```
 
@@ -36,14 +40,17 @@ The :organization_name, :project, :folder_path and :file_name are required in th
 
 Returns a JSON object containing:
 
-  - `full_url` - The absolute URL to the File
-  - `download_url` - The absolute URL to download a copy of the File
   - `local_path` - The local path on the user's filesystem
-  - `md5` - The MD5 hash of the File
-  - `shortened_url` - The shortened URL for the Folder
+  - `name` - The name of the file
+  - `deleted_at` - When the file was deleted. Returns null if not deleted.
   - `updated_at` - The updated at date for the Folders
   - `deleted_at` - The deletion date for the Folders
+  - `full_url` - The absolute URL to the File
+  - `download_url` - The absolute URL to download a copy of the File
+  - `md5` - The MD5 hash of the File
+  - `shortened_url` - The shortened URL for the Folder
   - `revision_number` - The revision number of the File
+  - `revisions` - Array of Revision objects
 
 #### Creating and then Uploading a File
 
