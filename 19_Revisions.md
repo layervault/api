@@ -6,7 +6,7 @@ Returns a referenced File Revision's information.
 
  Definition
 
-    GET /api/v1/:organization_name/:project/:folder/:file_name/:revision
+    GET /api/v1/:organization_name/:project/:folder_path/:file_name/:revision
 
  Example Request
 
@@ -19,31 +19,38 @@ $ curl -H 'Authorization: Bearer <your access token>' \
 
 ```json
 {
+  "name": "1",
   "download_url": "https://layervault.com/files/download_node/DwoRKvzbEj",
   "full_url": "https://layervault.com/layervault/api-playground/Test.psd/1",
   "md5": "e388875b2d81f6798dd187d1c047a50c",
+  "deleted_at": null,
   "updated_at": "2013-10-21T19:05:24Z",
   "created_at": "2013-10-21T19:05:24Z",
   "shortened_url": "http://lyrv.lt/DwoRKvzbEj",
-  "revision_number": 1
+  "revision_number": 1,
+  "user": {},
+  "previews": []
 }
 ```
 
 #### Arguments
-The :organization_name, :project, :folder_path, :file_name and :revisions are required in the call URL.
+The :organization_name, :project, :folder_path, :file_name and :revision are required in the call URL.
 
 #### Returns
 
 Returns a JSON object containing:
 
-  - `full_url` - The absolute URL to the File
-  - `download_url` - The absolute URL to download a copy of the File
-  - `local_path` - The local path on the user's filesystem
-  - `md5` - The MD5 hash of the File
+  - `name` - The name of the revision, which is its revision number.
+  - `full_url` - The absolute URL to the Revision
+  - `download_url` - The absolute URL to download a copy of the Revision
+  - `md5` - The MD5 hash of the Revision
   - `shortened_url` - The shortened URL for the Folder
-  - `updated_at` - The updated at date for the Folders
-  - `deleted_at` - The deletion date for the Folders
-  - `revision_number` - The revision number of the File
+  - `deleted_at` - The date when the revision was deleted, null otherwise
+  - `updated_at` - The updated at date for the Revision
+  - `deleted_at` - The deletion date for the Revision
+  - `revision_number` - The revision number for the Revision
+  - `user` - The user who created the Revision
+  - `previews` - All previews generated for the Revision
 
 #### Retrieving Revision's Meta Information
 
