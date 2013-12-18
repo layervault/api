@@ -58,10 +58,10 @@ Creates a File under the referenced folder path and organization. Returns a JSON
 
 High Level Overview of Request Flow
 
-  1. Request the S3 JSON upload parameters from LayerVault via a ```PUT``` request with an ```md5``` parameter of the file you want to upload
-  2. Use those parameters to make a Multi-part POST with the file directly to S3. If you see XML in the response to this request you have offended Amazon S3. Don't alter, change or add any of the parameters you were given in Step 1.
-  3. For a properly formed request in Step 2, S3 will respond with a callback URL in the ```Location``` header of the response to the request you just made in Step 2.
-  4. Take that URL from the ```Location``` header and attach your access_token to the end of the query string and make a POST request to that URL. If you receive a 401 at this stage it's because you have forgotten to add the access_token (you're basically making a normal API request in this step).
+  1. Request the S3 JSON upload parameters from LayerVault via a `PUT` request with an `md5` parameter of the file you want to upload
+  2. Use those parameters to make a **multipart** POST with the file directly to S3. If you see XML in the response to this request you have offended Amazon S3. Don't alter, change or add any of the parameters you were given in Step 1.
+  3. If all is well, S3 will respond with a callback URL in the `Location` header of the response to the request you just made in Step 2.
+  4. Take that URL from the `Location` header and attach your access_token to the end of the query string and make a POST request to that URL. If you receive a 401 at this stage it's because you have forgotten to add the access_token (you're basically making a normal API request in this step).
   5. LayerVault will receive the POST request and begin to process your upload internally.
 
 Definition
@@ -92,7 +92,7 @@ $ curl -X PUT \
 ```
 
 #### Arguments
-The :organization_name, :project, :folder_path and :file_name are required in the call URL. The PUT Parameter ```md5``` should be included which represents the MD5 digest hash of the contents of the file you wish to upload.
+The :organization_name, :project, :folder_path and :file_name are required in the call URL. The PUT Parameter `md5` should be included which represents the MD5 digest hash of the contents of the file you wish to upload.
 
 #### Returns
 
@@ -110,11 +110,11 @@ Returns a JSON object containing:
 
 DO NOT ALTER ANY OF THESE PARAMETERS. If you do, the upload will fail.
 
-Once you have all of these parameters, include a parameter for "Content-Type" which matches the Content Type of the file you are trying to upload. Finally, include a ```file``` parameter that is a ```binary multi-part``` representation of your file you wish to upload, and make a ```POST``` request with all of these parameters to ```https://omnivore-scratch.s3.amazonaws.com```. Do not change, alter, or add anything to these parameters outlined as you will receive nasty XML error messages from Amazon S3.
+Once you have all of these parameters, include a parameter for `Content-Type` which matches the Content Type of the file you are trying to upload. Finally, include a `file` parameter that is a `binary multipart` representation of your file you wish to upload, and make a `POST` request with all of these parameters to `https://omnivore-scratch.s3.amazonaws.com`. Do not change, alter, or add anything to these parameters outlined as you will receive nasty XML error messages from Amazon S3.
 
-NB: Make sure the ```file``` parameter is the last in the above list of parameters - S3 ignores ```POST``` fields that come after the ```file``` parameter.
+NB: Make sure the `file` parameter is the last in the above list of parameters - S3 ignores `POST` fields that come after the `file` parameter.
 
-Upon success, you will receive a response from Amazon S3 with a ```Location``` header with a URL to which you should make a POST request verbatim, with the inclusion of your access token to the query string. Once that call completes, your file will be processed and ready for display on LayerVault at the location you specified.
+Upon success, you will receive a response from Amazon S3 with a `Location` header with a URL to which you should make a POST request verbatim, with the inclusion of your access token to the query string. Once that call completes, your file will be processed and ready for display on LayerVault at the location you specified.
 
 #### Deleting a File
 
@@ -128,6 +128,7 @@ Example Request
 
 ```shell
 $ curl -X DELETE \
+    -D 'md5=837b0a406b101620a3d2b33867d66560' \
     -H 'Authorization: Bearer <your access token>' \
     'https://api.layervault.com/api/v1/layervault/Test/Illustrations/NewFile.psd'
 ```
@@ -137,7 +138,7 @@ $ curl -X DELETE \
     None
 
 #### Arguments
-The :organization_name, :project, :folder_path and :file_name are required in the call URL. A POST parameter ```:md5``` is required and must match the MD5 of the file to be deleted.
+The :organization_name, :project, :folder_path and :file_name are required in the call URL. A POST parameter `:md5` is required and must match the MD5 of the file to be deleted.
 
 #### Returns
 
@@ -149,15 +150,15 @@ Moves a File to a new Folder and optionally a new Filename under a referenced Or
 
 Definition
 
-    POST /api/v1/:organization_name/:project/:folder/:file_name
+    POST /api/v1/:organization_name/:project/:folder/:file_name/move
 
 Example Request
 
 ```shell
 $ curl -X POST \
-    -D 'new_folder=/this/is/the/new/folder&new_filename=bert.psd' \
+    -D 'to=/this/is/the/new/folder&new_file_name=bert.psd' \
     -H 'Authorization: Bearer <your access token>' \
-    'https://api.layervault.com/api/v1/layervault/Test/Illustrations/Test.psd'
+    'https://api.layervault.com/api/v1/layervault/Test/Illustrations/Test.psd/move'
 ```
 
 Example Response
@@ -169,7 +170,7 @@ Example Response
 ```
 
 #### Arguments
-The :organization_name, :project, :folder_path and :file_name are required in the call URL.
+The :organization_name, :project, :folder_path and :file_name are required in the call URL. The `to` param is required and must specify the destination folder relative to the organization root. If you wish to rename the file as well, you can give the `new_file_name` parameter.
 
 #### Returns
 
