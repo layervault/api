@@ -200,22 +200,30 @@ $ curl -H 'Authorization: Bearer <your access token>' \
 ```json
 [
   {
+    "name": "1",
     "download_url": "https://layervault.com/files/download_node/vKUNqi6jFi",
     "full_url": "https://layervault.com/layervault/api-playground/Test.psd/2",
     "md5": "65ef424c001b078516d953f1e4a66450",
+    "deleted_at": null,
     "updated_at": "2013-10-21T19:05:25Z",
     "created_at": "2013-10-21T19:05:25Z",
     "shortened_url": "http://lyrv.lt/vKUNqi6jFi",
-    "revision_number": 2
+    "revision_number": 1,
+    "user": {},
+    "previews": []
   },
   {
+    "name": "2",
     "download_url": "https://layervault.com/files/download_node/udMqnVagH6",
     "full_url": "https://layervault.com/layervault/api-playground/Test.psd/3",
     "md5": "4edea58eacd8c9334e4df173dad72d69",
+    "deleted_at": null,
     "updated_at": "2013-10-21T19:05:27Z",
     "created_at": "2013-10-21T19:05:27Z",
     "shortened_url": "http://lyrv.lt/udMqnVagH6",
-    "revision_number": 3
+    "revision_number": 2,
+    "user": {},
+    "previews": []
   }
 ]
 ```
@@ -227,18 +235,21 @@ The :organization_name, :project, :folder_path, :file_name and :revisions are re
 
 Returns a JSON array containing objects with the following attributes:
 
-  - `full_url` - The absolute URL to the File
-  - `download_url` - The absolute URL to download a copy of the File
-  - `local_path` - The local path on the user's filesystem
-  - `md5` - The MD5 hash of the File
-  - `shortened_url` - The shortened URL for the Folder
-  - `updated_at` - The updated at date for the Folders
-  - `deleted_at` - The deletion date for the Folders
-  - `revision_number` - The revision number of the File
+  - `name` - The name of the revision, which is the same as it's revision number
+  - `full_url` - The absolute URL to the Revision
+  - `download_url` - The absolute URL to download a copy of the Revision
+  - `md5` - The MD5 hash of the Revision
+  - `shortened_url` - The shortened URL for the Revision
+  - `updated_at` - The updated at date for the Revision
+  - `deleted_at` - The deletion date for the Revision
+  - `created_at` - The creation date for the Revision
+  - `revision_number` - The revision number for the revision
+  - `user` - The user who created the Revision
+  - `previews` - All previews generated for the Revision
 
 #### Retrieving a File's Preview Information
 
-Returns all of the previews associated with a file.
+Returns all of the previews associated with the latest revision of a file.
 
  Definition
 
@@ -248,26 +259,54 @@ Returns all of the previews associated with a file.
 
 ```shell
 $ curl -H 'Authorization: Bearer <your access token>' \
-  'https://api.layervault.com/api/v1/layervaultTest/Illustrations/NewFile.psd/1/previews?w=100&h=100'
+  'https://api.layervault.com/api/v1/layervaultTest/Illustrations/NewFile.psd/1/previews'
 ```
 
  Example Response
 
 ```json
 [
-  'https://layervault-preview.imgix.net/data/ed3fd8ba3ff2acf4157517fb14aadf8b?w=600&h=1012&s=6666868519b243260d38b3ca1d1b23ef',
-  'https://layervault-preview.imgix.net/data/ed3fd8ba3ff2acf4157517fb14aadf8b?w=600&h=1012&s=6666868519b243260d38b3ca1d1b4edf',
-  'https://layervault-preview.imgix.net/data/ed3fd8ba3ff2acf4157517fb14aadf8b?w=600&h=1012&s=6666868519b243260d38b3ca1d1bw21f',
+  'https://layervault-preview.imgix.net/data/ed3fd8ba3ff2acf4157517fb14aadf8b?s=6666868519b243260d38b3ca1d1b23ef',
+  'https://layervault-preview.imgix.net/data/ed3fd8ba3ff2acf4157517fb14aadf8b?s=6666868519b243260d38b3ca1d1b4edf',
+  'https://layervault-preview.imgix.net/data/ed3fd8ba3ff2acf4157517fb14aadf8b?s=6666868519b243260d38b3ca1d1bw21f',
 ...
 ]
 ```
 
 #### Arguments
-The :organization_name, :project, :folder_path, :file_name are required in the call URL. In addition, the GET parameters :w for width and :h for height must be specified.
+The :organization_name, :project, :folder_path, :file_name are required in the call URL. In addition, you can add GET parameters that will be passed along to imgix for formatting the image. See [their API documentation](http://www.imgix.com/docs/urlapi) for available options.
 
 #### Returns
 
 Returns a JSON array containing a list of preview image URLs.
+
+#### Retrieving the Main Preview for a File
+
+Returns the primary preview for the file, which is the first page in multi-page documents.
+
+Definition
+
+    GET /api/v1/:organization_name/:project/:folder/:file_name/preview
+
+Example Request
+
+``` shell
+$ curl -H 'Authorization: Bearer <your access token>' \
+  'https://api.layervault.com/api/v1/layervaultTest/Illustrations/NewFile.psd/1/preview'
+```
+
+Example Response
+
+``` json
+'https://layervault-preview.imgix.net/data/ed3fd8ba3ff2acf4157517fb14aadf8b?s=6666868519b243260d38b3ca1d1b23ef'
+```
+
+#### Arguments
+The :organization_name, :project, :folder_path, :file_name are required in the call URL. In addition, you can add GET parameters that will be passed along to imgix for formatting the image. See [their API documentation](http://www.imgix.com/docs/urlapi) for available options.
+
+#### Returns
+
+The URL to the preview.
 
 #### Retreiving a File's Feedback Items
 
