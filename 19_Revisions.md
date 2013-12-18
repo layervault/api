@@ -202,13 +202,46 @@ $ curl -H 'Authorization: Bearer <your access token>' \
 ```
 
 #### Arguments
-The :organization_name, :project, :folder_path, :file_name and :revisions are required in the call URL.
+The :organization_name, :project, :folder_path, :file_name and :revision are required in the call URL.
 
 #### Returns
 
 Returns a JSON object containing any Meta information that was set for the revision.
 
-#### Retrieving Revision's Preview Information
+#### Retrieving All Previews for a Revision
+
+Returns all of the previews associated with the revision.
+
+ Definition
+
+    GET /api/v1/:organization_name/:project/:folder/:file_name/:revision/previews
+
+ Example Request
+
+```shell
+$ curl -H 'Authorization: Bearer <your access token>' \
+  'https://api.layervault.com/api/v1/layervaultTest/Illustrations/NewFile.psd/1/previews'
+```
+
+ Example Response
+
+```json
+[
+  'https://layervault-preview.imgix.net/data/ed3fd8ba3ff2acf4157517fb14aadf8b?s=6666868519b243260d38b3ca1d1b23ef',
+  'https://layervault-preview.imgix.net/data/ed3fd8ba3ff2acf4157517fb14aadf8b?s=6666868519b243260d38b3ca1d1b4edf',
+  'https://layervault-preview.imgix.net/data/ed3fd8ba3ff2acf4157517fb14aadf8b?s=6666868519b243260d38b3ca1d1bw21f',
+...
+]
+```
+
+#### Arguments
+The :organization_name, :project, :folder_path, :file_name, and :revision are required in the call URL. In addition, you can add GET parameters that will be passed along to imgix for formatting the image. See [their API documentation](http://www.imgix.com/docs/urlapi) for available options.
+
+#### Returns
+
+Returns a JSON array containing a list of preview image URLs.
+
+#### Retrieving Revisions Preview Information
 
 Returns a referenced File Revisions Preview image link.
 
@@ -220,7 +253,7 @@ Returns a referenced File Revisions Preview image link.
 
 ```shell
 $ curl -H 'Authorization: Bearer <your access token>' \
-  'https://api.layervault.com/api/v1/layervaultTest/Illustrations/NewFile.psd/1/previews?w=100&h=100'
+  'https://api.layervault.com/api/v1/layervaultTest/Illustrations/NewFile.psd/1/previews'
 ```
 
  Example Response
@@ -230,7 +263,7 @@ $ curl -H 'Authorization: Bearer <your access token>' \
 ```
 
 #### Arguments
-The :organization_name, :project, :folder_path, :file_name and :revision are required in the call URL. In addition, the GET parameters :w for width and :h for height must be specified.
+The :organization_name, :project, :folder_path, :file_name and :revision are required in the call URL. In addition, you can add GET parameters that will be passed along to imgix for formatting the image. See [their API documentation](http://www.imgix.com/docs/urlapi) for available options.
 
 #### Returns
 
