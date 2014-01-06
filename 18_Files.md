@@ -128,7 +128,7 @@ Example Request
 
 ```shell
 $ curl -X DELETE \
-    -D 'md5=837b0a406b101620a3d2b33867d66560' \
+    -d 'md5=837b0a406b101620a3d2b33867d66560' \
     -H 'Authorization: Bearer <your access token>' \
     'https://api.layervault.com/api/v1/layervault/Test/Illustrations/NewFile.psd'
 ```
@@ -156,7 +156,7 @@ Example Request
 
 ```shell
 $ curl -X POST \
-    -D 'to=/this/is/the/new/folder&new_file_name=bert.psd' \
+    -d 'to=/this/is/the/new/folder&new_file_name=bert.psd' \
     -H 'Authorization: Bearer <your access token>' \
     'https://api.layervault.com/api/v1/layervault/Test/Illustrations/Test.psd/move'
 ```
