@@ -404,7 +404,7 @@ The :organization_name, :project, :folder_path and :file_name are required in th
 Returns a JSON object containing:
 
   - HTTP Status: 200 - Upload the full file
-  - HTTP Status: 409 - No need to upload anything
+  - HTTP Status: 409 - File is old and needs to be downloaded
   - HTTP Status: 400 - File Size was missing
   - HTTP Status: 413 - The file is too big
   - HTTP Status: 412 - The file should be uploaded in full.
