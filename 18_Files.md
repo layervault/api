@@ -43,8 +43,8 @@ Returns a JSON object containing:
   - `local_path` - The local path on the user's filesystem
   - `name` - The name of the file
   - `deleted_at` - When the file was deleted. Returns null if not deleted.
-  - `updated_at` - The updated at date for the Folders
-  - `deleted_at` - The deletion date for the Folders
+  - `updated_at` - The updated at date for the file
+  - `modified_at` - The date the client modified the file
   - `full_url` - The absolute URL to the File
   - `download_url` - The absolute URL to download a copy of the File
   - `md5` - The MD5 hash of the File
@@ -404,7 +404,7 @@ The :organization_name, :project, :folder_path and :file_name are required in th
 Returns a JSON object containing:
 
   - HTTP Status: 200 - Upload the full file
-  - HTTP Status: 409 - No need to upload anything
+  - HTTP Status: 409 - File is old and needs to be downloaded
   - HTTP Status: 400 - File Size was missing
   - HTTP Status: 413 - The file is too big
   - HTTP Status: 412 - The file should be uploaded in full.
