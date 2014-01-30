@@ -24,7 +24,7 @@ This call returns the organization information for the requested Organization.
   "projects": [
     {
       "name":"api-playground",
-      "deleted_at":"3013-01-01T00:00:00Z",
+      "deleted_at":null,
       "updated_at":"2013-10-21T19:05:40Z",_
       "color":null,
       "member": true

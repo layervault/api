@@ -34,7 +34,7 @@ This call returns the user information for which the Client is acting on behalf 
   "organizations": [
     {
       "name": "Acme Co",
-      "deleted_at": "3013-01-01T00:00:00Z",
+      "deleted_at": null,
       "updated_at": "2013-10-25T22:52:44Z",
       "full_url": "https://layervault.com/acme-co",
       "sync_type": "layervault",
