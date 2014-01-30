@@ -6,7 +6,7 @@ Returns a referenced File Revision's information.
 
  Definition
 
-    GET /api/v1/:organization_name/:project/:folder/:file_name/:revision
+    GET /api/v1/:organization_name/:project/:folder_path/:file_name/:revision
 
  Example Request
 
@@ -19,31 +19,38 @@ $ curl -H 'Authorization: Bearer <your access token>' \
 
 ```json
 {
+  "name": "1",
   "download_url": "https://layervault.com/files/download_node/DwoRKvzbEj",
   "full_url": "https://layervault.com/layervault/api-playground/Test.psd/1",
   "md5": "e388875b2d81f6798dd187d1c047a50c",
+  "deleted_at": null,
   "updated_at": "2013-10-21T19:05:24Z",
   "created_at": "2013-10-21T19:05:24Z",
   "shortened_url": "http://lyrv.lt/DwoRKvzbEj",
-  "revision_number": 1
+  "revision_number": 1,
+  "user": {},
+  "previews": []
 }
 ```
 
 #### Arguments
-The :organization_name, :project, :folder_path, :file_name and :revisions are required in the call URL.
+The :organization_name, :project, :folder_path, :file_name and :revision are required in the call URL.
 
 #### Returns
 
 Returns a JSON object containing:
 
-  - `full_url` - The absolute URL to the File
-  - `download_url` - The absolute URL to download a copy of the File
-  - `local_path` - The local path on the user's filesystem
-  - `md5` - The MD5 hash of the File
+  - `name` - The name of the revision, which is its revision number.
+  - `full_url` - The absolute URL to the Revision
+  - `download_url` - The absolute URL to download a copy of the Revision
+  - `md5` - The MD5 hash of the Revision
   - `shortened_url` - The shortened URL for the Folder
-  - `updated_at` - The updated at date for the Folders
-  - `deleted_at` - The deletion date for the Folders
-  - `revision_number` - The revision number of the File
+  - `deleted_at` - The date when the revision was deleted, null otherwise
+  - `updated_at` - The updated at date for the Revision
+  - `deleted_at` - The deletion date for the Revision
+  - `revision_number` - The revision number for the Revision
+  - `user` - The user who created the Revision
+  - `previews` - All previews generated for the Revision
 
 #### Retrieving Revision's Meta Information
 
@@ -195,13 +202,46 @@ $ curl -H 'Authorization: Bearer <your access token>' \
 ```
 
 #### Arguments
-The :organization_name, :project, :folder_path, :file_name and :revisions are required in the call URL.
+The :organization_name, :project, :folder_path, :file_name and :revision are required in the call URL.
 
 #### Returns
 
 Returns a JSON object containing any Meta information that was set for the revision.
 
-#### Retrieving Revision's Preview Information
+#### Retrieving All Previews for a Revision
+
+Returns all of the previews associated with the revision.
+
+ Definition
+
+    GET /api/v1/:organization_name/:project/:folder/:file_name/:revision/previews
+
+ Example Request
+
+```shell
+$ curl -H 'Authorization: Bearer <your access token>' \
+  'https://api.layervault.com/api/v1/layervaultTest/Illustrations/NewFile.psd/1/previews'
+```
+
+ Example Response
+
+```json
+[
+  'https://layervault-preview.imgix.net/data/ed3fd8ba3ff2acf4157517fb14aadf8b?s=6666868519b243260d38b3ca1d1b23ef',
+  'https://layervault-preview.imgix.net/data/ed3fd8ba3ff2acf4157517fb14aadf8b?s=6666868519b243260d38b3ca1d1b4edf',
+  'https://layervault-preview.imgix.net/data/ed3fd8ba3ff2acf4157517fb14aadf8b?s=6666868519b243260d38b3ca1d1bw21f',
+...
+]
+```
+
+#### Arguments
+The :organization_name, :project, :folder_path, :file_name, and :revision are required in the call URL. In addition, you can add GET parameters that will be passed along to imgix for formatting the image. See [their API documentation](http://www.imgix.com/docs/urlapi) for available options.
+
+#### Returns
+
+Returns a JSON array containing a list of preview image URLs.
+
+#### Retrieving Revisions Preview Information
 
 Returns a referenced File Revisions Preview image link.
 
@@ -213,7 +253,7 @@ Returns a referenced File Revisions Preview image link.
 
 ```shell
 $ curl -H 'Authorization: Bearer <your access token>' \
-  'https://api.layervault.com/api/v1/layervaultTest/Illustrations/NewFile.psd/1/previews?w=100&h=100'
+  'https://api.layervault.com/api/v1/layervaultTest/Illustrations/NewFile.psd/1/previews'
 ```
 
  Example Response
@@ -223,7 +263,7 @@ $ curl -H 'Authorization: Bearer <your access token>' \
 ```
 
 #### Arguments
-The :organization_name, :project, :folder_path, :file_name and :revision are required in the call URL. In addition, the GET parameters :w for width and :h for height must be specified.
+The :organization_name, :project, :folder_path, :file_name and :revision are required in the call URL. In addition, you can add GET parameters that will be passed along to imgix for formatting the image. See [their API documentation](http://www.imgix.com/docs/urlapi) for available options.
 
 #### Returns
 
@@ -255,115 +295,11 @@ Example Response
     "left": null,
     "bottom": null,
     "left_on_preview_id": 436729,
-    "left_on_signpost_id": 3782,
     "message": "I meant to say Front Page, not Story Page :(",
-    "user_id": 6,
-    "signpost_id": 5636,
     "created_at": "2013-04-19T19:06:11Z"
-  },
-  {
-    "id": 2671,
-    "top": 408,
-    "right": 1040,
-    "left": 356,
-    "bottom": 461,
-    "left_on_preview_id": 436729,
-    "left_on_signpost_id": 3782,
-    "message": "Type choice needs some work. Mixing Avenir and Avant Garde.... not so good.",
-    "user_id": 6,
-    "signpost_id": 5636,
-    "created_at": "2013-06-13T23:25:15Z"
-  },
-  {
-    "id": 2672,
-    "top": 445,
-    "right": 2195,
-    "left": 1998,
-    "bottom": 668,
-    "left_on_preview_id": 436729,
-    "left_on_signpost_id": 3782,
-    "message": "Probably need to invert these.",
-    "user_id": 6,
-    "signpost_id": 5636,
-    "created_at": "2013-06-13T23:25:28Z"
-  },
-  {
-    "id": 11216,
-    "top": null,
-    "right": null,
-    "left": null,
-    "bottom": null,
-    "left_on_preview_id": 436729,
-    "left_on_signpost_id": null,
-    "message": "First draft of the story page. No story badges for the moment. Without the color coding, the black/blue starts to make my eye glaze over.",
-    "user_id": 6,
-    "signpost_id": null,
-    "created_at": "2013-04-19T19:05:45Z"
-  },
-  {
-    "id": 2673,
-    "top": 709,
-    "right": 953,
-    "left": 402,
-    "bottom": 804,
-    "left_on_preview_id": 536981,
-    "left_on_signpost_id": 5636,
-    "message": "The padding here could be tightened up.",
-    "user_id": 6,
-    "signpost_id": null,
-    "created_at": "2013-06-13T23:26:17Z"
-  },
-  {
-    "id": 2674,
-    "top": 397,
-    "right": 275,
-    "left": 172,
-    "bottom": 493,
-    "left_on_preview_id": 536981,
-    "left_on_signpost_id": 5636,
-    "message": "Without badges, this front page doesn't have as much personality.",
-    "user_id": 6,
-    "signpost_id": null,
-    "created_at": "2013-06-13T23:26:38Z"
-  },
-  {
-    "id": 2675,
-    "top": 406,
-    "right": 1043,
-    "left": 349,
-    "bottom": 454,
-    "left_on_preview_id": 536981,
-    "left_on_signpost_id": 5636,
-    "message": "Might need to consider bringing back blue and light blue (visited) links.",
-    "user_id": 6,
-    "signpost_id": null,
-    "created_at": "2013-06-13T23:26:57Z"
-  },
-  {
-    "id": 13070,
-    "top": null,
-    "right": null,
-    "left": null,
-    "bottom": null,
-    "left_on_preview_id": 536981,
-    "left_on_signpost_id": null,
-    "message": "This is probably pretty close to what will end up going to production. The padding between stories is a bit big. I think it'll mess around with row ",
-    "user_id": 6,
-    "signpost_id": null,
-    "created_at": "2013-06-13T23:25:48Z"
-  },
-  {
-    "id": 16772,
-    "top": null,
-    "right": null,
-    "left": null,
-    "bottom": null,
-    "left_on_preview_id": 667574,
-    "left_on_signpost_id": null,
-    "message": "All of this was fixed.",
-    "user_id": 6,
-    "signpost_id": null,
-    "created_at": "2013-09-10T16:28:29Z"
+    "user": {},
+    "addressed_by": null,
+    "replies": []
   }
 ]
 ```
@@ -375,14 +311,14 @@ The :organization_name, :project, :folder_path, :file_name and :revision are req
 
 Returns a JSON array of objects containing:
 
-  - id - The ID of the feedback item.
-  - top - The top co-ordinate of the feedback bounding box.
-  - right - The right co-ordinate of the feedback bounding box.
-  - left - The left co-ordinate of the feedback bounding box.
-  - bottom - The bottom co-ordinate of the feedback bounding box.
-  - left_on_preview_id - The preview id the feedback item was left on.
-  - left_on_signpost_id - The signpost the feedback item was left on, if any.
-  - message - The text of the feedback item.
-  - user_id - The user ID of the user who left the feedback item.
-  - signpost_id - The associated signpost ID, if any.
-  - created_at - The date the feedback item was created.
+  - `id` - The ID of the feedback item.
+  - `top` - The top coordinate of the feedback annotation bounding box.
+  - `right` - The right coordinate of the feedback annotation bounding box.
+  - `left` - The left coordinate of the feedback annotation bounding box.
+  - `bottom` - The bottom coordinate of the feedback annotation bounding box.
+  - `left_on_preview_id` - The preview id the feedback item was left on.
+  - `message` - The text of the feedback item.
+  - `created_at` - The date the feedback item was created.
+  - `user` - User object for the user who left the feedback.
+  - `addressed_by` - The feedback item that was created when Requesting Team Feedback and marks this feedback item as addressed.
+  - `replies` - Array of feedback item objects that are a reply to this feedback item. Threads can only be 1 level deep, so the replies will not have replies.

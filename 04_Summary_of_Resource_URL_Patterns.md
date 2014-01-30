@@ -11,9 +11,12 @@
     /v1/:organization_name/:project(/folder_path)/:file_name
     /v1/:organization_name/:project(/folder_path)/:file_name/move
     /v1/:organization_name/:project(/folder_path)/:file_name/previews
+    /v1/:organization_name/:project(/folder_path)/:file_name/preview
     /v1/:organization_name/:project(/folder_path)/:file_name/revisions
     /v1/:organization_name/:project(/folder_path)/:file_name/sync_check
+    /v1/:organization_name/:project(/folder_path)/:file_name/feedback_items
     /v1/:organization_name/:project(/folder_path)/:file_name/:revision
     /v1/:organization_name/:project(/folder_path)/:file_name/:revision/preview
+    /v1/:organization_name/:project(/folder_path)/:file_name/:revision/previews
     /v1/:organization_name/:project(/folder_path)/:file_name/:revision/meta
     /v1/:organization_name/:project(/folder_path)/:file_name/:revision/feedback_items

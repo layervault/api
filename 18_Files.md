@@ -19,13 +19,17 @@ Example Response
 
 ```json
 {
-  "download_url": "https://layervault.com/files/download_node/2YDJVhvxLV",
-  "full_url": "https://layervault.com/layervault/Test/Illustrations/NewLogo.psd/1",
-  "md5": "837b0a406b101620a3d2b33867d66560",
+  "local_path": "~/LayerVault/Test/Illustrations/NewLogo.psd",
+  "name": "NewLogo.psd",
+  "deleted_at": null,
   "updated_at": "2013-10-21T19:05:23Z",
-  "created_at": "2013-10-21T19:05:23Z",
+  "modified_at": "2013-10-21T19:05:23Z",
+  "md5": "837b0a406b101620a3d2b33867d66560",
+  "download_url": "https://layervault.com/files/download_node/2YDJVhvxLV",
+  "full_url": "https://layervault.com/layervault/Test/Illustrations/NewLogo.psd",
   "shortened_url": "http://lyrv.lt/2YDJVhvxLV",
-  "revision_number": 1
+  "revision_number": 1,
+  "revisions": []
 }
 ```
 
@@ -36,14 +40,17 @@ The :organization_name, :project, :folder_path and :file_name are required in th
 
 Returns a JSON object containing:
 
+  - `local_path` - The local path on the user's filesystem
+  - `name` - The name of the file
+  - `deleted_at` - When the file was deleted. Returns null if not deleted.
+  - `updated_at` - The updated at date for the file
+  - `modified_at` - The date the client modified the file
   - `full_url` - The absolute URL to the File
   - `download_url` - The absolute URL to download a copy of the File
-  - `local_path` - The local path on the user's filesystem
   - `md5` - The MD5 hash of the File
   - `shortened_url` - The shortened URL for the Folder
-  - `updated_at` - The updated at date for the Folders
-  - `deleted_at` - The deletion date for the Folders
   - `revision_number` - The revision number of the File
+  - `revisions` - Array of Revision objects
 
 #### Creating and then Uploading a File
 
@@ -51,10 +58,10 @@ Creates a File under the referenced folder path and organization. Returns a JSON
 
 High Level Overview of Request Flow
 
-  1. Request the S3 JSON upload parameters from LayerVault via a ```PUT``` request with an ```md5``` parameter of the file you want to upload
-  2. Use those parameters to make a Multi-part POST with the file directly to S3. If you see XML in the response to this request you have offended Amazon S3. Don't alter, change or add any of the parameters you were given in Step 1.
-  3. For a properly formed request in Step 2, S3 will respond with a callback URL in the ```Location``` header of the response to the request you just made in Step 2.
-  4. Take that URL from the ```Location``` header and attach your access_token to the end of the query string and make a POST request to that URL. If you receive a 401 at this stage it's because you have forgotten to add the access_token (you're basically making a normal API request in this step).
+  1. Request the S3 JSON upload parameters from LayerVault via a `PUT` request with an `md5` parameter of the file you want to upload
+  2. Use those parameters to make a **multipart** POST with the file directly to S3. If you see XML in the response to this request you have offended Amazon S3. Don't alter, change or add any of the parameters you were given in Step 1.
+  3. If all is well, S3 will respond with a callback URL in the `Location` header of the response to the request you just made in Step 2.
+  4. Take that URL from the `Location` header and attach your access_token to the end of the query string and make a POST request to that URL. If you receive a 401 at this stage it's because you have forgotten to add the access_token (you're basically making a normal API request in this step).
   5. LayerVault will receive the POST request and begin to process your upload internally.
 
 Definition
@@ -85,7 +92,7 @@ $ curl -X PUT \
 ```
 
 #### Arguments
-The :organization_name, :project, :folder_path and :file_name are required in the call URL. The PUT Parameter ```md5``` should be included which represents the MD5 digest hash of the contents of the file you wish to upload.
+The :organization_name, :project, :folder_path and :file_name are required in the call URL. The PUT Parameter `md5` should be included which represents the MD5 digest hash of the contents of the file you wish to upload.
 
 #### Returns
 
@@ -103,11 +110,11 @@ Returns a JSON object containing:
 
 DO NOT ALTER ANY OF THESE PARAMETERS. If you do, the upload will fail.
 
-Once you have all of these parameters, include a parameter for "Content-Type" which matches the Content Type of the file you are trying to upload. Finally, include a ```file``` parameter that is a ```binary multi-part``` representation of your file you wish to upload, and make a ```POST``` request with all of these parameters to ```https://omnivore-scratch.s3.amazonaws.com```. Do not change, alter, or add anything to these parameters outlined as you will receive nasty XML error messages from Amazon S3.
+Once you have all of these parameters, include a parameter for `Content-Type` which matches the Content Type of the file you are trying to upload. Finally, include a `file` parameter that is a `binary multipart` representation of your file you wish to upload, and make a `POST` request with all of these parameters to `https://omnivore-scratch.s3.amazonaws.com`. Do not change, alter, or add anything to these parameters outlined as you will receive nasty XML error messages from Amazon S3.
 
-NB: Make sure the ```file``` parameter is the last in the above list of parameters - S3 ignores ```POST``` fields that come after the ```file``` parameter.
+NB: Make sure the `file` parameter is the last in the above list of parameters - S3 ignores `POST` fields that come after the `file` parameter.
 
-Upon success, you will receive a response from Amazon S3 with a ```Location``` header with a URL to which you should make a POST request verbatim, with the inclusion of your access token to the query string. Once that call completes, your file will be processed and ready for display on LayerVault at the location you specified.
+Upon success, you will receive a response from Amazon S3 with a `Location` header with a URL to which you should make a POST request verbatim, with the inclusion of your access token to the query string. Once that call completes, your file will be processed and ready for display on LayerVault at the location you specified.
 
 #### Deleting a File
 
@@ -121,6 +128,7 @@ Example Request
 
 ```shell
 $ curl -X DELETE \
+    -d 'md5=837b0a406b101620a3d2b33867d66560' \
     -H 'Authorization: Bearer <your access token>' \
     'https://api.layervault.com/api/v1/layervault/Test/Illustrations/NewFile.psd'
 ```
@@ -130,7 +138,7 @@ $ curl -X DELETE \
     None
 
 #### Arguments
-The :organization_name, :project, :folder_path and :file_name are required in the call URL. A POST parameter ```:md5``` is required and must match the MD5 of the file to be deleted.
+The :organization_name, :project, :folder_path and :file_name are required in the call URL. A POST parameter `:md5` is required and must match the MD5 of the file to be deleted.
 
 #### Returns
 
@@ -142,15 +150,15 @@ Moves a File to a new Folder and optionally a new Filename under a referenced Or
 
 Definition
 
-    POST /api/v1/:organization_name/:project/:folder/:file_name
+    POST /api/v1/:organization_name/:project/:folder/:file_name/move
 
 Example Request
 
 ```shell
 $ curl -X POST \
-    -D 'new_folder=/this/is/the/new/folder&new_filename=bert.psd' \
+    -d 'to=/this/is/the/new/folder&new_file_name=bert.psd' \
     -H 'Authorization: Bearer <your access token>' \
-    'https://api.layervault.com/api/v1/layervault/Test/Illustrations/Test.psd'
+    'https://api.layervault.com/api/v1/layervault/Test/Illustrations/Test.psd/move'
 ```
 
 Example Response
@@ -162,7 +170,7 @@ Example Response
 ```
 
 #### Arguments
-The :organization_name, :project, :folder_path and :file_name are required in the call URL.
+The :organization_name, :project, :folder_path and :file_name are required in the call URL. The `to` param is required and must specify the destination folder relative to the organization root. If you wish to rename the file as well, you can give the `new_file_name` parameter.
 
 #### Returns
 
@@ -192,22 +200,30 @@ $ curl -H 'Authorization: Bearer <your access token>' \
 ```json
 [
   {
+    "name": "1",
     "download_url": "https://layervault.com/files/download_node/vKUNqi6jFi",
     "full_url": "https://layervault.com/layervault/api-playground/Test.psd/2",
     "md5": "65ef424c001b078516d953f1e4a66450",
+    "deleted_at": null,
     "updated_at": "2013-10-21T19:05:25Z",
     "created_at": "2013-10-21T19:05:25Z",
     "shortened_url": "http://lyrv.lt/vKUNqi6jFi",
-    "revision_number": 2
+    "revision_number": 1,
+    "user": {},
+    "previews": []
   },
   {
+    "name": "2",
     "download_url": "https://layervault.com/files/download_node/udMqnVagH6",
     "full_url": "https://layervault.com/layervault/api-playground/Test.psd/3",
     "md5": "4edea58eacd8c9334e4df173dad72d69",
+    "deleted_at": null,
     "updated_at": "2013-10-21T19:05:27Z",
     "created_at": "2013-10-21T19:05:27Z",
     "shortened_url": "http://lyrv.lt/udMqnVagH6",
-    "revision_number": 3
+    "revision_number": 2,
+    "user": {},
+    "previews": []
   }
 ]
 ```
@@ -219,18 +235,21 @@ The :organization_name, :project, :folder_path, :file_name and :revisions are re
 
 Returns a JSON array containing objects with the following attributes:
 
-  - `full_url` - The absolute URL to the File
-  - `download_url` - The absolute URL to download a copy of the File
-  - `local_path` - The local path on the user's filesystem
-  - `md5` - The MD5 hash of the File
-  - `shortened_url` - The shortened URL for the Folder
-  - `updated_at` - The updated at date for the Folders
-  - `deleted_at` - The deletion date for the Folders
-  - `revision_number` - The revision number of the File
+  - `name` - The name of the revision, which is the same as it's revision number
+  - `full_url` - The absolute URL to the Revision
+  - `download_url` - The absolute URL to download a copy of the Revision
+  - `md5` - The MD5 hash of the Revision
+  - `shortened_url` - The shortened URL for the Revision
+  - `updated_at` - The updated at date for the Revision
+  - `deleted_at` - The deletion date for the Revision
+  - `created_at` - The creation date for the Revision
+  - `revision_number` - The revision number for the revision
+  - `user` - The user who created the Revision
+  - `previews` - All previews generated for the Revision
 
 #### Retrieving a File's Preview Information
 
-Returns all of the previews associated with a file.
+Returns all of the previews associated with the latest revision of a file.
 
  Definition
 
@@ -240,26 +259,54 @@ Returns all of the previews associated with a file.
 
 ```shell
 $ curl -H 'Authorization: Bearer <your access token>' \
-  'https://api.layervault.com/api/v1/layervaultTest/Illustrations/NewFile.psd/1/previews?w=100&h=100'
+  'https://api.layervault.com/api/v1/layervaultTest/Illustrations/NewFile.psd/1/previews'
 ```
 
  Example Response
 
 ```json
 [
-  'https://layervault-preview.imgix.net/data/ed3fd8ba3ff2acf4157517fb14aadf8b?w=600&h=1012&s=6666868519b243260d38b3ca1d1b23ef',
-  'https://layervault-preview.imgix.net/data/ed3fd8ba3ff2acf4157517fb14aadf8b?w=600&h=1012&s=6666868519b243260d38b3ca1d1b4edf',
-  'https://layervault-preview.imgix.net/data/ed3fd8ba3ff2acf4157517fb14aadf8b?w=600&h=1012&s=6666868519b243260d38b3ca1d1bw21f',
+  'https://layervault-preview.imgix.net/data/ed3fd8ba3ff2acf4157517fb14aadf8b?s=6666868519b243260d38b3ca1d1b23ef',
+  'https://layervault-preview.imgix.net/data/ed3fd8ba3ff2acf4157517fb14aadf8b?s=6666868519b243260d38b3ca1d1b4edf',
+  'https://layervault-preview.imgix.net/data/ed3fd8ba3ff2acf4157517fb14aadf8b?s=6666868519b243260d38b3ca1d1bw21f',
 ...
 ]
 ```
 
 #### Arguments
-The :organization_name, :project, :folder_path, :file_name are required in the call URL. In addition, the GET parameters :w for width and :h for height must be specified.
+The :organization_name, :project, :folder_path, :file_name are required in the call URL. In addition, you can add GET parameters that will be passed along to imgix for formatting the image. See [their API documentation](http://www.imgix.com/docs/urlapi) for available options.
 
 #### Returns
 
 Returns a JSON array containing a list of preview image URLs.
+
+#### Retrieving the Main Preview for a File
+
+Returns the primary preview for the file, which is the first page in multi-page documents.
+
+Definition
+
+    GET /api/v1/:organization_name/:project/:folder/:file_name/preview
+
+Example Request
+
+``` shell
+$ curl -H 'Authorization: Bearer <your access token>' \
+  'https://api.layervault.com/api/v1/layervaultTest/Illustrations/NewFile.psd/1/preview'
+```
+
+Example Response
+
+``` json
+'https://layervault-preview.imgix.net/data/ed3fd8ba3ff2acf4157517fb14aadf8b?s=6666868519b243260d38b3ca1d1b23ef'
+```
+
+#### Arguments
+The :organization_name, :project, :folder_path, :file_name are required in the call URL. In addition, you can add GET parameters that will be passed along to imgix for formatting the image. See [their API documentation](http://www.imgix.com/docs/urlapi) for available options.
+
+#### Returns
+
+The URL to the preview.
 
 #### Retreiving a File's Feedback Items
 
@@ -287,115 +334,11 @@ Example Response
     "left": null,
     "bottom": null,
     "left_on_preview_id": 436729,
-    "left_on_signpost_id": 3782,
     "message": "I meant to say Front Page, not Story Page :(",
-    "user_id": 6,
-    "signpost_id": 5636,
     "created_at": "2013-04-19T19:06:11Z"
-  },
-  {
-    "id": 2671,
-    "top": 408,
-    "right": 1040,
-    "left": 356,
-    "bottom": 461,
-    "left_on_preview_id": 436729,
-    "left_on_signpost_id": 3782,
-    "message": "Type choice needs some work. Mixing Avenir and Avant Garde.... not so good.",
-    "user_id": 6,
-    "signpost_id": 5636,
-    "created_at": "2013-06-13T23:25:15Z"
-  },
-  {
-    "id": 2672,
-    "top": 445,
-    "right": 2195,
-    "left": 1998,
-    "bottom": 668,
-    "left_on_preview_id": 436729,
-    "left_on_signpost_id": 3782,
-    "message": "Probably need to invert these.",
-    "user_id": 6,
-    "signpost_id": 5636,
-    "created_at": "2013-06-13T23:25:28Z"
-  },
-  {
-    "id": 11216,
-    "top": null,
-    "right": null,
-    "left": null,
-    "bottom": null,
-    "left_on_preview_id": 436729,
-    "left_on_signpost_id": null,
-    "message": "First draft of the story page. No story badges for the moment. Without the color coding, the black/blue starts to make my eye glaze over.",
-    "user_id": 6,
-    "signpost_id": null,
-    "created_at": "2013-04-19T19:05:45Z"
-  },
-  {
-    "id": 2673,
-    "top": 709,
-    "right": 953,
-    "left": 402,
-    "bottom": 804,
-    "left_on_preview_id": 536981,
-    "left_on_signpost_id": 5636,
-    "message": "The padding here could be tightened up.",
-    "user_id": 6,
-    "signpost_id": null,
-    "created_at": "2013-06-13T23:26:17Z"
-  },
-  {
-    "id": 2674,
-    "top": 397,
-    "right": 275,
-    "left": 172,
-    "bottom": 493,
-    "left_on_preview_id": 536981,
-    "left_on_signpost_id": 5636,
-    "message": "Without badges, this front page doesn't have as much personality.",
-    "user_id": 6,
-    "signpost_id": null,
-    "created_at": "2013-06-13T23:26:38Z"
-  },
-  {
-    "id": 2675,
-    "top": 406,
-    "right": 1043,
-    "left": 349,
-    "bottom": 454,
-    "left_on_preview_id": 536981,
-    "left_on_signpost_id": 5636,
-    "message": "Might need to consider bringing back blue and light blue (visited) links.",
-    "user_id": 6,
-    "signpost_id": null,
-    "created_at": "2013-06-13T23:26:57Z"
-  },
-  {
-    "id": 13070,
-    "top": null,
-    "right": null,
-    "left": null,
-    "bottom": null,
-    "left_on_preview_id": 536981,
-    "left_on_signpost_id": null,
-    "message": "This is probably pretty close to what will end up going to production. The padding between stories is a bit big. I think it'll mess around with row ",
-    "user_id": 6,
-    "signpost_id": null,
-    "created_at": "2013-06-13T23:25:48Z"
-  },
-  {
-    "id": 16772,
-    "top": null,
-    "right": null,
-    "left": null,
-    "bottom": null,
-    "left_on_preview_id": 667574,
-    "left_on_signpost_id": null,
-    "message": "All of this was fixed.",
-    "user_id": 6,
-    "signpost_id": null,
-    "created_at": "2013-09-10T16:28:29Z"
+    "user": {},
+    "addressed_by": null,
+    "replies": []
   }
 ]
 ```
@@ -407,17 +350,17 @@ The :organization_name, :project, :folder_path, :file_name and :revision are req
 
 Returns a JSON array of objects containing:
 
-  - id - The ID of the feedback item.
-  - top - The top co-ordinate of the feedback bounding box.
-  - right - The right co-ordinate of the feedback bounding box.
-  - left - The left co-ordinate of the feedback bounding box.
-  - bottom - The bottom co-ordinate of the feedback bounding box.
-  - left_on_preview_id - The preview id the feedback item was left on.
-  - left_on_signpost_id - The signpost the feedback item was left on, if any.
-  - message - The text of the feedback item.
-  - user_id - The user ID of the user who left the feedback item.
-  - signpost_id - The associated signpost ID, if any.
-  - created_at - The date the feedback item was created.
+  - `id` - The ID of the feedback item.
+  - `top` - The top coordinate of the feedback annotation bounding box.
+  - `right` - The right coordinate of the feedback annotation bounding box.
+  - `left` - The left coordinate of the feedback annotation bounding box.
+  - `bottom` - The bottom coordinate of the feedback annotation bounding box.
+  - `left_on_preview_id` - The preview id the feedback item was left on.
+  - `message` - The text of the feedback item.
+  - `created_at` - The date the feedback item was created.
+  - `user` - User object for the user who left the feedback.
+  - `addressed_by` - The feedback item that was created when Requesting Team Feedback and marks this feedback item as addressed.
+  - `replies` - Array of feedback item objects that are a reply to this feedback item. Threads can only be 1 level deep, so the replies will not have replies.
 
 #### Performing a Sync check on a File
 
@@ -461,7 +404,7 @@ The :organization_name, :project, :folder_path and :file_name are required in th
 Returns a JSON object containing:
 
   - HTTP Status: 200 - Upload the full file
-  - HTTP Status: 409 - No need to upload anything
+  - HTTP Status: 409 - File is old and needs to be downloaded
   - HTTP Status: 400 - File Size was missing
   - HTTP Status: 413 - The file is too big
   - HTTP Status: 412 - The file should be uploaded in full.
