@@ -43,7 +43,7 @@ No arguments are required.
 Returns a JSON object containing:
 
   - `name` - The full name of the Organization.
-  - `deleted_at` - The date the organization was deleted (Not deleted if `3013-02-26T16:53:38Z`)
+  - `deleted_at` - The date the organization was deleted.
   - `full_url` - The full URL to access the Organization.
   - `sync_type` - Indicates whether the Synchronization used is either ```layervault``` or ```dropbox```.
   - `projects` - An array of the projects that the user is able to see or are public for that Organization.
