@@ -17,7 +17,7 @@ This call returns the organization information for the requested Organization.
 ```json
 {
   "name":"LayerVault",
-  "deleted_at":"3013-02-26T16:53:38Z",
+  "deleted_at": null,
   "updated_at":"2013-10-22T00:11:57Z",
   "full_url":"https://layervault.com/layervault",
   "sync_type":"layervault",
