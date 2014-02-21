@@ -322,3 +322,35 @@ Returns a JSON array of objects containing:
   - `user` - User object for the user who left the feedback.
   - `addressed_by` - The feedback item that was created when Requesting Team Feedback and marks this feedback item as addressed.
   - `replies` - Array of feedback item objects that are a reply to this feedback item. Threads can only be 1 level deep, so the replies will not have replies.
+
+  #### Downloading a File Revision
+
+Download the file represented by the requested revision.
+
+Definition
+
+    GET /api/v1/:organization_name/:project/:folder/:file_name/:revision/download
+
+Example Request
+
+```shell
+$ curl -H 'Authorization: Bearer <your access token>' \
+  'https://api.layervault.com/api/v1/layervault/Project/Test.psd/1/download'
+```
+
+Example Response
+
+```json
+  {
+    "file_url": "https://s3.amazon.com"
+  }
+```
+
+#### Arguments
+The :organization_name, :project, :folder_path, :file_name and :revision are required in the call URL.
+
+#### Returns
+
+Returns the location of the Revision download:
+
+  - `file_url` - The URL from which to download the Revision.

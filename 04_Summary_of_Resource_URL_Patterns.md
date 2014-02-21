@@ -20,3 +20,4 @@
     /v1/:organization_name/:project(/folder_path)/:file_name/:revision/previews
     /v1/:organization_name/:project(/folder_path)/:file_name/:revision/meta
     /v1/:organization_name/:project(/folder_path)/:file_name/:revision/feedback_items
+    /v1/:organization_name/:project(/folder_path)/:file_name/:revision/download
