@@ -323,7 +323,7 @@ Returns a JSON array of objects containing:
   - `addressed_by` - The feedback item that was created when Requesting Team Feedback and marks this feedback item as addressed.
   - `replies` - Array of feedback item objects that are a reply to this feedback item. Threads can only be 1 level deep, so the replies will not have replies.
 
-  #### Downloading a File Revision
+#### Downloading a File Revision
 
 Download the file represented by the requested revision.
 
